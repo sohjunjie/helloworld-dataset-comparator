@@ -4,15 +4,15 @@
 
 **Blocked by:** 02 — Backend Domain Model, Config & H2 Persistence
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] `POST /api/v1/comparisons/upload` accepts multipart with `ds1File`, `ds2File`, and a JSON config part specifying delimiter preference per dataset
-- [ ] `DelimiterDetector` analyzes the first 10 lines, counts candidate delimiter (comma, tab, pipe, semicolon) occurrences, picks the most consistent one, defaults to comma on ambiguity
-- [ ] User can override auto-detection by specifying a known delimiter or a custom single character
-- [ ] `DuckDbService` converts CSV/TXT to Parquet using `read_csv_auto()` or `read_csv()` with the detected/specified delimiter
-- [ ] Parquet files written to `{app.storage.path}/{comparisonId}/ds1.parquet` and `ds2.parquet`
-- [ ] `DuckDbService.getColumnHeaders()` reads Parquet schema and returns column names
-- [ ] Response includes `comparisonId` and `columns` (list of detected header names per dataset)
-- [ ] `ComparisonRecord` status updated to UPLOADED
-- [ ] File size validated against `app.upload.max-file-size`; 413 returned for oversized files
-- [ ] `@SpringBootTest` + `MockMvc` tests with small CSV fixtures: comma-delimited, tab-delimited, pipe-delimited, custom delimiter, auto-detection fallback to comma
+- [x] `POST /api/v1/comparisons/upload` accepts multipart with `ds1File`, `ds2File`, and a JSON config part specifying delimiter preference per dataset
+- [x] `DelimiterDetector` analyzes the first 10 lines, counts candidate delimiter (comma, tab, pipe, semicolon) occurrences, picks the most consistent one, defaults to comma on ambiguity
+- [x] User can override auto-detection by specifying a known delimiter or a custom single character
+- [x] `DuckDbService` converts CSV/TXT to Parquet using `read_csv_auto()` or `read_csv()` with the detected/specified delimiter
+- [x] Parquet files written to `{app.storage.path}/{comparisonId}/ds1.parquet` and `ds2.parquet`
+- [x] `DuckDbService.getColumnHeaders()` reads Parquet schema and returns column names
+- [x] Response includes `comparisonId` and `columns` (list of detected header names per dataset)
+- [x] `ComparisonRecord` status updated to UPLOADED
+- [x] File size validated against `app.upload.max-file-size`; 413 returned for oversized files
+- [x] `@SpringBootTest` + `MockMvc` tests with small CSV fixtures: comma-delimited, tab-delimited, pipe-delimited, custom delimiter, auto-detection fallback to comma
