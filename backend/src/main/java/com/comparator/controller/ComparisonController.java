@@ -14,6 +14,7 @@ import com.comparator.model.enums.DataSourceType;
 import com.comparator.repository.ComparisonRepository;
 import com.comparator.service.ComparisonService;
 import com.comparator.service.FileParserService;
+import com.comparator.service.ProgressService;
 import com.comparator.service.SqlDataSourceService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -49,17 +51,20 @@ public class ComparisonController {
     private final FileParserService fileParserService;
     private final SqlDataSourceService sqlDataSourceService;
     private final ComparisonService comparisonService;
+    private final ProgressService progressService;
     private final AppProperties appProperties;
 
     public ComparisonController(ComparisonRepository comparisonRepository,
                                 FileParserService fileParserService,
                                 SqlDataSourceService sqlDataSourceService,
                                 ComparisonService comparisonService,
+                                ProgressService progressService,
                                 AppProperties appProperties) {
         this.comparisonRepository = comparisonRepository;
         this.fileParserService = fileParserService;
         this.sqlDataSourceService = sqlDataSourceService;
         this.comparisonService = comparisonService;
+        this.progressService = progressService;
         this.appProperties = appProperties;
     }
 
@@ -78,6 +83,8 @@ public class ComparisonController {
         Path ds1Parquet = storageDir.resolve("ds1.parquet");
         Path ds2Parquet = storageDir.resolve("ds2.parquet");
 
+        progressService.emit(comparisonId, "UPLOADING", 10);
+
         String ds1Delim = UploadConfigRequest.resolveDs1Delimiter(config, ds1DelimiterParam);
         String ds2Delim = UploadConfigRequest.resolveDs2Delimiter(config, ds2DelimiterParam);
 
@@ -94,7 +101,9 @@ public class ComparisonController {
         record.setStatus(ComparisonStatus.UPLOADED);
         record.setCreatedAt(LocalDateTime.now());
 
+        progressService.emit(comparisonId, "CONVERTING", 30);
         List<String> ds1Columns = processDataset(1, ds1File, ds1Sql, ds1Conn, ds1Parquet, ds1Delim, record);
+        progressService.emit(comparisonId, "CONVERTING", 60);
         List<String> ds2Columns = processDataset(2, ds2File, ds2Sql, ds2Conn, ds2Parquet, ds2Delim, record);
 
         comparisonRepository.save(record);
@@ -114,12 +123,16 @@ public class ComparisonController {
         Path ds1Parquet = storageDir.resolve("ds1.parquet");
         Path ds2Parquet = storageDir.resolve("ds2.parquet");
 
+        progressService.emit(comparisonId, "UPLOADING", 10);
+
         ComparisonRecord record = new ComparisonRecord();
         record.setId(comparisonId);
         record.setStatus(ComparisonStatus.UPLOADED);
         record.setCreatedAt(LocalDateTime.now());
 
+        progressService.emit(comparisonId, "CONVERTING", 30);
         List<String> ds1Columns = processDataset(1, null, request.ds1Sql(), request.ds1Connection(), ds1Parquet, "auto", record);
+        progressService.emit(comparisonId, "CONVERTING", 60);
         List<String> ds2Columns = processDataset(2, null, request.ds2Sql(), request.ds2Connection(), ds2Parquet, "auto", record);
 
         comparisonRepository.save(record);
@@ -160,6 +173,14 @@ public class ComparisonController {
         ComparisonRecord record = comparisonRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Comparison not found with id: " + id));
         return ResponseEntity.ok(ComparisonSummary.fromEntity(record));
+    }
+
+    @GetMapping(value = {"/{id}/events", "/{id}/progress"}, produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public SseEmitter subscribeProgress(@PathVariable String id) {
+        if (!comparisonRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Comparison not found with id: " + id);
+        }
+        return progressService.subscribe(id);
     }
 
     @PostMapping("/{id}/execute")

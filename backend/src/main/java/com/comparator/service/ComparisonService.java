@@ -26,17 +26,28 @@ public class ComparisonService {
 
     private final ComparisonRepository comparisonRepository;
     private final ComparisonEngine comparisonEngine;
+    private final ProgressService progressService;
     private final AppProperties appProperties;
     private final ObjectMapper objectMapper;
 
     public ComparisonService(ComparisonRepository comparisonRepository,
                              ComparisonEngine comparisonEngine,
+                             ProgressService progressService,
                              AppProperties appProperties,
                              ObjectMapper objectMapper) {
         this.comparisonRepository = comparisonRepository;
         this.comparisonEngine = comparisonEngine;
+        this.progressService = progressService;
         this.appProperties = appProperties;
         this.objectMapper = objectMapper;
+    }
+
+    public void emitProgress(String comparisonId, String stage, int percent) {
+        progressService.emit(comparisonId, stage, percent);
+    }
+
+    public void emitProgress(String comparisonId, String stage, int percent, String message) {
+        progressService.emit(comparisonId, stage, percent, message);
     }
 
     public CompletableFuture<ComparisonRecord> executeComparisonAsync(String comparisonId, ComparisonExecuteRequest request) {
@@ -64,9 +75,11 @@ public class ComparisonService {
 
         record.setStatus(ComparisonStatus.COMPARING);
         ComparisonRecord savedRecord = comparisonRepository.save(record);
+        progressService.emit(comparisonId, "COMPARING", 25);
 
         return CompletableFuture.supplyAsync(() -> {
             try {
+                progressService.emit(comparisonId, "COMPARING", 50);
                 ComparisonResult result = comparisonEngine.compare(
                         ds1Parquet,
                         ds2Parquet,
@@ -87,13 +100,17 @@ public class ComparisonService {
                 savedRecord.setStatus(ComparisonStatus.COMPLETED);
                 savedRecord.setCompletedAt(LocalDateTime.now());
                 savedRecord.setErrorMessage(null);
-                return comparisonRepository.save(savedRecord);
+                ComparisonRecord finishedRecord = comparisonRepository.save(savedRecord);
+                progressService.emit(comparisonId, "COMPLETED", 100);
+                return finishedRecord;
             } catch (Exception e) {
                 log.error("Comparison execution failed for id {}: {}", comparisonId, e.getMessage(), e);
                 savedRecord.setStatus(ComparisonStatus.FAILED);
                 savedRecord.setCompletedAt(LocalDateTime.now());
                 savedRecord.setErrorMessage(e.getMessage());
-                return comparisonRepository.save(savedRecord);
+                ComparisonRecord failedRecord = comparisonRepository.save(savedRecord);
+                progressService.emit(comparisonId, "FAILED", 100, e.getMessage());
+                return failedRecord;
             }
         });
     }

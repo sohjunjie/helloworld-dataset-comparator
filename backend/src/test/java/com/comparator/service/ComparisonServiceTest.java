@@ -38,6 +38,9 @@ class ComparisonServiceTest {
     @Mock
     private ComparisonEngine comparisonEngine;
 
+    @Mock
+    private ProgressService progressService;
+
     private AppProperties appProperties;
     private ObjectMapper objectMapper;
     private ComparisonService comparisonService;
@@ -54,7 +57,7 @@ class ComparisonServiceTest {
                 new AppProperties.ComparisonProperties(30)
         );
         objectMapper = new ObjectMapper();
-        comparisonService = new ComparisonService(comparisonRepository, comparisonEngine, appProperties, objectMapper);
+        comparisonService = new ComparisonService(comparisonRepository, comparisonEngine, progressService, appProperties, objectMapper);
     }
 
     @Test
@@ -86,6 +89,10 @@ class ComparisonServiceTest {
         assertThat(completed.getDs1NotMatching()).isEqualTo(1L);
         assertThat(completed.getDs1MissingInDs2()).isEqualTo(1L);
         assertThat(completed.getCompletedAt()).isNotNull();
+
+        verify(progressService).emit(comparisonId, "COMPARING", 25);
+        verify(progressService).emit(comparisonId, "COMPARING", 50);
+        verify(progressService).emit(comparisonId, "COMPLETED", 100);
     }
 
     @Test
@@ -113,6 +120,10 @@ class ComparisonServiceTest {
         assertThat(failed.getStatus()).isEqualTo(ComparisonStatus.FAILED);
         assertThat(failed.getErrorMessage()).contains("DuckDB syntax error");
         assertThat(failed.getCompletedAt()).isNotNull();
+
+        verify(progressService).emit(comparisonId, "COMPARING", 25);
+        verify(progressService).emit(comparisonId, "COMPARING", 50);
+        verify(progressService).emit(comparisonId, "FAILED", 100, "DuckDB syntax error");
     }
 
     @Test

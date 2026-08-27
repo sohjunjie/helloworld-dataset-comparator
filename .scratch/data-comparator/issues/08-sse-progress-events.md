@@ -4,14 +4,14 @@
 
 **Blocked by:** 06 — Core Comparison Engine (Match / Mismatch / Missing)
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] `GET /api/v1/comparisons/{id}/events` returns an SSE stream (`text/event-stream`)
-- [ ] `ProgressService` maintains a concurrent map of comparison ID → list of `SseEmitter`
-- [ ] `SseEmitter` timeout set to 30 minutes (matching comparison timeout)
-- [ ] Each SSE event is JSON: `{ "stage": "COMPARING", "percent": 75 }`
-- [ ] Stages emitted in order: UPLOADING, CONVERTING, COMPARING, COMPLETED (or FAILED with error message)
-- [ ] Multiple clients can subscribe to the same comparison's progress simultaneously
-- [ ] Emitters cleaned up on completion, timeout, or client disconnect
-- [ ] `ComparisonService` calls `ProgressService.emit()` at each stage transition during the upload and execute workflows
-- [ ] `@SpringBootTest` + `MockMvc` test subscribes to SSE, triggers a comparison, and asserts the sequence of events received
+- [x] `GET /api/v1/comparisons/{id}/events` returns an SSE stream (`text/event-stream`)
+- [x] `ProgressService` maintains a concurrent map of comparison ID → list of `SseEmitter`
+- [x] `SseEmitter` timeout set to 30 minutes (matching comparison timeout)
+- [x] Each SSE event is JSON: `{ "stage": "COMPARING", "percent": 75 }`
+- [x] Stages emitted in order: UPLOADING, CONVERTING, COMPARING, COMPLETED (or FAILED with error message)
+- [x] Multiple clients can subscribe to the same comparison's progress simultaneously
+- [x] Emitters cleaned up on completion, timeout, or client disconnect
+- [x] `ComparisonService` calls `ProgressService.emit()` at each stage transition during the upload and execute workflows
+- [x] `@SpringBootTest` + `MockMvc` test subscribes to SSE, triggers a comparison, and asserts the sequence of events received
