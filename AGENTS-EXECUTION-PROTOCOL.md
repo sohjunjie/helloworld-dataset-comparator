@@ -32,6 +32,7 @@ Before marking any task as complete, verify:
 
 - [ ] **Pre-Task Best Practices Consultation**: [`AGENTS-LEARNINGS.md`](./AGENTS-LEARNINGS.md) and [`AGENTS-IMPROVEMENTS-PROTOCOL.md`](./AGENTS-IMPROVEMENTS-PROTOCOL.md) were read and all relevant coding best practices were applied to the implementation.
 - [ ] **State Discovery**: All created or modified files exist on disk with valid non-zero content.
+- [ ] **Issue & Spec Artifact Synchronization**: Originating issue tracking files (e.g., in `.scratch/**/issues/*.md`) have all completed acceptance criteria checked off (`[x]`) and status updated to `done`.
 - [ ] **Clean Syntax & Imports**: No broken imports, syntax errors, or unhandled file path resolution issues exist.
 - [ ] **Graphify Sync**: `graphify update .` was executed following file changes, and `graphify-out/GRAPH_REPORT.md` is up to date (n/a if `graphify-out` not initialized).
 - [ ] **Build Verification**: Project build/test suite executes cleanly (Exit Code 0).

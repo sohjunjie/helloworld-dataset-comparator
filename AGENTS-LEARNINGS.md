@@ -7,6 +7,7 @@ This document records agent self-reflections, post-mortem root causes from past 
 ## 1. Post-Mortem & Agent Operational Principles
 
 - **Windows CLI Tooling and Process Lifecycle**: Long-running background server processes (e.g. dev servers and Spring Boot instances) started via background tasks must be explicitly terminated after health/smoke verification to prevent background port locking and resource consumption.
+- **Issue Tracking & Spec Synchronization**: When implementing work from issue tickets or specification files (e.g. `.scratch/**/issues/*.md`), updating the originating issue artifact (checking off completed requirement items `[x]` and updating `Status: done`) is a mandatory, atomic part of the pre-commit and task completion lifecycle.
 
 ---
 
