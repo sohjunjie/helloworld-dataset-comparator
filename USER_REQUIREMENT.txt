@@ -1,0 +1,95 @@
+I want to build a web application that enable users to execute comparison between 2 dataset to check for differences. Front end framework should be Angular 22, backend should be implemented using spring boot java 21.
+
+Datasets for comparison can be in the form of single sheet excel dataset, java resultset or text file or csv file. In the case of text file and csv file, users should have the option to use the appropriate delimiter. If user does not choose a delimiter, the java backend should be able to detect the appropriate delimiter base on first few lines of sample record in the provided dataset. If the backend system is not able to guess the appropriate delimiter with confidence, it should default to use comma as delimiter. The comparison must be able support large datasets, therefore, the system must not load the entire dataset into memory. Thus, when users provide the datasets, the system must write the uploaded datasets as a standardized efficient format e.g. parquet into the server disk and proceed the comparison from there.
+
+The workflow for the web application is as such.
+1. For dataset 1, user decide to upload a file (.xls, .xlsx, .csv, .txt) or enter SQL in a text editor field
+2. For dataset 2, user decide to upload a file (.xls, .xlsx, .csv, .txt) or enter SQL in a text editor field
+3. User inputs a list of column names (can be multiple), which will decide what subset of records in dataset 1 will match against what subset of records in dataset 2. Refer to comparison example 1 and comparison example 2 below
+4. User may input 0 or more column names as "tolerance" column and must give the accompanying tolerance column name a tolerance percentage between 0% to 100% inclusive. When users define tolerance columns and the tolerance percentage is more than 0%, comparison between numeric values does not need to be an exact match. Refer to comparison example 3 below.
+5. User click a button to confirm the file upload and comparison settings.
+6. The backend writes the uploaded file as a efficient file format into disk.
+7. The backend perform a comparison over the dataset that was written into disk.
+8. The backend signals to the front-end that the comparison is completed.
+9. User will see a dashboard showing the comparison results. The dashboard should have the following information.
+ - # record count in dataset 1
+ - # record count in dataset 2
+ - # records in dataset 1 fully matching records in dataset 2
+ - # records in dataset 2 fully matching records in dataset 1
+ - # records in dataset 1 not matching records in dataset 2
+ - # records in dataset 2 not matching records in dataset 1
+ - # records in dataset 1 missing in dataset 2
+ - # records in dataset 2 missing in dataset 1
+ - The detail record line item in dataset 1 and corresponding item in dataset 2 that has the mismatch
+ - The detail record line item in dataset 2 and corresponding item in dataset 1 that has the mismatch
+ - The detail record line item present in dataset 1 but missing in dataset 2
+ - The detail record line item present in dataset 2 but missing in dataset 1
+10. User can also download a nicely formatted excel report having the same comparison results he see in the dashboard.
+
+
+# Comparison Examples
+
+<comparison example 1>
+
+column names provided: [ id ]
+
+dataset 1: [ { "id": 1, "name": "Alice", "role": "Engineer" }, { "id": 2, "name": "Bob", "role": "Manager" } ]
+
+dataset 2: [ { "id": 1, "name": "Alice", "role": "Engineer" }, { "id": 1, "name": "Bob", "role": "Manager" }, { "id": 2, "name": "Bob", "role": "Manager" } ]
+
+comparison results:
+- records in dataset 1 fully matching records in dataset 2: 2
+- records in dataset 2 fully matching records in dataset 1: 2
+- records in dataset 1 not matching records in dataset 2: 0
+- records in dataset 2 not matching records in dataset 1: 1
+- records in dataset 1 missing in dataset 2: 0
+- records in dataset 2 missing in dataset 1: 0
+
+remarks:
+there are no missing records in both dataset as there are records with [ id=1 ] and [ id=2 ]. there is a mismatch in dataset 2 as item { "id": 1, "name": "Bob", "role": "Manager" } does not match with item { "id": 1, "name": "Alice", "role": "Engineer" }
+
+</comparison example 1>
+
+
+<comparison example 2>
+
+column names provided: [ id, name ]
+
+dataset 1: [ { "id": 1, "name": "Alice", "role": "Engineer" }, { "id": 2, "name": "Bob", "role": "Manager" } ]
+
+dataset 2: [ { "id": 1, "name": "Alice", "role": "Engineer" }, { "id": 1, "name": "Bob", "role": "Manager" }, { "id": 2, "name": "Bob", "role": "Manager" } ]
+
+comparison results:
+- records in dataset 1 fully matching records in dataset 2: 2
+- records in dataset 2 fully matching records in dataset 1: 2
+- records in dataset 1 not matching records in dataset 2: 0
+- records in dataset 2 not matching records in dataset 1: 1
+- records in dataset 1 missing in dataset 2: 0
+- records in dataset 2 missing in dataset 1: 1
+
+remarks:
+there is 1 record present in dataset 2 but missing in dataset 1 for record of [ id=1, name=Bob ], this also represents 1 mismatch count for records in dataset 2 not matching records in dataset 1.
+
+</comparison example 2>
+
+<comparison example 3>
+
+column names provided: [ id, name ]
+tolerance name and tolerance percentage provided: [ (score, 1%), (age, 0)]
+
+dataset 1: [ { "id": 1, "score": 95, "age": 28 }, { "id": 2, "score": 99, "age": 34 } ]
+
+dataset 2: [ { "id": 1, "score": 95, "age": 28  }, { "id": 2, "score": 100, "age": 34 } ]
+
+comparison results:
+- records in dataset 1 fully matching records in dataset 2: 2
+- records in dataset 2 fully matching records in dataset 1: 2
+- records in dataset 1 not matching records in dataset 2: 0
+- records in dataset 2 not matching records in dataset 1: 0
+- records in dataset 1 missing in dataset 2: 0
+- records in dataset 2 missing in dataset 1: 0
+
+remarks:
+the record with id=2 matches in dataset 1 and dataset 2 even though the score column has difference value because the tolerance column is provided for score with a non-zero tolerance percentage. In dataset 1, applying plus-minus 1% to score=99 is 99.99 and 98.01. In dataset 2, applying plus-minus 1% to 100 is 100 and 99. We just need either the adjusted value in dataset 1 to match actual value in dataset 2, or actual value in dataset 1 to match adjusted value in dataset 2. Since adjusted dataset 2 score of plus-minus 100 and 99 matches the score=99 in dataset 1, this is considered as an exact match.
+
+</comparison example 3>
