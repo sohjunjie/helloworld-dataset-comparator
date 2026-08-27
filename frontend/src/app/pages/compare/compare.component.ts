@@ -14,7 +14,7 @@ import { ColumnSelectorComponent } from './column-selector/column-selector.compo
 import { ToleranceConfigComponent } from './tolerance-config/tolerance-config.component';
 import { ComparisonService } from '../../services/comparison.service';
 import { ProgressService } from '../../services/progress.service';
-import { ToleranceConfig } from '../../models/comparison.model';
+import { ToleranceConfig, UploadDatasetOptions } from '../../models/comparison.model';
 
 @Component({
   selector: 'app-compare',
@@ -40,7 +40,7 @@ import { ToleranceConfig } from '../../models/comparison.model';
         <div class="header-info">
           <h1 class="page-title">New Dataset Comparison</h1>
           <p class="page-subtitle">
-            Upload two datasets (CSV, TXT, Excel) to compare records, detect differences, and analyze missing data.
+            Upload two datasets (CSV, TXT, Excel) or query PostgreSQL databases to compare records, detect differences, and analyze missing data.
           </p>
         </div>
         @if (currentStep() === 2) {
@@ -68,7 +68,7 @@ import { ToleranceConfig } from '../../models/comparison.model';
           <span class="step-badge">1</span>
           <div class="step-heading">
             <h2>Select Datasets</h2>
-            <p>Choose source files and configure delimiters for both datasets.</p>
+            <p>Choose source files or SQL queries and configure connections for both datasets.</p>
           </div>
         </div>
 
@@ -78,6 +78,7 @@ import { ToleranceConfig } from '../../models/comparison.model';
             title="Dataset 1 (Primary / Source)"
             [disabled]="isUploading() || isComparing() || currentStep() === 2"
             (fileChanged)="onDs1FileChanged($event)"
+            (stateChanged)="onDatasetStateChanged()"
           ></app-dataset-input>
 
           <app-dataset-input
@@ -85,6 +86,7 @@ import { ToleranceConfig } from '../../models/comparison.model';
             title="Dataset 2 (Target / Comparison)"
             [disabled]="isUploading() || isComparing() || currentStep() === 2"
             (fileChanged)="onDs2FileChanged($event)"
+            (stateChanged)="onDatasetStateChanged()"
           ></app-dataset-input>
         </div>
 
@@ -103,7 +105,7 @@ import { ToleranceConfig } from '../../models/comparison.model';
               } @else {
                 <ng-container>
                   <mat-icon>upload_file</mat-icon>
-                  Upload & Analyze Files
+                  Upload & Analyze Datasets
                 </ng-container>
               }
             </button>
@@ -417,22 +419,40 @@ export class CompareComponent {
     this.ds2File.set(file);
   }
 
+  onDatasetStateChanged(): void {
+    // Triggers change detection refresh for canUpload()
+  }
+
   canUpload(): boolean {
-    return !!this.ds1File() && !!this.ds2File();
+    const ds1Valid = this.ds1InputComponent ? this.ds1InputComponent.isValid() : !!this.ds1File();
+    const ds2Valid = this.ds2InputComponent ? this.ds2InputComponent.isValid() : !!this.ds2File();
+    return ds1Valid && ds2Valid;
   }
 
   uploadFiles(): void {
-    const file1 = this.ds1File();
-    const file2 = this.ds2File();
-    if (!file1 || !file2) return;
+    if (!this.canUpload()) return;
 
     this.isUploading.set(true);
     this.errorMessage.set(null);
 
-    const ds1Delim = this.ds1InputComponent?.getEffectiveDelimiter() || 'AUTO';
-    const ds2Delim = this.ds2InputComponent?.getEffectiveDelimiter() || 'AUTO';
+    const ds1 = this.ds1InputComponent;
+    const ds2 = this.ds2InputComponent;
 
-    this.comparisonService.upload(file1, file2, ds1Delim, ds2Delim).subscribe({
+    const ds1Type = ds1 ? ds1.sourceType() : 'FILE_UPLOAD';
+    const ds2Type = ds2 ? ds2.sourceType() : 'FILE_UPLOAD';
+
+    const uploadOptions: UploadDatasetOptions = {
+      ds1File: ds1Type === 'FILE_UPLOAD' ? ds1?.selectedFile() || this.ds1File() : null,
+      ds2File: ds2Type === 'FILE_UPLOAD' ? ds2?.selectedFile() || this.ds2File() : null,
+      ds1Delimiter: ds1Type === 'FILE_UPLOAD' ? ds1?.getEffectiveDelimiter() || 'AUTO' : undefined,
+      ds2Delimiter: ds2Type === 'FILE_UPLOAD' ? ds2?.getEffectiveDelimiter() || 'AUTO' : undefined,
+      ds1Sql: ds1Type === 'SQL_QUERY' ? ds1?.getSqlQuery() : undefined,
+      ds1Connection: ds1Type === 'SQL_QUERY' ? ds1?.getConnectionConfig() : undefined,
+      ds2Sql: ds2Type === 'SQL_QUERY' ? ds2?.getSqlQuery() : undefined,
+      ds2Connection: ds2Type === 'SQL_QUERY' ? ds2?.getConnectionConfig() : undefined
+    };
+
+    this.comparisonService.upload(uploadOptions).subscribe({
       next: (res) => {
         this.comparisonId.set(res.comparisonId);
 
@@ -448,7 +468,7 @@ export class CompareComponent {
       error: (err) => {
         this.isUploading.set(false);
         this.errorMessage.set(
-          err?.error?.message || err?.message || 'Failed to upload and analyze datasets. Please verify the files.'
+          err?.error?.message || err?.message || 'Failed to upload and analyze datasets. Please verify your inputs.'
         );
       }
     });

@@ -2,7 +2,14 @@ import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComparisonService } from './comparison.service';
-import { ComparisonRequest, ComparisonSummary, DatasetColumns, PagedResult, UploadResponse } from '../models/comparison.model';
+import {
+  ComparisonRequest,
+  ComparisonSummary,
+  DatasetColumns,
+  PagedResult,
+  UploadDatasetOptions,
+  UploadResponse
+} from '../models/comparison.model';
 
 describe('ComparisonService', () => {
   let service: ComparisonService;
@@ -37,6 +44,60 @@ describe('ComparisonService', () => {
     };
 
     service.upload(file1, file2, ',', ',').subscribe(res => {
+      expect(res).toEqual(mockResponse);
+    });
+
+    const req = httpTesting.expectOne((r) => r.url.endsWith('/api/v1/comparisons/upload') || r.url.endsWith('/api/comparisons/upload'));
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body instanceof FormData).toBe(true);
+    req.flush(mockResponse);
+  });
+
+  it('should upload SQL-only datasets with JSON body', () => {
+    const options: UploadDatasetOptions = {
+      ds1Sql: 'SELECT id, name FROM staff',
+      ds1Connection: { host: 'pg1', port: 5432, database: 'db1', username: 'u1', password: 'p1' },
+      ds2Sql: 'SELECT id, name FROM employees',
+      ds2Connection: { host: 'pg2', port: 5432, database: 'db2', username: 'u2', password: 'p2' }
+    };
+
+    const mockResponse: UploadResponse = {
+      comparisonId: 'comp-sql-123',
+      columns: { ds1: ['id', 'name'], ds2: ['id', 'name'] }
+    };
+
+    service.upload(options).subscribe(res => {
+      expect(res).toEqual(mockResponse);
+    });
+
+    const req = httpTesting.expectOne((r) => r.url.endsWith('/api/v1/comparisons/upload') || r.url.endsWith('/api/comparisons/upload'));
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual({
+      ds1Delimiter: undefined,
+      ds2Delimiter: undefined,
+      ds1Sql: options.ds1Sql,
+      ds1Connection: options.ds1Connection,
+      ds2Sql: options.ds2Sql,
+      ds2Connection: options.ds2Connection
+    });
+    req.flush(mockResponse);
+  });
+
+  it('should upload mixed datasets (DS1 file + DS2 SQL) with multipart/form-data', () => {
+    const file1 = new File(['id,name\n1,Alice'], 'ds1.csv', { type: 'text/csv' });
+    const options: UploadDatasetOptions = {
+      ds1File: file1,
+      ds1Delimiter: ',',
+      ds2Sql: 'SELECT id, name FROM employees',
+      ds2Connection: { host: 'pg2', port: 5432, database: 'db2', username: 'u2', password: 'p2' }
+    };
+
+    const mockResponse: UploadResponse = {
+      comparisonId: 'comp-mixed-123',
+      columns: { ds1: ['id', 'name'], ds2: ['id', 'name'] }
+    };
+
+    service.upload(options).subscribe(res => {
       expect(res).toEqual(mockResponse);
     });
 

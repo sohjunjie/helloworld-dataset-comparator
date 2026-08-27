@@ -23,11 +23,61 @@ describe('DatasetInputComponent', () => {
     expect(fixture.nativeElement.textContent).toContain('Dataset 1');
   });
 
-  it('should have Upload File selected by default and SQL mode disabled', () => {
+  it('should have Upload File selected by default and SQL mode enabled', () => {
     expect(component.sourceType()).toBe('FILE_UPLOAD');
+    expect(fixture.nativeElement.querySelector('app-file-dropzone')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('app-sql-editor')).toBeNull();
   });
 
-  it('should show custom delimiter input when custom is selected', async () => {
+  it('should toggle to SQL mode and reveal SQL editor + connection expansion panel', () => {
+    component.setSourceType('SQL_QUERY');
+    fixture.detectChanges();
+
+    expect(component.sourceType()).toBe('SQL_QUERY');
+    expect(fixture.nativeElement.querySelector('app-file-dropzone')).toBeNull();
+    expect(fixture.nativeElement.querySelector('app-sql-editor')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('mat-expansion-panel')).toBeTruthy();
+  });
+
+  it('should have connection fields with default host and port', () => {
+    component.setSourceType('SQL_QUERY');
+    fixture.detectChanges();
+
+    expect(component.host()).toBe('localhost');
+    expect(component.port()).toBe(5432);
+    expect(component.database()).toBe('');
+    expect(component.username()).toBe('');
+    expect(component.password()).toBe('');
+  });
+
+  it('should validate SQL mode correctly when query and connection details are provided', () => {
+    component.setSourceType('SQL_QUERY');
+    fixture.detectChanges();
+
+    expect(component.isValid()).toBe(false);
+
+    component.onSqlQueryChanged('SELECT id, name FROM users');
+    expect(component.isValid()).toBe(false);
+
+    component.host.set('pg-host.example.com');
+    component.port.set(5432);
+    component.database.set('my_db');
+    component.username.set('pg_user');
+    component.password.set('secret123');
+
+    expect(component.isValid()).toBe(true);
+
+    const config = component.getConnectionConfig();
+    expect(config).toEqual({
+      host: 'pg-host.example.com',
+      port: 5432,
+      database: 'my_db',
+      username: 'pg_user',
+      password: 'secret123'
+    });
+  });
+
+  it('should show custom delimiter input when custom is selected in file mode', () => {
     expect(fixture.nativeElement.querySelector('.custom-delimiter-input')).toBeNull();
 
     component.delimiterType.set('CUSTOM');
@@ -49,11 +99,14 @@ describe('DatasetInputComponent', () => {
     expect(component.getEffectiveDelimiter()).toBe('~');
   });
 
-  it('should handle file selection from dropzone', () => {
+  it('should handle file selection from dropzone and validate in file mode', () => {
+    expect(component.isValid()).toBe(false);
+
     const file = new File(['test'], 'ds1.csv', { type: 'text/csv' });
     component.onFileSelected(file);
     fixture.detectChanges();
 
     expect(component.selectedFile()).toBe(file);
+    expect(component.isValid()).toBe(true);
   });
 });

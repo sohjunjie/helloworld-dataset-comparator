@@ -1,4 +1,4 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, ViewChild, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -7,8 +7,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { FileDropzoneComponent } from '../file-dropzone/file-dropzone.component';
-import { DataSourceType } from '../../../models/comparison.model';
+import { SqlEditorComponent } from '../sql-editor/sql-editor.component';
+import { DataSourceType, DatabaseConnectionConfig } from '../../../models/comparison.model';
 
 export interface DelimiterOption {
   value: string;
@@ -27,7 +29,9 @@ export interface DelimiterOption {
     MatSelectModule,
     MatInputModule,
     MatIconModule,
-    FileDropzoneComponent
+    MatExpansionModule,
+    FileDropzoneComponent,
+    SqlEditorComponent
   ],
   template: `
     <mat-card class="dataset-card">
@@ -42,14 +46,12 @@ export interface DelimiterOption {
         <div class="source-type-toggle">
           <mat-radio-group
             [(ngModel)]="sourceTypeModel"
-            (ngModelChange)="sourceType.set($event)"
+            (ngModelChange)="onSourceTypeChanged($event)"
             [disabled]="disabled()"
             class="radio-group"
           >
             <mat-radio-button value="FILE_UPLOAD">Upload File</mat-radio-button>
-            <mat-radio-button value="SQL_QUERY" [disabled]="true">
-              SQL Query <span class="badge-soon">(Coming soon)</span>
-            </mat-radio-button>
+            <mat-radio-button value="SQL_QUERY">SQL Query</mat-radio-button>
           </mat-radio-group>
         </div>
 
@@ -67,7 +69,7 @@ export interface DelimiterOption {
                 <mat-label>Delimiter</mat-label>
                 <mat-select
                   [(ngModel)]="delimiterModel"
-                  (ngModelChange)="delimiterType.set($event)"
+                  (ngModelChange)="delimiterType.set($event); onStateChanged()"
                   [disabled]="disabled()"
                 >
                   @for (opt of delimiterOptions; track opt.value) {
@@ -82,7 +84,7 @@ export interface DelimiterOption {
                   <input
                     matInput
                     [(ngModel)]="customDelimiterModel"
-                    (ngModelChange)="customDelimiter.set($event)"
+                    (ngModelChange)="customDelimiter.set($event); onStateChanged()"
                     maxlength="1"
                     placeholder="e.g. ^"
                     [disabled]="disabled()"
@@ -91,6 +93,108 @@ export interface DelimiterOption {
                 </mat-form-field>
               }
             </div>
+          </div>
+        } @else {
+          <div class="sql-query-section">
+            <app-sql-editor
+              #sqlEditor
+              [disabled]="disabled()"
+              [query]="sqlQuery()"
+              (queryChange)="onSqlQueryChanged($event)"
+            ></app-sql-editor>
+
+            <mat-expansion-panel [expanded]="true" class="connection-panel">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="panel-title">
+                  <mat-icon class="panel-icon">dns</mat-icon>
+                  <span>PostgreSQL Connection Details</span>
+                </mat-panel-title>
+                <mat-panel-description>
+                  {{ isConnectionValid() ? 'Configured' : 'Required' }}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <div class="connection-form-grid">
+                <mat-form-field appearance="outline" class="form-field host-field">
+                  <mat-label>Host</mat-label>
+                  <input
+                    matInput
+                    [(ngModel)]="hostModel"
+                    (ngModelChange)="host.set($event); onStateChanged()"
+                    [disabled]="disabled()"
+                    required
+                    placeholder="localhost"
+                  />
+                  @if (!host().trim()) {
+                    <mat-error>Host is required</mat-error>
+                  }
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="form-field port-field">
+                  <mat-label>Port</mat-label>
+                  <input
+                    matInput
+                    type="number"
+                    [(ngModel)]="portModel"
+                    (ngModelChange)="port.set($event); onStateChanged()"
+                    [disabled]="disabled()"
+                    required
+                    min="1"
+                    max="65535"
+                    placeholder="5432"
+                  />
+                  @if (!port() || port() <= 0) {
+                    <mat-error>Valid port is required</mat-error>
+                  }
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="form-field db-field">
+                  <mat-label>Database</mat-label>
+                  <input
+                    matInput
+                    [(ngModel)]="databaseModel"
+                    (ngModelChange)="database.set($event); onStateChanged()"
+                    [disabled]="disabled()"
+                    required
+                    placeholder="e.g. comparator_db"
+                  />
+                  @if (!database().trim()) {
+                    <mat-error>Database is required</mat-error>
+                  }
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="form-field user-field">
+                  <mat-label>Username</mat-label>
+                  <input
+                    matInput
+                    [(ngModel)]="usernameModel"
+                    (ngModelChange)="username.set($event); onStateChanged()"
+                    [disabled]="disabled()"
+                    required
+                    placeholder="e.g. postgres"
+                  />
+                  @if (!username().trim()) {
+                    <mat-error>Username is required</mat-error>
+                  }
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="form-field pass-field">
+                  <mat-label>Password</mat-label>
+                  <input
+                    matInput
+                    type="password"
+                    [(ngModel)]="passwordModel"
+                    (ngModelChange)="password.set($event); onStateChanged()"
+                    [disabled]="disabled()"
+                    required
+                    placeholder="••••••••"
+                  />
+                  @if (!password()) {
+                    <mat-error>Password is required</mat-error>
+                  }
+                </mat-form-field>
+              </div>
+            </mat-expansion-panel>
           </div>
         }
       </mat-card-content>
@@ -141,13 +245,7 @@ export interface DelimiterOption {
       gap: 16px;
     }
 
-    .badge-soon {
-      font-size: 0.75rem;
-      color: #94a3b8;
-      font-weight: normal;
-    }
-
-    .file-upload-section {
+    .file-upload-section, .sql-query-section {
       display: flex;
       flex-direction: column;
       gap: 16px;
@@ -180,13 +278,71 @@ export interface DelimiterOption {
         background-color: #ffffff;
       }
     }
+
+    .connection-panel {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px !important;
+      box-shadow: none !important;
+      background-color: #f8fafc;
+    }
+
+    .panel-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .panel-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+      color: #64748b;
+    }
+
+    .connection-form-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 12px;
+      padding-top: 8px;
+
+      .db-field {
+        grid-column: 1 / -1;
+      }
+
+      .user-field, .pass-field {
+        grid-column: span 1;
+      }
+
+      @media (max-width: 600px) {
+        grid-template-columns: 1fr;
+        .user-field, .pass-field {
+          grid-column: 1 / -1;
+        }
+      }
+    }
+
+    .form-field {
+      width: 100%;
+      background-color: #ffffff;
+      border-radius: 4px;
+
+      ::ng-deep .mat-mdc-text-field-wrapper {
+        background-color: #ffffff;
+      }
+    }
   `]
 })
 export class DatasetInputComponent {
+  @ViewChild('sqlEditor') sqlEditor?: SqlEditorComponent;
+
   title = input<string>('Dataset');
   disabled = input<boolean>(false);
 
   fileChanged = output<File | null>();
+  stateChanged = output<void>();
 
   sourceTypeModel: DataSourceType = 'FILE_UPLOAD';
   sourceType = signal<DataSourceType>('FILE_UPLOAD');
@@ -199,6 +355,23 @@ export class DatasetInputComponent {
 
   selectedFile = signal<File | null>(null);
 
+  sqlQuery = signal<string>('');
+
+  hostModel = 'localhost';
+  host = signal<string>('localhost');
+
+  portModel = 5432;
+  port = signal<number>(5432);
+
+  databaseModel = '';
+  database = signal<string>('');
+
+  usernameModel = '';
+  username = signal<string>('');
+
+  passwordModel = '';
+  password = signal<string>('');
+
   readonly delimiterOptions: DelimiterOption[] = [
     { value: 'AUTO', label: 'Auto-detect' },
     { value: ',', label: 'Comma (,)' },
@@ -208,14 +381,36 @@ export class DatasetInputComponent {
     { value: 'CUSTOM', label: 'Custom Delimiter' }
   ];
 
+  setSourceType(type: DataSourceType): void {
+    this.sourceTypeModel = type;
+    this.sourceType.set(type);
+    this.onStateChanged();
+  }
+
+  onSourceTypeChanged(type: DataSourceType): void {
+    this.sourceType.set(type);
+    this.onStateChanged();
+  }
+
   onFileSelected(file: File): void {
     this.selectedFile.set(file);
     this.fileChanged.emit(file);
+    this.onStateChanged();
   }
 
   onFileRemoved(): void {
     this.selectedFile.set(null);
     this.fileChanged.emit(null);
+    this.onStateChanged();
+  }
+
+  onSqlQueryChanged(sqlText: string): void {
+    this.sqlQuery.set(sqlText);
+    this.onStateChanged();
+  }
+
+  onStateChanged(): void {
+    this.stateChanged.emit();
   }
 
   getEffectiveDelimiter(): string {
@@ -224,5 +419,42 @@ export class DatasetInputComponent {
       return this.customDelimiter().trim() || 'AUTO';
     }
     return type;
+  }
+
+  isConnectionValid(): boolean {
+    return (
+      !!this.host()?.trim() &&
+      !!this.port() &&
+      this.port() > 0 &&
+      this.port() <= 65535 &&
+      !!this.database()?.trim() &&
+      !!this.username()?.trim() &&
+      !!this.password()
+    );
+  }
+
+  isSqlValid(): boolean {
+    return !!this.sqlQuery()?.trim() && this.isConnectionValid();
+  }
+
+  isValid(): boolean {
+    if (this.sourceType() === 'FILE_UPLOAD') {
+      return !!this.selectedFile();
+    }
+    return this.isSqlValid();
+  }
+
+  getConnectionConfig(): DatabaseConnectionConfig {
+    return {
+      host: this.host().trim(),
+      port: Number(this.port()),
+      database: this.database().trim(),
+      username: this.username().trim(),
+      password: this.password()
+    };
+  }
+
+  getSqlQuery(): string {
+    return this.sqlQuery().trim();
   }
 }

@@ -36,6 +36,26 @@ export interface DatasetColumns {
   ds2: string[];
 }
 
+export interface UploadConfigRequest {
+  ds1Delimiter?: string;
+  ds2Delimiter?: string;
+  ds1Sql?: string;
+  ds1Connection?: DatabaseConnectionConfig;
+  ds2Sql?: string;
+  ds2Connection?: DatabaseConnectionConfig;
+}
+
+export interface UploadDatasetOptions {
+  ds1File?: File | null;
+  ds2File?: File | null;
+  ds1Delimiter?: string;
+  ds2Delimiter?: string;
+  ds1Sql?: string;
+  ds1Connection?: DatabaseConnectionConfig;
+  ds2Sql?: string;
+  ds2Connection?: DatabaseConnectionConfig;
+}
+
 export interface UploadResponse {
   comparisonId: string;
   columns: DatasetColumns;
