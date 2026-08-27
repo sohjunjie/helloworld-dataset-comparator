@@ -13,8 +13,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -59,6 +61,21 @@ public class ComparisonEngine {
             }
         }
 
+        Map<String, Double> tolMap = new HashMap<>();
+        if (tolerances != null) {
+            for (ToleranceConfig tc : tolerances) {
+                if (tc != null && tc.columnName() != null && !tc.columnName().isBlank()) {
+                    if (tc.percentage() == null || tc.percentage() < 0.0 || tc.percentage() > 100.0) {
+                        throw new IllegalArgumentException(
+                                "Tolerance percentage must be between 0 and 100 for column '" + tc.columnName() + "': " + tc.percentage());
+                    }
+                    tolMap.put(tc.columnName(), tc.percentage());
+                }
+            }
+        }
+
+        boolean isCaseSensitive = caseSensitive == null || caseSensitive;
+
         try {
             Files.createDirectories(outputDir);
         } catch (Exception e) {
@@ -79,8 +96,9 @@ public class ComparisonEngine {
         String normMismatchesDs1 = normalizePath(mismatchesDs1Path);
         String normMismatchesDs2 = normalizePath(mismatchesDs2Path);
 
-        Set<String> allCols = new LinkedHashSet<>(ds1Headers);
-        allCols.addAll(ds2Headers);
+        Set<String> allColsSet = new LinkedHashSet<>(ds1Headers);
+        allColsSet.addAll(ds2Headers);
+        List<String> allCols = new ArrayList<>(allColsSet);
 
         List<String> nonKeyCols = allCols.stream()
                 .filter(col -> !keyColumns.contains(col))
@@ -89,19 +107,20 @@ public class ComparisonEngine {
         try (Connection conn = duckDbService.createConnection();
              Statement stmt = conn.createStatement()) {
 
-            // 1. Create source views
-            stmt.execute(String.format("CREATE VIEW ds1 AS SELECT * FROM read_parquet('%s')", normDs1));
-            stmt.execute(String.format("CREATE VIEW ds2 AS SELECT * FROM read_parquet('%s')", normDs2));
+            // 1. Create source views with unified schema (NULL columns for missing ones)
+            String ds1ViewSelect = allCols.stream()
+                    .map(col -> ds1Headers.contains(col) ? quote(col) : "NULL AS " + quote(col))
+                    .collect(Collectors.joining(", "));
+            String ds2ViewSelect = allCols.stream()
+                    .map(col -> ds2Headers.contains(col) ? quote(col) : "NULL AS " + quote(col))
+                    .collect(Collectors.joining(", "));
 
-            // Key join condition
-            String keyJoinCondition = keyColumns.stream()
-                    .map(k -> String.format("ds1.%s IS NOT DISTINCT FROM ds2.%s", quote(k), quote(k)))
-                    .collect(Collectors.joining(" AND "));
+            stmt.execute(String.format("CREATE VIEW ds1 AS SELECT %s FROM read_parquet('%s')", ds1ViewSelect, normDs1));
+            stmt.execute(String.format("CREATE VIEW ds2 AS SELECT %s FROM read_parquet('%s')", ds2ViewSelect, normDs2));
 
-            // Key join condition reversed
-            String keyJoinConditionRev = keyColumns.stream()
-                    .map(k -> String.format("ds2.%s IS NOT DISTINCT FROM ds1.%s", quote(k), quote(k)))
-                    .collect(Collectors.joining(" AND "));
+            // Key join conditions
+            String keyJoinCondition = buildKeyJoinCondition(keyColumns, "ds1", "ds2", isCaseSensitive);
+            String keyJoinConditionRev = buildKeyJoinCondition(keyColumns, "ds2", "ds1", isCaseSensitive);
 
             // 2. Missing from DS2 (records in DS1 not in DS2)
             stmt.execute(String.format(
@@ -133,14 +152,54 @@ public class ComparisonEngine {
                 List<String> diffCaseExprs = new ArrayList<>();
 
                 for (String col : nonKeyCols) {
-                    String ds1ColExpr = ds1Headers.contains(col) ? "ds1." + quote(col) : "NULL";
-                    String ds2ColExpr = ds2Headers.contains(col) ? "ds2." + quote(col) : "NULL";
+                    String quotedCol = quote(col);
+                    String matchExpr;
 
-                    String eqExpr = String.format("(%s IS NOT DISTINCT FROM %s)", ds1ColExpr, ds2ColExpr);
-                    colEqualityExprs.add(eqExpr);
+                    if (tolMap.containsKey(col)) {
+                        double pct = tolMap.get(col);
+                        String exactFallback;
+                        if (isCaseSensitive) {
+                            exactFallback = String.format("(CAST(ds1.%s AS VARCHAR) = CAST(ds2.%s AS VARCHAR))", quotedCol, quotedCol);
+                        } else {
+                            exactFallback = String.format("(LOWER(CAST(ds1.%s AS VARCHAR)) = LOWER(CAST(ds2.%s AS VARCHAR)))", quotedCol, quotedCol);
+                        }
 
-                    String diffCase = String.format("CASE WHEN (%s IS DISTINCT FROM %s) THEN '%s' ELSE NULL END",
-                            ds1ColExpr, ds2ColExpr, escapeSingleQuotes(col));
+                        matchExpr = String.format(
+                                "(CASE " +
+                                "WHEN ds1.%s IS NULL AND ds2.%s IS NULL THEN TRUE " +
+                                "WHEN ds1.%s IS NULL OR ds2.%s IS NULL THEN FALSE " +
+                                "WHEN TRY_CAST(ds1.%s AS DOUBLE) IS NOT NULL AND TRY_CAST(ds2.%s AS DOUBLE) IS NOT NULL THEN " +
+                                "  ((ABS(TRY_CAST(ds1.%s AS DOUBLE) - TRY_CAST(ds2.%s AS DOUBLE)) <= ((%s / 100.0) * ABS(TRY_CAST(ds1.%s AS DOUBLE)))) " +
+                                "  OR " +
+                                "  (ABS(TRY_CAST(ds1.%s AS DOUBLE) - TRY_CAST(ds2.%s AS DOUBLE)) <= ((%s / 100.0) * ABS(TRY_CAST(ds2.%s AS DOUBLE))))) " +
+                                "ELSE %s END)",
+                                quotedCol, quotedCol,
+                                quotedCol, quotedCol,
+                                quotedCol, quotedCol,
+                                quotedCol, quotedCol, pct, quotedCol,
+                                quotedCol, quotedCol, pct, quotedCol,
+                                exactFallback
+                        );
+                    } else {
+                        if (isCaseSensitive) {
+                            matchExpr = String.format("(ds1.%s IS NOT DISTINCT FROM ds2.%s)", quotedCol, quotedCol);
+                        } else {
+                            matchExpr = String.format(
+                                    "(CASE " +
+                                    "WHEN ds1.%s IS NULL AND ds2.%s IS NULL THEN TRUE " +
+                                    "WHEN ds1.%s IS NULL OR ds2.%s IS NULL THEN FALSE " +
+                                    "ELSE LOWER(CAST(ds1.%s AS VARCHAR)) = LOWER(CAST(ds2.%s AS VARCHAR)) END)",
+                                    quotedCol, quotedCol,
+                                    quotedCol, quotedCol,
+                                    quotedCol, quotedCol
+                            );
+                        }
+                    }
+
+                    colEqualityExprs.add(matchExpr);
+
+                    String diffCase = String.format("CASE WHEN %s THEN NULL ELSE '%s' END",
+                            matchExpr, escapeSingleQuotes(col));
                     diffCaseExprs.add(diffCase);
                 }
 
@@ -151,12 +210,9 @@ public class ComparisonEngine {
             selectFields.add("(" + matchCondition + ") AS _is_full_match");
             selectFields.add("(" + diffColumnsExpr + ") AS _diff_columns");
 
-            for (int i = 0; i < ds1Headers.size(); i++) {
-                String col = ds1Headers.get(i);
+            for (int i = 0; i < allCols.size(); i++) {
+                String col = allCols.get(i);
                 selectFields.add("ds1." + quote(col) + " AS " + quote("ds1_c" + i));
-            }
-            for (int i = 0; i < ds2Headers.size(); i++) {
-                String col = ds2Headers.get(i);
                 selectFields.add("ds2." + quote(col) + " AS " + quote("ds2_c" + i));
             }
 
@@ -170,8 +226,8 @@ public class ComparisonEngine {
             // 5. Build matches table
             List<String> matchesSelectCols = new ArrayList<>();
             matchesSelectCols.add("ROW_NUMBER() OVER () AS _row_id");
-            for (int i = 0; i < ds1Headers.size(); i++) {
-                matchesSelectCols.add(quote("ds1_c" + i) + " AS " + quote(ds1Headers.get(i)));
+            for (int i = 0; i < allCols.size(); i++) {
+                matchesSelectCols.add(quote("ds1_c" + i) + " AS " + quote(allCols.get(i)));
             }
             stmt.execute(String.format(
                     "CREATE TABLE matches AS SELECT %s FROM all_matched_pairs WHERE _is_full_match = TRUE",
@@ -183,8 +239,8 @@ public class ComparisonEngine {
             List<String> mismatchDs1SelectCols = new ArrayList<>();
             mismatchDs1SelectCols.add("ROW_NUMBER() OVER () AS _row_id");
             mismatchDs1SelectCols.add("_diff_columns");
-            for (int i = 0; i < ds1Headers.size(); i++) {
-                mismatchDs1SelectCols.add(quote("ds1_c" + i) + " AS " + quote(ds1Headers.get(i)));
+            for (int i = 0; i < allCols.size(); i++) {
+                mismatchDs1SelectCols.add(quote("ds1_c" + i) + " AS " + quote(allCols.get(i)));
             }
             stmt.execute(String.format(
                     "CREATE TABLE mismatches_ds1 AS SELECT %s FROM all_matched_pairs WHERE _is_full_match = FALSE",
@@ -196,8 +252,8 @@ public class ComparisonEngine {
             List<String> mismatchDs2SelectCols = new ArrayList<>();
             mismatchDs2SelectCols.add("ROW_NUMBER() OVER () AS _row_id");
             mismatchDs2SelectCols.add("_diff_columns");
-            for (int i = 0; i < ds2Headers.size(); i++) {
-                mismatchDs2SelectCols.add(quote("ds2_c" + i) + " AS " + quote(ds2Headers.get(i)));
+            for (int i = 0; i < allCols.size(); i++) {
+                mismatchDs2SelectCols.add(quote("ds2_c" + i) + " AS " + quote(allCols.get(i)));
             }
             stmt.execute(String.format(
                     "CREATE TABLE mismatches_ds2 AS SELECT %s FROM all_matched_pairs WHERE _is_full_match = FALSE",
@@ -226,6 +282,22 @@ public class ComparisonEngine {
         } catch (SQLException e) {
             log.error("DuckDB comparison execution failed: {}", e.getMessage(), e);
             throw new RuntimeException("Comparison engine failed: " + e.getMessage(), e);
+        }
+    }
+
+    private String buildKeyJoinCondition(List<String> keyColumns, String leftAlias, String rightAlias, boolean isCaseSensitive) {
+        if (isCaseSensitive) {
+            return keyColumns.stream()
+                    .map(k -> String.format("%s.%s IS NOT DISTINCT FROM %s.%s", leftAlias, quote(k), rightAlias, quote(k)))
+                    .collect(Collectors.joining(" AND "));
+        } else {
+            return keyColumns.stream()
+                    .map(k -> String.format(
+                            "(%s.%s IS NOT DISTINCT FROM %s.%s OR (%s.%s IS NOT NULL AND %s.%s IS NOT NULL AND LOWER(CAST(%s.%s AS VARCHAR)) = LOWER(CAST(%s.%s AS VARCHAR))))",
+                            leftAlias, quote(k), rightAlias, quote(k),
+                            leftAlias, quote(k), rightAlias, quote(k),
+                            leftAlias, quote(k), rightAlias, quote(k)))
+                    .collect(Collectors.joining(" AND "));
         }
     }
 

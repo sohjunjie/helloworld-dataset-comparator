@@ -25,7 +25,11 @@ public record ComparisonExecuteRequest(
         Boolean caseSensitive
 ) {
     public ComparisonExecuteRequest(List<String> keyColumns) {
-        this(keyColumns, List.of(), false);
+        this(keyColumns, List.of(), true);
+    }
+
+    public ComparisonExecuteRequest(List<String> keyColumns, List<ToleranceConfig> tolerances) {
+        this(keyColumns, tolerances != null ? tolerances : List.of(), true);
     }
 
     public static class Deserializer extends JsonDeserializer<ComparisonExecuteRequest> {
@@ -33,7 +37,7 @@ public record ComparisonExecuteRequest(
         public ComparisonExecuteRequest deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
             JsonNode root = p.getCodec().readTree(p);
             if (root == null || root.isNull()) {
-                return new ComparisonExecuteRequest(List.of(), List.of(), false);
+                return new ComparisonExecuteRequest(List.of(), List.of(), true);
             }
 
             if (root.isArray()) {
@@ -43,7 +47,7 @@ public record ComparisonExecuteRequest(
                         keys.add(item.asText());
                     }
                 }
-                return new ComparisonExecuteRequest(keys, List.of(), false);
+                return new ComparisonExecuteRequest(keys, List.of(), true);
             }
 
             if (root.isObject()) {
@@ -64,12 +68,14 @@ public record ComparisonExecuteRequest(
                     }
                 }
 
-                Boolean caseSensitive = root.has("caseSensitive") ? root.get("caseSensitive").asBoolean() : false;
+                Boolean caseSensitive = root.has("caseSensitive")
+                        ? root.get("caseSensitive").asBoolean()
+                        : (root.has("caseInsensitive") ? !root.get("caseInsensitive").asBoolean() : true);
 
                 return new ComparisonExecuteRequest(keyColumns, tolerances, caseSensitive);
             }
 
-            return new ComparisonExecuteRequest(List.of(), List.of(), false);
+            return new ComparisonExecuteRequest(List.of(), List.of(), true);
         }
     }
 }
