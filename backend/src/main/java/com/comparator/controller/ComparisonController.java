@@ -1,6 +1,7 @@
 package com.comparator.controller;
 
 import com.comparator.config.AppProperties;
+import com.comparator.model.dto.ComparisonExecuteRequest;
 import com.comparator.model.dto.ComparisonRequest;
 import com.comparator.model.dto.ComparisonSummary;
 import com.comparator.model.dto.DatabaseConnectionConfig;
@@ -11,6 +12,7 @@ import com.comparator.model.entity.ComparisonRecord;
 import com.comparator.model.enums.ComparisonStatus;
 import com.comparator.model.enums.DataSourceType;
 import com.comparator.repository.ComparisonRepository;
+import com.comparator.service.ComparisonService;
 import com.comparator.service.FileParserService;
 import com.comparator.service.SqlDataSourceService;
 import jakarta.validation.Valid;
@@ -46,15 +48,18 @@ public class ComparisonController {
     private final ComparisonRepository comparisonRepository;
     private final FileParserService fileParserService;
     private final SqlDataSourceService sqlDataSourceService;
+    private final ComparisonService comparisonService;
     private final AppProperties appProperties;
 
     public ComparisonController(ComparisonRepository comparisonRepository,
                                 FileParserService fileParserService,
                                 SqlDataSourceService sqlDataSourceService,
+                                ComparisonService comparisonService,
                                 AppProperties appProperties) {
         this.comparisonRepository = comparisonRepository;
         this.fileParserService = fileParserService;
         this.sqlDataSourceService = sqlDataSourceService;
+        this.comparisonService = comparisonService;
         this.appProperties = appProperties;
     }
 
@@ -155,6 +160,20 @@ public class ComparisonController {
         ComparisonRecord record = comparisonRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Comparison not found with id: " + id));
         return ResponseEntity.ok(ComparisonSummary.fromEntity(record));
+    }
+
+    @PostMapping("/{id}/execute")
+    public ResponseEntity<ComparisonSummary> executeComparison(
+            @PathVariable String id,
+            @Valid @RequestBody ComparisonExecuteRequest request
+    ) {
+        ComparisonRecord record = comparisonRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Comparison not found with id: " + id));
+
+        comparisonService.executeComparisonAsync(id, request);
+
+        ComparisonRecord updated = comparisonRepository.findById(id).orElse(record);
+        return ResponseEntity.ok(ComparisonSummary.fromEntity(updated));
     }
 
     private List<String> processDataset(

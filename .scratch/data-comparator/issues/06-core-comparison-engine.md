@@ -4,15 +4,15 @@
 
 **Blocked by:** 03 — CSV File Upload, Delimiter Detection & Parquet Conversion
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] `POST /api/v1/comparisons/{id}/execute` accepts key columns (list of strings) in the request body, triggers async comparison
-- [ ] `ComparisonEngine` loads both Parquet files into DuckDB views
-- [ ] ANTI JOIN (ds1 LEFT ds2 on keys) produces missing-from-DS2 records; written to `missing_from_ds2.parquet`
-- [ ] ANTI JOIN (ds2 LEFT ds1 on keys) produces missing-from-DS1 records; written to `missing_from_ds1.parquet`
-- [ ] INNER JOIN on keys produces matched-key pairs; non-key columns compared with exact equality (NULL = NULL treated as match)
-- [ ] Fully matching pairs identified; mismatched pairs written to `mismatches_ds1.parquet` + `mismatches_ds2.parquet` with a shared row index for side-by-side pairing
-- [ ] Summary counts computed and stored in `ComparisonRecord`: ds1RecordCount, ds2RecordCount, ds1FullyMatching, ds2FullyMatching, ds1NotMatching, ds2NotMatching, ds1MissingInDs2, ds2MissingInDs1
-- [ ] Status transitions: UPLOADED → CONVERTING → COMPARING → COMPLETED (or FAILED with errorMessage)
-- [ ] Fresh in-process DuckDB connection created per comparison, closed after completion
-- [ ] `@SpringBootTest` + `MockMvc` end-to-end test: upload two CSV fixtures → execute comparison → verify summary counts for exact matches, mismatches, and missing records
+- [x] `POST /api/v1/comparisons/{id}/execute` accepts key columns (list of strings) in the request body, triggers async comparison
+- [x] `ComparisonEngine` loads both Parquet files into DuckDB views
+- [x] ANTI JOIN (ds1 LEFT ds2 on keys) produces missing-from-DS2 records; written to `missing_from_ds2.parquet`
+- [x] ANTI JOIN (ds2 LEFT ds1 on keys) produces missing-from-DS1 records; written to `missing_from_ds1.parquet`
+- [x] INNER JOIN on keys produces matched-key pairs; non-key columns compared with exact equality (NULL = NULL treated as match)
+- [x] Fully matching pairs identified; mismatched pairs written to `mismatches_ds1.parquet` + `mismatches_ds2.parquet` with a shared row index for side-by-side pairing
+- [x] Summary counts computed and stored in `ComparisonRecord`: ds1RecordCount, ds2RecordCount, ds1FullyMatching, ds2FullyMatching, ds1NotMatching, ds2NotMatching, ds1MissingInDs2, ds2MissingInDs1
+- [x] Status transitions: UPLOADED → CONVERTING → COMPARING → COMPLETED (or FAILED with errorMessage)
+- [x] Fresh in-process DuckDB connection created per comparison, closed after completion
+- [x] `@SpringBootTest` + `MockMvc` end-to-end test: upload two CSV fixtures → execute comparison → verify summary counts for exact matches, mismatches, and missing records
