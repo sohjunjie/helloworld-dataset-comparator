@@ -20,4 +20,5 @@ This document records agent self-reflections, post-mortem root causes from past 
 ## 3. TypeScript, Testing & Algorithm Best Practices
 
 - **Standalone Component Test Isolation**: In Angular standalone component testing, provide lightweight stub routing via `provideRouter([])` in test bed configuration to isolate navigation dependencies while testing presentation elements.
+- **JSDOM Drag-and-Drop Test Isolation**: In Node/JSDOM component unit tests where browser `DragEvent` and `DataTransfer` globals are not natively instantiated, test dropzone handler methods directly with synthetic event object mocks to prevent DOM API reference errors.
 - **Embedded Database Test Isolation**: In Spring Boot JPA test environments, configure in-memory H2 datasources with `create-drop` in test profiles/resources to ensure clean schema generation and prevent schema/enum check-constraint drift against local file-based database artifacts.
