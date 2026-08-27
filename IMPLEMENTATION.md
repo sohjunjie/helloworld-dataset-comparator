@@ -198,7 +198,7 @@ spring:
 
 app:
   storage:
-    path: C:\Users\Admin\Documents\node-projects\helloworld-data-comparator\data
+    path: ./data
   upload:
     max-file-size: 500MB
   cleanup:

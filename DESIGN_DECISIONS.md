@@ -32,7 +32,7 @@
 | Q4 | Parquet engine | **DuckDB embedded** — read/write Parquet, SQL-based comparison |
 | Q5 | Progress updates | **SSE (Server-Sent Events)** — uploading → converting → comparing → done |
 | Q13 | File cleanup | **TTL-based**, **1 hour** default, configurable in `application.yml` |
-| Q17 | Parquet storage | Configurable path in `application.yml`, default `C:\Users\Admin\Documents\node-projects\helloworld-data-comparator\data` |
+| Q17 | Parquet storage | Configurable path in `application.yml`, default `./data` |
 | Q20 | Concurrent comparisons | **Multiple** — each comparison gets its own ID, independent results |
 | Q21 | Excel generation | **Apache POI SXSSF** — streaming writes for large datasets |
 | Q35 | Comparison timeout | **Configurable**, 30 min default in `application.yml` |
@@ -113,7 +113,7 @@
 ```yaml
 app:
   storage:
-    path: C:\Users\Admin\Documents\node-projects\helloworld-data-comparator\data
+    path: ./data
   upload:
     max-file-size: 500MB
   cleanup:

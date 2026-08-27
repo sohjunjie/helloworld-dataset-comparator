@@ -65,7 +65,7 @@ A web application that lets users upload or query two datasets, configure compar
 - **History/metadata storage**: Embedded **H2** database (file-based), managed via Spring Boot JPA. A `comparisons` table stores comparison ID, timestamp, status, configuration snapshot, and summary statistics.
 - **Excel generation**: **Apache POI SXSSF** (streaming API) for low-memory Excel report creation. Summary sheet first, then one detail sheet per result category. Detail sheets split across multiple sheets if row count exceeds ~1M.
 - **Progress signaling**: **Server-Sent Events (SSE)** push status updates (uploading → converting → comparing → done) to the frontend.
-- **File storage**: Parquet files written to a **configurable disk path** (default: `C:\Users\Admin\Documents\node-projects\helloworld-data-comparator\data`), set in `application.yml`.
+- **File storage**: Parquet files written to a **configurable disk path** (default: `./data`), set in `application.yml`.
 - **File cleanup**: A scheduled Spring task purges Parquet files and comparison data older than a **configurable TTL** (default: 1 hour).
 - **Comparison timeout**: Configurable in `application.yml` (default: 30 minutes).
 - **Upload size limit**: Configurable in `application.yml` (default: 500 MB).
@@ -128,7 +128,7 @@ A web application that lets users upload or query two datasets, configure compar
 ```yaml
 app:
   storage:
-    path: C:\Users\Admin\Documents\node-projects\helloworld-data-comparator\data
+    path: ./data
   upload:
     max-file-size: 500MB
   cleanup:
