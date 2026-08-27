@@ -4,12 +4,12 @@
 
 **Blocked by:** 03 — CSV File Upload, Delimiter Detection & Parquet Conversion
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] `FileParserService` detects `.xls` / `.xlsx` extension and routes to the POI parsing path
-- [ ] `.xls` files parsed via `HSSFWorkbook`; rows streamed into DuckDB temp table then exported to Parquet
-- [ ] `.xlsx` files parsed via streaming/event-model `XSSFReader` for memory efficiency; same DuckDB export path
-- [ ] Column headers extracted from the first row of the spreadsheet
-- [ ] Upload response returns the same `comparisonId` + `columns` shape as CSV uploads
-- [ ] Handles edge cases: empty sheets, sheets with only headers, mixed data types in columns
-- [ ] `@SpringBootTest` + `MockMvc` tests with small `.xls` and `.xlsx` fixture files verifying Parquet output and header detection
+- [x] `FileParserService` detects `.xls` / `.xlsx` extension and routes to the POI parsing path
+- [x] `.xls` files parsed via `HSSFWorkbook`; rows streamed into DuckDB temp table then exported to Parquet
+- [x] `.xlsx` files parsed via streaming/event-model `XSSFReader` for memory efficiency; same DuckDB export path
+- [x] Column headers extracted from the first row of the spreadsheet
+- [x] Upload response returns the same `comparisonId` + `columns` shape as CSV uploads
+- [x] Handles edge cases: empty sheets, sheets with only headers, mixed data types in columns
+- [x] `@SpringBootTest` + `MockMvc` tests with small `.xls` and `.xlsx` fixture files verifying Parquet output and header detection

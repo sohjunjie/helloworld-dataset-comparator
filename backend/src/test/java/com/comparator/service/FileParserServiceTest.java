@@ -1,5 +1,6 @@
 package com.comparator.service;
 
+import com.comparator.util.ExcelTestUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -68,5 +69,119 @@ class FileParserServiceTest {
 
         assertThat(Files.exists(targetParquet)).isTrue();
         assertThat(headers).containsExactly("col1", "col2");
+    }
+
+    @Test
+    @DisplayName("Should parse XLSX file via streaming reader and write Parquet")
+    void shouldParseXlsxFileToParquet() throws Exception {
+        byte[] xlsxBytes = ExcelTestUtils.createTestXlsx(List.of("id", "name", "amount"), List.of(
+                List.of("1", "Alice", "100.5"),
+                List.of("2", "Bob", "200.0")
+        ));
+        MockMultipartFile file = new MockMultipartFile("ds1File", "dataset.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", xlsxBytes);
+        Path targetParquet = tempDir.resolve("excel-test").resolve("ds1.parquet");
+
+        List<String> headers = fileParserService.parseFileToParquet(file, targetParquet, "auto");
+
+        assertThat(Files.exists(targetParquet)).isTrue();
+        assertThat(headers).containsExactly("id", "name", "amount");
+    }
+
+    @Test
+    @DisplayName("Should parse XLS file via HSSFWorkbook and write Parquet")
+    void shouldParseXlsFileToParquet() throws Exception {
+        byte[] xlsBytes = ExcelTestUtils.createTestXls(List.of("prod_id", "prod_name", "price"), List.of(
+                List.of("P1", "Widget", "9.99"),
+                List.of("P2", "Gadget", "19.99")
+        ));
+        MockMultipartFile file = new MockMultipartFile("ds1File", "products.xls", "application/vnd.ms-excel", xlsBytes);
+        Path targetParquet = tempDir.resolve("excel-xls-test").resolve("ds1.parquet");
+
+        List<String> headers = fileParserService.parseFileToParquet(file, targetParquet, "auto");
+
+        assertThat(Files.exists(targetParquet)).isTrue();
+        assertThat(headers).containsExactly("prod_id", "prod_name", "price");
+    }
+
+    @Test
+    @DisplayName("Should parse XLSX with only headers and 0 data rows")
+    void shouldParseXlsxWithOnlyHeaders() throws Exception {
+        byte[] xlsxBytes = ExcelTestUtils.createTestXlsx(List.of("header1", "header2"), List.of());
+        MockMultipartFile file = new MockMultipartFile("ds1File", "empty_data.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", xlsxBytes);
+        Path targetParquet = tempDir.resolve("empty-data-test").resolve("ds1.parquet");
+
+        List<String> headers = fileParserService.parseFileToParquet(file, targetParquet, "auto");
+
+        assertThat(Files.exists(targetParquet)).isTrue();
+        assertThat(headers).containsExactly("header1", "header2");
+    }
+
+    @Test
+    @DisplayName("Should parse XLS with only headers and 0 data rows")
+    void shouldParseXlsWithOnlyHeaders() throws Exception {
+        byte[] xlsBytes = ExcelTestUtils.createTestXls(List.of("header1", "header2"), List.of());
+        MockMultipartFile file = new MockMultipartFile("ds1File", "empty_data.xls", "application/vnd.ms-excel", xlsBytes);
+        Path targetParquet = tempDir.resolve("empty-data-xls-test").resolve("ds1.parquet");
+
+        List<String> headers = fileParserService.parseFileToParquet(file, targetParquet, "auto");
+
+        assertThat(Files.exists(targetParquet)).isTrue();
+        assertThat(headers).containsExactly("header1", "header2");
+    }
+
+    @Test
+    @DisplayName("Should parse XLSX with empty sheet")
+    void shouldParseXlsxWithEmptySheet() throws Exception {
+        byte[] xlsxBytes = ExcelTestUtils.createTestXlsx(List.of(), List.of());
+        MockMultipartFile file = new MockMultipartFile("ds1File", "empty_sheet.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", xlsxBytes);
+        Path targetParquet = tempDir.resolve("empty-sheet-test").resolve("ds1.parquet");
+
+        List<String> headers = fileParserService.parseFileToParquet(file, targetParquet, "auto");
+
+        assertThat(headers).isEmpty();
+    }
+
+    @Test
+    @DisplayName("Should parse XLS with empty sheet")
+    void shouldParseXlsWithEmptySheet() throws Exception {
+        byte[] xlsBytes = ExcelTestUtils.createTestXls(List.of(), List.of());
+        MockMultipartFile file = new MockMultipartFile("ds1File", "empty_sheet.xls", "application/vnd.ms-excel", xlsBytes);
+        Path targetParquet = tempDir.resolve("empty-sheet-xls-test").resolve("ds1.parquet");
+
+        List<String> headers = fileParserService.parseFileToParquet(file, targetParquet, "auto");
+
+        assertThat(headers).isEmpty();
+    }
+
+    @Test
+    @DisplayName("Should handle mixed data types and sparse cells in XLSX")
+    void shouldHandleMixedDataTypesAndSparseCells() throws Exception {
+        byte[] xlsxBytes = ExcelTestUtils.createTestXlsx(List.of("colA", "colB", "colC"), List.of(
+                List.of("text", "123", "true"),
+                List.of("456.78", "", "false")
+        ));
+        MockMultipartFile file = new MockMultipartFile("ds1File", "mixed.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", xlsxBytes);
+        Path targetParquet = tempDir.resolve("mixed-test").resolve("ds1.parquet");
+
+        List<String> headers = fileParserService.parseFileToParquet(file, targetParquet, "auto");
+
+        assertThat(Files.exists(targetParquet)).isTrue();
+        assertThat(headers).containsExactly("colA", "colB", "colC");
+    }
+
+    @Test
+    @DisplayName("Should handle mixed data types and sparse cells in XLS")
+    void shouldHandleMixedDataTypesAndSparseCellsInXls() throws Exception {
+        byte[] xlsBytes = ExcelTestUtils.createTestXls(List.of("colA", "colB", "colC"), List.of(
+                List.of("text", "123", "true"),
+                List.of("456.78", "", "false")
+        ));
+        MockMultipartFile file = new MockMultipartFile("ds1File", "mixed.xls", "application/vnd.ms-excel", xlsBytes);
+        Path targetParquet = tempDir.resolve("mixed-xls-test").resolve("ds1.parquet");
+
+        List<String> headers = fileParserService.parseFileToParquet(file, targetParquet, "auto");
+
+        assertThat(Files.exists(targetParquet)).isTrue();
+        assertThat(headers).containsExactly("colA", "colB", "colC");
     }
 }

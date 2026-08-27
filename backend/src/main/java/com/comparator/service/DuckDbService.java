@@ -70,6 +70,112 @@ public class DuckDbService {
         return headers;
     }
 
+    /**
+     * Interface for streaming rows into a DuckDB Parquet file.
+     */
+    public interface ParquetRowWriter extends AutoCloseable {
+        void writeRow(List<String> row);
+        void finish();
+        @Override
+        void close();
+    }
+
+    /**
+     * Creates a streaming ParquetRowWriter backed by an in-memory DuckDB table.
+     */
+    public ParquetRowWriter createParquetRowWriter(Path parquetPath, List<String> headers) {
+        if (headers == null || headers.isEmpty()) {
+            throw new IllegalArgumentException("Headers list cannot be empty when creating Parquet writer");
+        }
+
+        String normalizedParquetPath = normalizePath(parquetPath);
+        String tableName = "t_" + java.util.UUID.randomUUID().toString().replace("-", "");
+
+        StringBuilder createSql = new StringBuilder("CREATE TEMPORARY TABLE ").append(tableName).append(" (");
+        StringBuilder insertSql = new StringBuilder("INSERT INTO ").append(tableName).append(" VALUES (");
+        for (int i = 0; i < headers.size(); i++) {
+            if (i > 0) {
+                createSql.append(", ");
+                insertSql.append(", ");
+            }
+            createSql.append("\"").append(headers.get(i).replace("\"", "\"\"")).append("\" VARCHAR");
+            insertSql.append("?");
+        }
+        createSql.append(")");
+        insertSql.append(")");
+
+        String copySql = String.format("COPY %s TO '%s' (FORMAT PARQUET)", tableName, normalizedParquetPath);
+
+        try {
+            Connection conn = createConnection();
+            try (Statement stmt = conn.createStatement()) {
+                stmt.execute(createSql.toString());
+            }
+
+            java.sql.PreparedStatement pstmt = conn.prepareStatement(insertSql.toString());
+
+            return new ParquetRowWriter() {
+                private int batchCount = 0;
+                private boolean finished = false;
+
+                @Override
+                public void writeRow(List<String> row) {
+                    try {
+                        for (int i = 0; i < headers.size(); i++) {
+                            String val = (row != null && i < row.size()) ? row.get(i) : null;
+                            pstmt.setString(i + 1, val);
+                        }
+                        pstmt.addBatch();
+                        batchCount++;
+                        if (batchCount % 1000 == 0) {
+                            pstmt.executeBatch();
+                        }
+                    } catch (SQLException e) {
+                        throw new RuntimeException("Failed to add batch row: " + e.getMessage(), e);
+                    }
+                }
+
+                @Override
+                public void finish() {
+                    if (finished) {
+                        return;
+                    }
+                    try {
+                        if (batchCount % 1000 != 0 || batchCount == 0) {
+                            pstmt.executeBatch();
+                        }
+                        try (Statement stmt = conn.createStatement()) {
+                            stmt.execute(copySql);
+                        }
+                        finished = true;
+                    } catch (SQLException e) {
+                        throw new RuntimeException("Failed to export table to Parquet: " + e.getMessage(), e);
+                    }
+                }
+
+                @Override
+                public void close() {
+                    try {
+                        if (!finished) {
+                            finish();
+                        }
+                    } finally {
+                        try {
+                            pstmt.close();
+                        } catch (Exception ignored) {
+                        }
+                        try {
+                            conn.close();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                }
+            };
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to initialize DuckDB Parquet writer: " + e.getMessage(), e);
+        }
+    }
+
     private String normalizePath(Path path) {
         return path.toAbsolutePath().toString().replace('\\', '/').replace("'", "''");
     }

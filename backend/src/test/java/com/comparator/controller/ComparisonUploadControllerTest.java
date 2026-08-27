@@ -186,6 +186,75 @@ class ComparisonUploadControllerTest {
                 .andExpect(jsonPath("$.columns.ds2[0]").value("x"));
     }
 
+    @Test
+    @DisplayName("Should successfully upload XLSX and XLS files and convert to Parquet")
+    void shouldUploadXlsxAndXlsFiles() throws Exception {
+        byte[] xlsxBytes = com.comparator.util.ExcelTestUtils.createTestXlsx(java.util.List.of("id", "username", "role"), java.util.List.of(
+                java.util.List.of("101", "admin", "SUPERUSER"),
+                java.util.List.of("102", "guest", "GUEST")
+        ));
+        byte[] xlsBytes = com.comparator.util.ExcelTestUtils.createTestXls(java.util.List.of("id", "username", "status"), java.util.List.of(
+                java.util.List.of("101", "admin", "ACTIVE"),
+                java.util.List.of("102", "guest", "INACTIVE")
+        ));
+
+        MockMultipartFile ds1File = new MockMultipartFile(
+                "ds1File", "users.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", xlsxBytes);
+        MockMultipartFile ds2File = new MockMultipartFile(
+                "ds2File", "users.xls", "application/vnd.ms-excel", xlsBytes);
+
+        MvcResult result = mockMvc.perform(multipart("/api/v1/comparisons/upload")
+                        .file(ds1File)
+                        .file(ds2File))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.comparisonId").isNotEmpty())
+                .andExpect(jsonPath("$.columns.ds1[0]").value("id"))
+                .andExpect(jsonPath("$.columns.ds1[1]").value("username"))
+                .andExpect(jsonPath("$.columns.ds1[2]").value("role"))
+                .andExpect(jsonPath("$.columns.ds2[0]").value("id"))
+                .andExpect(jsonPath("$.columns.ds2[1]").value("username"))
+                .andExpect(jsonPath("$.columns.ds2[2]").value("status"))
+                .andReturn();
+
+        String responseBody = result.getResponse().getContentAsString();
+        Map<?, ?> responseMap = objectMapper.readValue(responseBody, Map.class);
+        String comparisonId = (String) responseMap.get("comparisonId");
+
+        Path storageDir = Path.of(appProperties.storage().path(), comparisonId);
+        Path ds1Parquet = storageDir.resolve("ds1.parquet");
+        Path ds2Parquet = storageDir.resolve("ds2.parquet");
+
+        assertThat(Files.exists(ds1Parquet)).isTrue();
+        assertThat(Files.exists(ds2Parquet)).isTrue();
+        assertThat(Files.size(ds1Parquet)).isGreaterThan(0);
+        assertThat(Files.size(ds2Parquet)).isGreaterThan(0);
+    }
+
+    @Test
+    @DisplayName("Should successfully upload mixed CSV and XLSX datasets")
+    void shouldUploadMixedCsvAndXlsx() throws Exception {
+        String ds1Csv = "product_code,price\nA1,10.0\nA2,20.0\n";
+        byte[] ds2Xlsx = com.comparator.util.ExcelTestUtils.createTestXlsx(java.util.List.of("product_code", "inventory"), java.util.List.of(
+                java.util.List.of("A1", "100"),
+                java.util.List.of("A2", "50")
+        ));
+
+        MockMultipartFile ds1File = new MockMultipartFile(
+                "ds1File", "catalog.csv", "text/csv", ds1Csv.getBytes(StandardCharsets.UTF_8));
+        MockMultipartFile ds2File = new MockMultipartFile(
+                "ds2File", "stock.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", ds2Xlsx);
+
+        mockMvc.perform(multipart("/api/v1/comparisons/upload")
+                        .file(ds1File)
+                        .file(ds2File))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.comparisonId").isNotEmpty())
+                .andExpect(jsonPath("$.columns.ds1[0]").value("product_code"))
+                .andExpect(jsonPath("$.columns.ds1[1]").value("price"))
+                .andExpect(jsonPath("$.columns.ds2[0]").value("product_code"))
+                .andExpect(jsonPath("$.columns.ds2[1]").value("inventory"));
+    }
+
     @Nested
     @SpringBootTest
     @AutoConfigureMockMvc
