@@ -1,37 +1,37 @@
 {
   "backend/pom.xml": {
     "mtime": 1787858757.4795575,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "5ebf31830bf1bf36fe9898291f33e4bc",
     "semantic_hash": "5ebf31830bf1bf36fe9898291f33e4bc"
   },
   "backend/src/main/java/com/comparator/DataComparatorApplication.java": {
     "mtime": 1787859922.5002365,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "630cbf66afdd429d09954fcbcc9ae3b9",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/controller/HealthController.java": {
     "mtime": 1787859168.8683398,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "abe56a35f518d88507c8ade97d60c16f",
     "semantic_hash": "abe56a35f518d88507c8ade97d60c16f"
   },
   "backend/src/test/java/com/comparator/DataComparatorApplicationTests.java": {
     "mtime": 1787858767.2969694,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "86d03f26f97a618821a34fcb52998895",
     "semantic_hash": "86d03f26f97a618821a34fcb52998895"
   },
   "frontend/angular.json": {
     "mtime": 1787858899.2640283,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "4e6f6a2915058c3e353b7b813b81c974",
     "semantic_hash": "4e6f6a2915058c3e353b7b813b81c974"
   },
   "frontend/package.json": {
     "mtime": 1787858880.700909,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "e2acbb5c72cdda9e2a81e9d3e1b01600",
     "semantic_hash": "e2acbb5c72cdda9e2a81e9d3e1b01600"
   },
@@ -43,31 +43,31 @@
   },
   "frontend/src/app/app.config.ts": {
     "mtime": 1787858906.9407606,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "01d9baf5511eea7e7c80f92054c5272a",
     "semantic_hash": "01d9baf5511eea7e7c80f92054c5272a"
   },
   "frontend/src/app/app.routes.ts": {
     "mtime": 1787858816.2182517,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "41e4bac7a1d7cd48f4d03907407942d3",
     "semantic_hash": "41e4bac7a1d7cd48f4d03907407942d3"
   },
   "frontend/src/app/app.spec.ts": {
     "mtime": 1787858924.6130912,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "75795bb4ca4efaa431827bbffafba007",
     "semantic_hash": "75795bb4ca4efaa431827bbffafba007"
   },
   "frontend/src/app/app.ts": {
     "mtime": 1787858914.7601614,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "7b20d43aad73787f752ed33146ff9889",
     "semantic_hash": "7b20d43aad73787f752ed33146ff9889"
   },
   "frontend/src/main.ts": {
     "mtime": 1787858816.2141047,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "1289536d6d8f94242a4ffc598d094633",
     "semantic_hash": "1289536d6d8f94242a4ffc598d094633"
   },
@@ -91,140 +91,206 @@
   },
   "USER_REQUIREMENT.txt": {
     "mtime": 1787853873.781711,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "01f3bee0e18cb46d6bde240cce2702df",
     "semantic_hash": "01f3bee0e18cb46d6bde240cce2702df"
   },
   "backend/src/main/resources/application.yml": {
     "mtime": 1787859369.2269537,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "a020c85fc5475742a0df27fff10d68e3",
     "semantic_hash": "a020c85fc5475742a0df27fff10d68e3"
   },
   "frontend/README.md": {
     "mtime": 1787858816.205548,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "4d50ba8f913a208b379748a70b0b71c5",
     "semantic_hash": "4d50ba8f913a208b379748a70b0b71c5"
   },
   "frontend/src/app/app.html": {
     "mtime": 1787858919.057671,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "e18c64c9b59b637b0c27612f404c4b28",
     "semantic_hash": "e18c64c9b59b637b0c27612f404c4b28"
   },
   "frontend/src/index.html": {
     "mtime": 1787858892.7734127,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "c712369f5a2a2211dd3d67aa0e8a0206",
     "semantic_hash": "c712369f5a2a2211dd3d67aa0e8a0206"
   },
   "backend/src/main/java/com/comparator/config/AppProperties.java": {
     "mtime": 1787859920.835474,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "ac2aa03c09dd11b24abb7f7c5121a773",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/config/WebConfig.java": {
     "mtime": 1787859926.2178638,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "f60a1ce9207c74097fab1ae935fd4301",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/controller/ComparisonController.java": {
-    "mtime": 1787859928.7832448,
-    "seen": 1787859965.0186865,
-    "ast_hash": "55eb74f78ed27f46788fe4da9c010b60",
+    "mtime": 1787860451.0305002,
+    "seen": 1787860482.5122712,
+    "ast_hash": "4b4619dff6cb225b9ef853840dedc0a1",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/dto/ColumnHeader.java": {
     "mtime": 1787859909.567523,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "bc0533efe8a0f9eb94898a29ec5be48c",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/dto/ComparisonRequest.java": {
     "mtime": 1787859916.1365905,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "fb393d00e0077cf437289a204b89ad04",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/dto/ComparisonSummary.java": {
     "mtime": 1787859918.8970585,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "1e3099b9db3be1306b5b1e67cb81bcd1",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/dto/DatabaseConnectionConfig.java": {
     "mtime": 1787859908.0486135,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "7639c44fd9f5563972f540235db617e6",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/dto/MismatchDetail.java": {
     "mtime": 1787859911.1627183,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "a0abcfe680a03fc72f8add9dfc1877de",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/dto/MissingDetail.java": {
     "mtime": 1787859912.7287452,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "f542ad4882ce25fd1c80980e3b3db8e3",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/dto/PagedResult.java": {
     "mtime": 1787859914.350731,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "213e6c183de5146841bab22d8f3da650",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/dto/ToleranceConfig.java": {
     "mtime": 1787859906.1390958,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "bc461a79b0151203f9a78f88f4abde98",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/entity/ComparisonRecord.java": {
     "mtime": 1787859904.3756137,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "6d69c08671287909d4c4d9d473a59609",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/enums/ComparisonStatus.java": {
-    "mtime": 1787859898.8537316,
-    "seen": 1787859965.0186865,
-    "ast_hash": "55dbe4f7b25efd478b176d26908edbab",
+    "mtime": 1787860206.0626884,
+    "seen": 1787860482.5122712,
+    "ast_hash": "b3cce20cd9302d35cae4f56afab5f95d",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/enums/DataSourceType.java": {
     "mtime": 1787859900.45266,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "1c1f507bb54b207135efcbc67d113f99",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/repository/ComparisonRepository.java": {
     "mtime": 1787859924.3905241,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "9893bda67c100d4dc649ceedb893f190",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/config/AppPropertiesTest.java": {
     "mtime": 1787859936.8579571,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "27d9ba7fa3aea78056077e23caa24288",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/controller/ComparisonControllerTest.java": {
     "mtime": 1787859932.2158175,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "7444a938cd005e3ca59ca3a9df6bbf8b",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/repository/ComparisonRepositoryTest.java": {
     "mtime": 1787859934.7221613,
-    "seen": 1787859965.0186865,
+    "seen": 1787860482.5122712,
     "ast_hash": "e6123d80836a38d6c3d8e139ad518697",
+    "semantic_hash": ""
+  },
+  "backend/src/main/java/com/comparator/model/dto/DatasetColumns.java": {
+    "mtime": 1787860212.7795522,
+    "seen": 1787860482.5122712,
+    "ast_hash": "43199ee7c504839a985406a9f52afcf4",
+    "semantic_hash": ""
+  },
+  "backend/src/main/java/com/comparator/model/dto/UploadConfigRequest.java": {
+    "mtime": 1787860446.357283,
+    "seen": 1787860482.5122712,
+    "ast_hash": "174270a27f29a5ef5f03603d0251280c",
+    "semantic_hash": ""
+  },
+  "backend/src/main/java/com/comparator/model/dto/UploadResponse.java": {
+    "mtime": 1787860215.1086426,
+    "seen": 1787860482.5122712,
+    "ast_hash": "2195e17882f96435c420fdccedfc21b3",
+    "semantic_hash": ""
+  },
+  "backend/src/main/java/com/comparator/service/DelimiterDetector.java": {
+    "mtime": 1787860443.165076,
+    "seen": 1787860482.5122712,
+    "ast_hash": "7efb24dc3bfee4673e4f0be8b1b6776c",
+    "semantic_hash": ""
+  },
+  "backend/src/main/java/com/comparator/service/DuckDbService.java": {
+    "mtime": 1787860254.5465374,
+    "seen": 1787860482.5122712,
+    "ast_hash": "3bfa2315b7daa3d1d3316e4223d31e29",
+    "semantic_hash": ""
+  },
+  "backend/src/main/java/com/comparator/service/FileParserService.java": {
+    "mtime": 1787860270.7275558,
+    "seen": 1787860482.5122712,
+    "ast_hash": "f3bed544f865fc3877498ca77ac2ea2a",
+    "semantic_hash": ""
+  },
+  "backend/src/test/java/com/comparator/controller/ComparisonUploadControllerTest.java": {
+    "mtime": 1787860292.1588075,
+    "seen": 1787860482.5122712,
+    "ast_hash": "49c0ab62ee5b191f70a5e24ed90b385f",
+    "semantic_hash": ""
+  },
+  "backend/src/test/java/com/comparator/service/DelimiterDetectorTest.java": {
+    "mtime": 1787860455.8204257,
+    "seen": 1787860482.5122712,
+    "ast_hash": "68d9abc785d67f9133192bead2e917fe",
+    "semantic_hash": ""
+  },
+  "backend/src/test/java/com/comparator/service/DuckDbServiceTest.java": {
+    "mtime": 1787860250.9048667,
+    "seen": 1787860482.5122712,
+    "ast_hash": "fa5c98ac415c8dcf4640b2fb5b9c263e",
+    "semantic_hash": ""
+  },
+  "backend/src/test/java/com/comparator/service/FileParserServiceTest.java": {
+    "mtime": 1787860267.8196886,
+    "seen": 1787860482.5122712,
+    "ast_hash": "fa2b92de561692781e4567c49db2e4f2",
+    "semantic_hash": ""
+  },
+  "backend/src/test/resources/application.yml": {
+    "mtime": 1787860352.986724,
+    "seen": 1787860482.5122712,
+    "ast_hash": "136c6dd336528d1eb13df7696ae78bdf",
     "semantic_hash": ""
   }
 }

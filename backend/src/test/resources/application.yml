@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+
+app:
+  storage:
+    path: ./data
+  upload:
+    max-file-size: 500MB
+  cleanup:
+    ttl-hours: 1
+  comparison:
+    timeout-minutes: 30
