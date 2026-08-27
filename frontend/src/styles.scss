@@ -1,12 +1,32 @@
 @use '@angular/material' as mat;
 
-html, body {
+@include mat.core();
+
+$theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+    tertiary: mat.$blue-palette,
+  ),
+  typography: (
+    plain-family: Roboto,
+    brand-family: Roboto,
+  ),
+  density: (
+    scale: 0,
+  ),
+));
+
+html {
+  @include mat.all-component-themes($theme);
   height: 100%;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 body {
+  height: 100%;
+  margin: 0;
   background-color: #f8fafc;
   color: #1e293b;
 }
@@ -14,3 +34,22 @@ body {
 * {
   box-sizing: border-box;
 }
+
+/* Ensure select panel overlay dropdown has solid background */
+.mat-mdc-select-panel {
+  background-color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08) !important;
+}
+
+.mat-mdc-option {
+  background-color: #ffffff;
+
+  &:hover:not(.mdc-list-item--disabled) {
+    background-color: #f1f5f9;
+  }
+
+  &.mdc-list-item--selected:not(.mdc-list-item--disabled) {
+    background-color: #e0f2fe;
+  }
+}
+

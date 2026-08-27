@@ -163,10 +163,22 @@ export interface DelimiterOption {
 
     .delimiter-select {
       flex: 1;
+      background-color: #ffffff;
+      border-radius: 4px;
+
+      ::ng-deep .mat-mdc-text-field-wrapper {
+        background-color: #ffffff;
+      }
     }
 
     .custom-delimiter-input {
       width: 120px;
+      background-color: #ffffff;
+      border-radius: 4px;
+
+      ::ng-deep .mat-mdc-text-field-wrapper {
+        background-color: #ffffff;
+      }
     }
   `]
 })

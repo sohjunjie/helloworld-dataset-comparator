@@ -1,11 +1,22 @@
 package com.comparator.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public record UploadConfigRequest(
         String ds1Delimiter,
-        String ds2Delimiter
+        String ds2Delimiter,
+        String ds1Sql,
+        DatabaseConnectionConfig ds1Connection,
+        String ds2Sql,
+        DatabaseConnectionConfig ds2Connection
 ) {
     public UploadConfigRequest() {
-        this("auto", "auto");
+        this("auto", "auto", null, null, null, null);
+    }
+
+    public UploadConfigRequest(String ds1Delimiter, String ds2Delimiter) {
+        this(ds1Delimiter, ds2Delimiter, null, null, null, null);
     }
 
     public String getDs1DelimiterOrDefault() {

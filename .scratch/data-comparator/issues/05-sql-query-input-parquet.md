@@ -4,13 +4,13 @@
 
 **Blocked by:** 03 — CSV File Upload, Delimiter Detection & Parquet Conversion
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] `POST /api/v1/comparisons/upload` also accepts a JSON body with `ds1Sql` / `ds2Sql` query strings and `DatabaseConnectionConfig` (host, port, database, username, password) — file and SQL modes can be mixed (e.g., DS1 from file, DS2 from SQL)
-- [ ] `SqlDataSourceService` validates that the SQL is a SELECT statement; rejects INSERT, UPDATE, DELETE, DROP, CREATE, ALTER, etc. with a 400 error
-- [ ] Connects to user-provided PostgreSQL via JDBC, executes the query with streaming ResultSet
-- [ ] Streams rows into DuckDB and exports to Parquet at the same storage path
-- [ ] Column headers extracted from the ResultSet metadata
-- [ ] Error handling: connection refused, authentication failed, SQL syntax error, query timeout — all return appropriate HTTP error responses with descriptive messages
-- [ ] `ComparisonRecord.ds1Type` / `ds2Type` set to `SQL_QUERY` and source names recorded
-- [ ] `@SpringBootTest` + `MockMvc` tests: valid SELECT, rejected DML, connection error scenario (mocked or embedded PG)
+- [x] `POST /api/v1/comparisons/upload` also accepts a JSON body with `ds1Sql` / `ds2Sql` query strings and `DatabaseConnectionConfig` (host, port, database, username, password) — file and SQL modes can be mixed (e.g., DS1 from file, DS2 from SQL)
+- [x] `SqlDataSourceService` validates that the SQL is a SELECT statement; rejects INSERT, UPDATE, DELETE, DROP, CREATE, ALTER, etc. with a 400 error
+- [x] Connects to user-provided PostgreSQL via JDBC, executes the query with streaming ResultSet
+- [x] Streams rows into DuckDB and exports to Parquet at the same storage path
+- [x] Column headers extracted from the ResultSet metadata
+- [x] Error handling: connection refused, authentication failed, SQL syntax error, query timeout — all return appropriate HTTP error responses with descriptive messages
+- [x] `ComparisonRecord.ds1Type` / `ds2Type` set to `SQL_QUERY` and source names recorded
+- [x] `@SpringBootTest` + `MockMvc` tests: valid SELECT, rejected DML, connection error scenario (mocked or embedded PG)

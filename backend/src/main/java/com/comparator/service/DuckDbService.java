@@ -71,6 +71,36 @@ public class DuckDbService {
     }
 
     /**
+     * Write ResultSet rows into a Parquet file and return column headers.
+     */
+    public List<String> resultSetToParquet(ResultSet rs, Path parquetPath) {
+        try {
+            ResultSetMetaData meta = rs.getMetaData();
+            int columnCount = meta.getColumnCount();
+            List<String> headers = new ArrayList<>();
+            for (int i = 1; i <= columnCount; i++) {
+                String label = meta.getColumnLabel(i);
+                headers.add((label != null && !label.isBlank()) ? label : meta.getColumnName(i));
+            }
+
+            try (ParquetRowWriter writer = createParquetRowWriter(parquetPath, headers)) {
+                while (rs.next()) {
+                    List<String> row = new ArrayList<>(columnCount);
+                    for (int i = 1; i <= columnCount; i++) {
+                        row.add(rs.getString(i));
+                    }
+                    writer.writeRow(row);
+                }
+                writer.finish();
+            }
+
+            return headers;
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to stream ResultSet to Parquet: " + e.getMessage(), e);
+        }
+    }
+
+    /**
      * Interface for streaming rows into a DuckDB Parquet file.
      */
     public interface ParquetRowWriter extends AutoCloseable {
