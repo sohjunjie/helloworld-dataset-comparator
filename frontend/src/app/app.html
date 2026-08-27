@@ -1,0 +1,16 @@
+<mat-toolbar color="primary" class="app-toolbar">
+  <span class="app-title" routerLink="/">{{ title() }}</span>
+  <span class="spacer"></span>
+  <a mat-button routerLink="/compare">
+    <mat-icon>compare_arrows</mat-icon>
+    New Comparison
+  </a>
+  <a mat-button routerLink="/history">
+    <mat-icon>history</mat-icon>
+    History
+  </a>
+</mat-toolbar>
+
+<main class="main-container">
+  <router-outlet></router-outlet>
+</main>
