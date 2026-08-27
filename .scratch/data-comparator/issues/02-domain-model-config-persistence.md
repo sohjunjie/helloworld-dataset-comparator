@@ -4,16 +4,16 @@
 
 **Blocked by:** 01 — Project Scaffolding + Smoke Test
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] `ComparisonRecord` JPA entity maps to H2 `comparisons` table with all fields (id, status, timestamps, ds1/ds2 metadata, configJson, summary counts, errorMessage)
-- [ ] `ComparisonStatus` enum: PENDING, UPLOADING, CONVERTING, COMPARING, COMPLETED, FAILED
-- [ ] `DataSourceType` enum: FILE_UPLOAD, SQL_QUERY
-- [ ] All DTOs defined with proper types and validation annotations where applicable
-- [ ] `AppProperties` record binds `app.storage.path`, `app.upload.max-file-size`, `app.cleanup.ttl-hours`, `app.comparison.timeout-minutes`
-- [ ] `ComparisonRepository` extends `JpaRepository` with a `findByCreatedAtBefore` query method
-- [ ] `WebConfig` sets CORS to allow `localhost:4200` in dev
-- [ ] Stub `POST /api/v1/comparisons` creates a record and returns it with status PENDING
-- [ ] `GET /api/v1/comparisons` returns all records ordered by `createdAt` descending
-- [ ] `GET /api/v1/comparisons/{id}` returns a single record or 404
-- [ ] `@SpringBootTest` + `MockMvc` test verifies create → list → get-by-id round-trip
+- [x] `ComparisonRecord` JPA entity maps to H2 `comparisons` table with all fields (id, status, timestamps, ds1/ds2 metadata, configJson, summary counts, errorMessage)
+- [x] `ComparisonStatus` enum: PENDING, UPLOADING, CONVERTING, COMPARING, COMPLETED, FAILED
+- [x] `DataSourceType` enum: FILE_UPLOAD, SQL_QUERY
+- [x] All DTOs defined with proper types and validation annotations where applicable
+- [x] `AppProperties` record binds `app.storage.path`, `app.upload.max-file-size`, `app.cleanup.ttl-hours`, `app.comparison.timeout-minutes`
+- [x] `ComparisonRepository` extends `JpaRepository` with a `findByCreatedAtBefore` query method
+- [x] `WebConfig` sets CORS to allow `localhost:4200` in dev
+- [x] Stub `POST /api/v1/comparisons` creates a record and returns it with status PENDING
+- [x] `GET /api/v1/comparisons` returns all records ordered by `createdAt` descending
+- [x] `GET /api/v1/comparisons/{id}` returns a single record or 404
+- [x] `@SpringBootTest` + `MockMvc` test verifies create → list → get-by-id round-trip
