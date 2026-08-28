@@ -17,12 +17,15 @@ import com.comparator.model.enums.DataSourceType;
 import com.comparator.repository.ComparisonRepository;
 import com.comparator.service.ComparisonService;
 import com.comparator.service.DuckDbService;
+import com.comparator.service.ExcelReportService;
 import com.comparator.service.FileParserService;
 import com.comparator.service.ProgressService;
 import com.comparator.service.SqlDataSourceService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -61,6 +64,7 @@ public class ComparisonController {
     private final ComparisonService comparisonService;
     private final ProgressService progressService;
     private final DuckDbService duckDbService;
+    private final ExcelReportService excelReportService;
     private final AppProperties appProperties;
 
     public ComparisonController(ComparisonRepository comparisonRepository,
@@ -69,6 +73,7 @@ public class ComparisonController {
                                 ComparisonService comparisonService,
                                 ProgressService progressService,
                                 DuckDbService duckDbService,
+                                ExcelReportService excelReportService,
                                 AppProperties appProperties) {
         this.comparisonRepository = comparisonRepository;
         this.fileParserService = fileParserService;
@@ -76,6 +81,7 @@ public class ComparisonController {
         this.comparisonService = comparisonService;
         this.progressService = progressService;
         this.duckDbService = duckDbService;
+        this.excelReportService = excelReportService;
         this.appProperties = appProperties;
     }
 
@@ -248,6 +254,18 @@ public class ComparisonController {
             @RequestParam(defaultValue = "50") int size
     ) {
         return ResponseEntity.ok(comparisonService.getMatches(id, page, size));
+    }
+
+    @GetMapping("/{id}/report")
+    public void downloadReport(@PathVariable String id, HttpServletResponse response) throws IOException {
+        ComparisonRecord record = comparisonRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Comparison not found with id: " + id));
+        if (record.getStatus() != ComparisonStatus.COMPLETED) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Comparison is not completed. Current status: " + record.getStatus());
+        }
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"comparison-" + id + ".xlsx\"");
+        excelReportService.generateReport(record, response.getOutputStream());
     }
 
     @DeleteMapping("/{id}")
