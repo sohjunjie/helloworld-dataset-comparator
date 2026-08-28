@@ -130,6 +130,50 @@ class ComparisonServiceTest {
     }
 
     @Test
+    @DisplayName("Should update status to FAILED and emit SSE event when comparison times out")
+    void shouldSetStatusFailedOnTimeout() throws Exception {
+        AppProperties timeoutProperties = new AppProperties(
+                new AppProperties.StorageProperties(tempDir.toString()),
+                new AppProperties.UploadProperties("500MB"),
+                new AppProperties.CleanupProperties(1),
+                new AppProperties.ComparisonProperties(0) // 0 triggers 50ms test timeout
+        );
+        ComparisonService timeoutService = new ComparisonService(
+                comparisonRepository, comparisonEngine, duckDbService, progressService, timeoutProperties, objectMapper
+        );
+
+        String comparisonId = "timeout-id-123";
+        Path compDir = tempDir.resolve(comparisonId);
+        Files.createDirectories(compDir);
+        Files.createFile(compDir.resolve("ds1.parquet"));
+        Files.createFile(compDir.resolve("ds2.parquet"));
+
+        ComparisonRecord record = new ComparisonRecord();
+        record.setId(comparisonId);
+        record.setStatus(ComparisonStatus.UPLOADED);
+
+        when(comparisonRepository.findById(comparisonId)).thenReturn(Optional.of(record));
+        when(comparisonRepository.save(any(ComparisonRecord.class))).thenAnswer(inv -> inv.getArgument(0));
+        when(comparisonEngine.compare(any(), any(), any(), eq(List.of("id")), any(), any()))
+                .thenAnswer(inv -> {
+                    Thread.sleep(300);
+                    return new ComparisonResult(1, 1, 1, 1, 0, 0, 0, 0);
+                });
+
+        ComparisonExecuteRequest request = new ComparisonExecuteRequest(List.of("id"));
+        CompletableFuture<ComparisonRecord> future = timeoutService.executeComparisonAsync(comparisonId, request);
+        ComparisonRecord failed = future.get();
+
+        assertThat(failed.getStatus()).isEqualTo(ComparisonStatus.FAILED);
+        assertThat(failed.getErrorMessage()).isEqualTo("Comparison timed out");
+        assertThat(failed.getCompletedAt()).isNotNull();
+
+        verify(progressService).emit(comparisonId, "COMPARING", 25);
+        verify(progressService).emit(comparisonId, "COMPARING", 50);
+        verify(progressService).emit(comparisonId, "FAILED", 100, "Comparison timed out");
+    }
+
+    @Test
     @DisplayName("Should throw 404 when comparison not found")
     void shouldThrow404WhenNotFound() {
         when(comparisonRepository.findById("missing-id")).thenReturn(Optional.empty());

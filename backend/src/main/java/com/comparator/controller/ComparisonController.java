@@ -21,10 +21,12 @@ import com.comparator.service.ExcelReportService;
 import com.comparator.service.FileParserService;
 import com.comparator.service.ProgressService;
 import com.comparator.service.SqlDataSourceService;
+import jakarta.servlet.MultipartConfigElement;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -40,6 +42,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -66,7 +69,9 @@ public class ComparisonController {
     private final DuckDbService duckDbService;
     private final ExcelReportService excelReportService;
     private final AppProperties appProperties;
+    private final MultipartConfigElement multipartConfig;
 
+    @Autowired
     public ComparisonController(ComparisonRepository comparisonRepository,
                                 FileParserService fileParserService,
                                 SqlDataSourceService sqlDataSourceService,
@@ -74,7 +79,8 @@ public class ComparisonController {
                                 ProgressService progressService,
                                 DuckDbService duckDbService,
                                 ExcelReportService excelReportService,
-                                AppProperties appProperties) {
+                                AppProperties appProperties,
+                                @Autowired(required = false) MultipartConfigElement multipartConfig) {
         this.comparisonRepository = comparisonRepository;
         this.fileParserService = fileParserService;
         this.sqlDataSourceService = sqlDataSourceService;
@@ -83,6 +89,7 @@ public class ComparisonController {
         this.duckDbService = duckDbService;
         this.excelReportService = excelReportService;
         this.appProperties = appProperties;
+        this.multipartConfig = multipartConfig;
     }
 
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -334,6 +341,13 @@ public class ComparisonController {
         if (file == null || file.isEmpty()) {
             return;
         }
+
+        if (multipartConfig != null && multipartConfig.getMaxFileSize() > 0) {
+            if (file.getSize() > multipartConfig.getMaxFileSize()) {
+                throw new MaxUploadSizeExceededException(multipartConfig.getMaxFileSize());
+            }
+        }
+
         long maxBytes;
         try {
             maxBytes = DataSize.parse(appProperties.upload().maxFileSize()).toBytes();

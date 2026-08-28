@@ -26,6 +26,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 @Service
 public class ComparisonService {
@@ -90,15 +93,35 @@ public class ComparisonService {
 
         return CompletableFuture.supplyAsync(() -> {
             try {
-                progressService.emit(comparisonId, "COMPARING", 50);
-                ComparisonResult result = comparisonEngine.compare(
-                        ds1Parquet,
-                        ds2Parquet,
-                        storageDir,
-                        request.keyColumns(),
-                        request.tolerances(),
-                        request.caseSensitive()
-                );
+                int configuredMinutes = (appProperties.comparison() != null)
+                        ? appProperties.comparison().timeoutMinutes()
+                        : 30;
+                long timeoutMs = configuredMinutes > 0 ? (long) configuredMinutes * 60L * 1000L : 50L;
+
+                CompletableFuture<ComparisonResult> computation = CompletableFuture.supplyAsync(() -> {
+                    progressService.emit(comparisonId, "COMPARING", 50);
+                    return comparisonEngine.compare(
+                            ds1Parquet,
+                            ds2Parquet,
+                            storageDir,
+                            request.keyColumns(),
+                            request.tolerances(),
+                            request.caseSensitive()
+                    );
+                }).orTimeout(timeoutMs, TimeUnit.MILLISECONDS);
+
+                ComparisonResult result;
+                try {
+                    result = computation.join();
+                } catch (java.util.concurrent.CompletionException ce) {
+                    if (ce.getCause() instanceof TimeoutException te) {
+                        throw te;
+                    }
+                    if (ce.getCause() instanceof Exception ex) {
+                        throw ex;
+                    }
+                    throw ce;
+                }
 
                 savedRecord.setDs1RecordCount(result.ds1RecordCount());
                 savedRecord.setDs2RecordCount(result.ds2RecordCount());
@@ -114,6 +137,14 @@ public class ComparisonService {
                 ComparisonRecord finishedRecord = comparisonRepository.save(savedRecord);
                 progressService.emit(comparisonId, "COMPLETED", 100);
                 return finishedRecord;
+            } catch (TimeoutException e) {
+                log.warn("Comparison execution timed out for id {}: {}", comparisonId, e.getMessage());
+                savedRecord.setStatus(ComparisonStatus.FAILED);
+                savedRecord.setCompletedAt(LocalDateTime.now());
+                savedRecord.setErrorMessage("Comparison timed out");
+                ComparisonRecord failedRecord = comparisonRepository.save(savedRecord);
+                progressService.emit(comparisonId, "FAILED", 100, "Comparison timed out");
+                return failedRecord;
             } catch (Exception e) {
                 log.error("Comparison execution failed for id {}: {}", comparisonId, e.getMessage(), e);
                 savedRecord.setStatus(ComparisonStatus.FAILED);
