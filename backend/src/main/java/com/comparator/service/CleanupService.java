@@ -18,6 +18,8 @@ import java.util.List;
 public class CleanupService {
 
     private static final Logger log = LoggerFactory.getLogger(CleanupService.class);
+    public static final long CLEANUP_RATE_MS = 900_000L;
+    public static final int DEFAULT_TTL_HOURS = 1;
 
     private final ComparisonRepository comparisonRepository;
     private final AppProperties appProperties;
@@ -27,9 +29,9 @@ public class CleanupService {
         this.appProperties = appProperties;
     }
 
-    @Scheduled(fixedRate = 900000)
+    @Scheduled(fixedRate = CLEANUP_RATE_MS)
     public void cleanup() {
-        int ttlHours = appProperties.cleanup() != null ? appProperties.cleanup().ttlHours() : 1;
+        int ttlHours = appProperties.cleanup() != null ? appProperties.cleanup().ttlHours() : DEFAULT_TTL_HOURS;
         LocalDateTime cutoff = LocalDateTime.now().minusHours(ttlHours);
         log.info("Starting TTL cleanup for comparisons created before {}", cutoff);
 

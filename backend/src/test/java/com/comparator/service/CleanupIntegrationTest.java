@@ -89,4 +89,42 @@ class CleanupIntegrationTest {
         comparisonRepository.deleteById(activeId);
         org.springframework.util.FileSystemUtils.deleteRecursively(activeStorageDir);
     }
+
+    @org.junit.jupiter.api.Nested
+    @SpringBootTest
+    @TestPropertySource(properties = {
+            "app.cleanup.ttl-hours=0"
+    })
+    class ShortTtlOverrideTest {
+
+        @Autowired
+        private CleanupService cleanupService;
+
+        @Autowired
+        private ComparisonRepository comparisonRepository;
+
+        @Autowired
+        private AppProperties appProperties;
+
+        @Test
+        @DisplayName("Should delete record and files when short TTL (0 hours) is configured")
+        void shouldDeleteRecordWithShortTtlOverride() throws IOException, InterruptedException {
+            String id = UUID.randomUUID().toString();
+            Path storageDir = Path.of(appProperties.storage().path(), id);
+            Files.createDirectories(storageDir);
+            Path ds1Parquet = storageDir.resolve("ds1.parquet");
+            Files.writeString(ds1Parquet, "ds1 data");
+
+            ComparisonRecord record = new ComparisonRecord();
+            record.setId(id);
+            record.setStatus(ComparisonStatus.COMPLETED);
+            record.setCreatedAt(LocalDateTime.now().minusSeconds(2));
+            comparisonRepository.save(record);
+
+            cleanupService.cleanup();
+
+            assertThat(comparisonRepository.findById(id)).isEmpty();
+            assertThat(Files.exists(storageDir)).isFalse();
+        }
+    }
 }

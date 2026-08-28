@@ -64,6 +64,9 @@ public class ComparisonService {
         progressService.emit(comparisonId, stage, percent, message);
     }
 
+    private static final long DEFAULT_TIMEOUT_MINUTES = 30L;
+    private static final long TEST_SHORT_TIMEOUT_MS = 50L;
+
     public CompletableFuture<ComparisonRecord> executeComparisonAsync(String comparisonId, ComparisonExecuteRequest request) {
         ComparisonRecord record = comparisonRepository.findById(comparisonId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Comparison not found with id: " + comparisonId));
@@ -93,10 +96,7 @@ public class ComparisonService {
 
         return CompletableFuture.supplyAsync(() -> {
             try {
-                int configuredMinutes = (appProperties.comparison() != null)
-                        ? appProperties.comparison().timeoutMinutes()
-                        : 30;
-                long timeoutMs = configuredMinutes > 0 ? (long) configuredMinutes * 60L * 1000L : 50L;
+                long timeoutMs = resolveTimeoutMs();
 
                 CompletableFuture<ComparisonResult> computation = CompletableFuture.supplyAsync(() -> {
                     progressService.emit(comparisonId, "COMPARING", 50);
@@ -139,22 +139,33 @@ public class ComparisonService {
                 return finishedRecord;
             } catch (TimeoutException e) {
                 log.warn("Comparison execution timed out for id {}: {}", comparisonId, e.getMessage());
-                savedRecord.setStatus(ComparisonStatus.FAILED);
-                savedRecord.setCompletedAt(LocalDateTime.now());
-                savedRecord.setErrorMessage("Comparison timed out");
-                ComparisonRecord failedRecord = comparisonRepository.save(savedRecord);
-                progressService.emit(comparisonId, "FAILED", 100, "Comparison timed out");
-                return failedRecord;
+                return handleFailure(savedRecord, comparisonId, "Comparison timed out");
             } catch (Exception e) {
                 log.error("Comparison execution failed for id {}: {}", comparisonId, e.getMessage(), e);
-                savedRecord.setStatus(ComparisonStatus.FAILED);
-                savedRecord.setCompletedAt(LocalDateTime.now());
-                savedRecord.setErrorMessage(e.getMessage());
-                ComparisonRecord failedRecord = comparisonRepository.save(savedRecord);
-                progressService.emit(comparisonId, "FAILED", 100, e.getMessage());
-                return failedRecord;
+                return handleFailure(savedRecord, comparisonId, e.getMessage());
             }
         });
+    }
+
+    private ComparisonRecord handleFailure(ComparisonRecord record, String comparisonId, String errorMessage) {
+        record.setStatus(ComparisonStatus.FAILED);
+        record.setCompletedAt(LocalDateTime.now());
+        record.setErrorMessage(errorMessage);
+        ComparisonRecord failedRecord = comparisonRepository.save(record);
+        progressService.emit(comparisonId, "FAILED", 100, errorMessage);
+        return failedRecord;
+    }
+
+    long resolveTimeoutMs() {
+        if (appProperties.comparison() != null) {
+            int minutes = appProperties.comparison().timeoutMinutes();
+            if (minutes > 0) {
+                return (long) minutes * 60L * 1000L;
+            } else if (minutes == 0) {
+                return TEST_SHORT_TIMEOUT_MS;
+            }
+        }
+        return DEFAULT_TIMEOUT_MINUTES * 60L * 1000L;
     }
 
     public PagedResult<MismatchDetail> getMismatches(String comparisonId, int page, int size, String direction) {
