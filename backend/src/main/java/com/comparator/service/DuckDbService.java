@@ -2,6 +2,7 @@ package com.comparator.service;
 
 import org.springframework.stereotype.Service;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +11,9 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class DuckDbService {
@@ -22,6 +25,76 @@ public class DuckDbService {
      */
     public Connection createConnection() throws SQLException {
         return DriverManager.getConnection(DUCKDB_IN_MEMORY_URL);
+    }
+
+    /**
+     * Compute total row count for a Parquet file.
+     */
+    public long countParquet(Path parquetPath) {
+        if (parquetPath == null || !Files.exists(parquetPath)) {
+            return 0L;
+        }
+        String normalized = normalizePath(parquetPath);
+        String sql = String.format("SELECT COUNT(*) FROM read_parquet('%s')", normalized);
+        try (Connection conn = createConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            if (rs.next()) {
+                return rs.getLong(1);
+            }
+            return 0L;
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to count Parquet rows: " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Query a Parquet file with pagination LIMIT and OFFSET and optional ORDER BY.
+     */
+    public List<Map<String, Object>> queryParquet(Path parquetPath, String orderBy, int offset, int limit) {
+        if (parquetPath == null || !Files.exists(parquetPath)) {
+            return List.of();
+        }
+        String normalized = normalizePath(parquetPath);
+        String orderClause = (orderBy != null && !orderBy.isBlank()) ? " ORDER BY " + orderBy : "";
+        String sql = String.format("SELECT * FROM read_parquet('%s')%s LIMIT %d OFFSET %d",
+                normalized, orderClause, Math.max(0, limit), Math.max(0, offset));
+        return executeQueryToMaps(sql);
+    }
+
+    /**
+     * Query a Parquet file with pagination LIMIT and OFFSET.
+     */
+    public List<Map<String, Object>> queryParquet(Path parquetPath, int offset, int limit) {
+        return queryParquet(parquetPath, null, offset, limit);
+    }
+
+    /**
+     * Executes a SQL query against an in-memory DuckDB connection and maps each row to a LinkedHashMap.
+     */
+    public List<Map<String, Object>> executeQueryToMaps(String sql) {
+        List<Map<String, Object>> results = new ArrayList<>();
+        try (Connection conn = createConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            ResultSetMetaData meta = rs.getMetaData();
+            int columnCount = meta.getColumnCount();
+            while (rs.next()) {
+                Map<String, Object> row = new LinkedHashMap<>();
+                for (int i = 1; i <= columnCount; i++) {
+                    String colName = meta.getColumnLabel(i);
+                    if (colName == null || colName.isBlank()) {
+                        colName = meta.getColumnName(i);
+                    }
+                    Object val = rs.getObject(i);
+                    row.put(colName, val);
+                }
+                results.add(row);
+            }
+            return results;
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to execute DuckDB query: " + e.getMessage(), e);
+        }
     }
 
     /**

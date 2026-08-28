@@ -7,10 +7,12 @@ public record PagedResult<T>(
         int page,
         int size,
         long totalElements,
-        int totalPages
+        int totalPages,
+        boolean last
 ) {
     public static <T> PagedResult<T> of(List<T> content, int page, int size, long totalElements) {
         int totalPages = size > 0 ? (int) Math.ceil((double) totalElements / size) : 0;
-        return new PagedResult<>(content, page, size, totalElements, totalPages);
+        boolean last = (page >= totalPages - 1) || totalPages == 0;
+        return new PagedResult<>(content, page, size, totalElements, totalPages, last);
     }
 }
