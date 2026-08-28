@@ -1,0 +1,40 @@
+<mat-card class="chart-card">
+  <mat-card-header class="chart-header">
+    <div>
+      <mat-card-title>Comparison Distribution</mat-card-title>
+      <mat-card-subtitle>Visual breakdown of matching, mismatched, and missing rows</mat-card-subtitle>
+    </div>
+    <div class="chart-controls">
+      <mat-button-toggle-group
+        [value]="chartType()"
+        (change)="setChartType($event.value)"
+        aria-label="Chart Type"
+        hideSingleSelectionIndicator>
+        <mat-button-toggle value="bar" aria-label="Bar Chart">
+          <mat-icon>bar_chart</mat-icon> Bar
+        </mat-button-toggle>
+        <mat-button-toggle value="doughnut" aria-label="Doughnut Chart">
+          <mat-icon>donut_large</mat-icon> Donut
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </mat-card-header>
+
+  <mat-card-content class="chart-container">
+    @if (chartType() === 'bar') {
+      <canvas
+        baseChart
+        [data]="barChartData()"
+        [options]="chartOptions"
+        [type]="'bar'">
+      </canvas>
+    } @else {
+      <canvas
+        baseChart
+        [data]="doughnutChartData()"
+        [options]="doughnutOptions"
+        [type]="'doughnut'">
+      </canvas>
+    }
+  </mat-card-content>
+</mat-card>

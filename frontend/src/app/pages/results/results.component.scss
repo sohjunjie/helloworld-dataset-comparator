@@ -1,0 +1,142 @@
+.results-page-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.results-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 12px 16px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  color: #1976d2;
+}
+
+.comparison-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.comparison-id-badge {
+  background: #f1f5f9;
+  color: #475569;
+  font-family: monospace;
+  font-size: 0.85rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+}
+
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.error-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background-color: #fef2f2;
+  border: 1px solid #f87171;
+  border-radius: 8px;
+  color: #991b1b;
+  margin-bottom: 24px;
+
+  .error-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    color: #dc2626;
+  }
+
+  .error-title {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+
+  .error-text {
+    font-size: 0.9rem;
+    color: #7f1d1d;
+  }
+}
+
+.progress-card {
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 24px;
+  padding: 16px;
+}
+
+.progress-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  color: #334155;
+}
+
+.progress-stage {
+  font-size: 1.05rem;
+}
+
+.progress-percentage {
+  font-size: 1.05rem;
+  color: #1976d2;
+}
+
+.custom-progress-bar {
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-hint {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.results-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

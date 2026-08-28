@@ -1,0 +1,87 @@
+<div class="summary-cards-grid">
+  <!-- Card 1: DS1 Total Records -->
+  <mat-card class="metric-card ds1-card" data-testid="card-ds1-total">
+    <mat-card-header>
+      <mat-icon mat-card-avatar class="card-icon ds1-icon">dataset</mat-icon>
+      <mat-card-title>DS1 Total Records</mat-card-title>
+      <mat-card-subtitle>{{ summary().ds1FileName || 'Dataset 1' }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="metric-value">{{ ds1Total | number }}</div>
+      <div class="metric-label">total rows evaluated</div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Card 2: DS2 Total Records -->
+  <mat-card class="metric-card ds2-card" data-testid="card-ds2-total">
+    <mat-card-header>
+      <mat-icon mat-card-avatar class="card-icon ds2-icon">dataset</mat-icon>
+      <mat-card-title>DS2 Total Records</mat-card-title>
+      <mat-card-subtitle>{{ summary().ds2FileName || 'Dataset 2' }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="metric-value">{{ ds2Total | number }}</div>
+      <div class="metric-label">total rows evaluated</div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Card 3: Fully Matching -->
+  <mat-card class="metric-card match-card" data-testid="card-matching">
+    <mat-card-header>
+      <mat-icon mat-card-avatar class="card-icon match-icon">check_circle</mat-icon>
+      <mat-card-title>Fully Matching</mat-card-title>
+      <mat-card-subtitle>Exact match on all compared columns</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="metric-value text-success">{{ ds1Matching | number }}</div>
+      <div class="metric-sub-stats">
+        <span>DS1: {{ ds1Matching | number }}</span>
+        <span class="divider">|</span>
+        <span>DS2: {{ ds2Matching | number }}</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Card 4: Not Matching (Mismatches) -->
+  <mat-card class="metric-card mismatch-card" data-testid="card-not-matching">
+    <mat-card-header>
+      <mat-icon mat-card-avatar class="card-icon mismatch-icon">difference</mat-icon>
+      <mat-card-title>Not Matching</mat-card-title>
+      <mat-card-subtitle>Key matched, but column values differ</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="metric-value text-warning">{{ ds1NotMatching | number }}</div>
+      <div class="metric-sub-stats">
+        <span>DS1: {{ ds1NotMatching | number }}</span>
+        <span class="divider">|</span>
+        <span>DS2: {{ ds2NotMatching | number }}</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Card 5: Missing in DS2 -->
+  <mat-card class="metric-card missing-ds2-card" data-testid="card-missing-ds2">
+    <mat-card-header>
+      <mat-icon mat-card-avatar class="card-icon missing-icon">remove_circle_outline</mat-icon>
+      <mat-card-title>Missing from DS2</mat-card-title>
+      <mat-card-subtitle>Present in DS1, key absent in DS2</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="metric-value text-danger">{{ missingInDs2 | number }}</div>
+      <div class="metric-label">unmatched in DS1</div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Card 6: Missing from DS1 -->
+  <mat-card class="metric-card missing-ds1-card" data-testid="card-missing-ds1">
+    <mat-card-header>
+      <mat-icon mat-card-avatar class="card-icon missing-ds1-icon">add_circle_outline</mat-icon>
+      <mat-card-title>Missing from DS1</mat-card-title>
+      <mat-card-subtitle>Present in DS2, key absent in DS1</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="metric-value text-purple">{{ missingInDs1 | number }}</div>
+      <div class="metric-label">unmatched in DS2</div>
+    </mat-card-content>
+  </mat-card>
+</div>

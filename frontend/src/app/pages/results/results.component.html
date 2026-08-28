@@ -1,0 +1,76 @@
+<div class="results-page-container">
+  <!-- Top Navigation & Action Toolbar -->
+  <header class="results-toolbar">
+    <div class="toolbar-left">
+      <a mat-button routerLink="/compare" data-testid="btn-back-to-compare" class="back-link">
+        <mat-icon>arrow_back</mat-icon>
+        <span>Back to Compare</span>
+      </a>
+      <div class="comparison-title-group">
+        <h1 class="page-title">Comparison Results</h1>
+        @if (comparisonId()) {
+          <span class="comparison-id-badge" title="{{ comparisonId() }}">
+            #{{ comparisonId().substring(0, 8) }}
+          </span>
+        }
+      </div>
+    </div>
+
+    <div class="toolbar-right">
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="downloadReport()"
+        [disabled]="isLoading() || !!errorMessage()"
+        data-testid="btn-download-report"
+        class="download-btn">
+        <mat-icon>download</mat-icon>
+        <span>Download Report</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Error Banner -->
+  @if (errorMessage()) {
+    <div class="error-banner" role="alert">
+      <mat-icon class="error-icon">error_outline</mat-icon>
+      <div class="error-content">
+        <div class="error-title">Comparison Failed</div>
+        <div class="error-text">{{ errorMessage() }}</div>
+      </div>
+    </div>
+  }
+
+  <!-- In-Progress Loading State with SSE updates -->
+  @if (isLoading() && !errorMessage()) {
+    <mat-card class="progress-card">
+      <mat-card-content class="progress-content">
+        <div class="progress-header">
+          <span class="progress-stage">{{ currentStage() }} ({{ progressPercent() }}%)</span>
+          <span class="progress-percentage">{{ progressPercent() }}%</span>
+        </div>
+        <mat-progress-bar
+          mode="determinate"
+          [value]="progressPercent()"
+          class="custom-progress-bar">
+        </mat-progress-bar>
+        <p class="progress-hint">Please wait while the comparison engine evaluates datasets...</p>
+      </mat-card-content>
+    </mat-card>
+  }
+
+  <!-- Completed Results Content -->
+  @if (!isLoading() && summary() && !errorMessage()) {
+    <main class="results-content">
+      <!-- 6 Metric Cards Section -->
+      <section class="summary-cards-section" aria-label="Summary Metrics">
+        <app-summary-cards [summary]="summary()!"></app-summary-cards>
+      </section>
+
+      <!-- Distribution Chart Section -->
+      <section class="summary-chart-section" aria-label="Summary Charts">
+        <app-summary-chart [summary]="summary()!"></app-summary-chart>
+      </section>
+    </main>
+  }
+</div>

@@ -1,0 +1,111 @@
+.summary-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.metric-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  }
+
+  mat-card-header {
+    margin-bottom: 12px;
+  }
+
+  mat-card-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  mat-card-subtitle {
+    font-size: 0.8rem;
+    color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px;
+  }
+
+  mat-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.card-icon {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.ds1-card {
+  border-left: 4px solid #1976d2;
+  .ds1-icon { color: #1976d2; }
+}
+
+.ds2-card {
+  border-left: 4px solid #0288d1;
+  .ds2-icon { color: #0288d1; }
+}
+
+.match-card {
+  border-left: 4px solid #2e7d32;
+  .match-icon { color: #2e7d32; }
+}
+
+.mismatch-card {
+  border-left: 4px solid #ed6c02;
+  .mismatch-icon { color: #ed6c02; }
+}
+
+.missing-ds2-card {
+  border-left: 4px solid #d32f2f;
+  .missing-icon { color: #d32f2f; }
+}
+
+.missing-ds1-card {
+  border-left: 4px solid #7b1fa2;
+  .missing-ds1-icon { color: #7b1fa2; }
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.2;
+  font-feature-settings: 'tnum';
+
+  &.text-success { color: #2e7d32; }
+  &.text-warning { color: #d97706; }
+  &.text-danger { color: #dc2626; }
+  &.text-purple { color: #7b1fa2; }
+}
+
+.metric-label {
+  font-size: 0.82rem;
+  color: #757575;
+  margin-top: 4px;
+}
+
+.metric-sub-stats {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #616161;
+  margin-top: 4px;
+
+  .divider {
+    color: #bdbdbd;
+  }
+}
