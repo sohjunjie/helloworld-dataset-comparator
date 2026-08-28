@@ -4,14 +4,14 @@
 
 **Blocked by:** 13 — Frontend: Results Dashboard (Summary + Charts)
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] `/` and `/history` routes both render the history component (redirect or shared route)
-- [ ] `mat-table` with columns: ID (short UUID, clickable link to `/results/:id`), Created (formatted timestamp), Status (`mat-chip`: COMPLETED green, COMPARING blue, FAILED red, PENDING grey), DS1 Source (file name or "SQL Query"), DS2 Source, Records (DS1 count / DS2 count), Actions
-- [ ] Actions column: "View Results" icon button (navigates to `/results/:id`), "Delete" icon button (calls `DELETE /api/v1/comparisons/{id}`, removes row from table)
-- [ ] Data fetched from `GET /api/v1/comparisons` on init
-- [ ] Auto-refresh via `interval(30000)` observable re-fetching the list
-- [ ] "New Comparison" FAB or button navigates to `/compare`
-- [ ] Empty state message when no comparisons exist
-- [ ] App shell toolbar with "Data Comparator" title and navigation links (History, New Comparison)
-- [ ] Angular `TestBed` component test: mocks API, verifies table renders with correct columns, verifies navigation links, verifies delete action
+- [x] `/` and `/history` routes both render the history component (redirect or shared route)
+- [x] `mat-table` with columns: ID (short UUID, clickable link to `/results/:id`), Created (formatted timestamp), Status (`mat-chip`: COMPLETED green, COMPARING blue, FAILED red, PENDING grey), DS1 Source (file name or "SQL Query"), DS2 Source, Records (DS1 count / DS2 count), Actions
+- [x] Actions column: "View Results" icon button (navigates to `/results/:id`), "Delete" icon button (calls `DELETE /api/v1/comparisons/{id}`, removes row from table)
+- [x] Data fetched from `GET /api/v1/comparisons` on init
+- [x] Auto-refresh via `interval(30000)` observable re-fetching the list
+- [x] "New Comparison" FAB or button navigates to `/compare`
+- [x] Empty state message when no comparisons exist
+- [x] App shell toolbar with "Data Comparator" title and navigation links (History, New Comparison)
+- [x] Angular `TestBed` component test: mocks API, verifies table renders with correct columns, verifies navigation links, verifies delete action

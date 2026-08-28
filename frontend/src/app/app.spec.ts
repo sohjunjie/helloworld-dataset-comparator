@@ -22,4 +22,14 @@ describe('App', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.app-title')?.textContent).toContain('Data Comparator');
   });
+
+  it('should render toolbar navigation links for History and New Comparison', async () => {
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const links = compiled.querySelectorAll('mat-toolbar a[mat-button]');
+    const linkTexts = Array.from(links).map((l) => l.textContent?.trim());
+    expect(linkTexts.some((text) => text?.includes('New Comparison'))).toBe(true);
+    expect(linkTexts.some((text) => text?.includes('History'))).toBe(true);
+  });
 });

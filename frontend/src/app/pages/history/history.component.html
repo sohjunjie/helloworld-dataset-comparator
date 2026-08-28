@@ -1,0 +1,181 @@
+<div class="history-page-container">
+  <!-- Top Navigation & Header Toolbar -->
+  <header class="history-toolbar">
+    <div class="toolbar-left">
+      <div class="header-icon-group">
+        <mat-icon class="page-header-icon">history</mat-icon>
+        <div>
+          <h1 class="page-title">Comparison History</h1>
+          <p class="page-subtitle">View past comparisons, match metrics, or delete completed runs</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="toolbar-right">
+      <a
+        mat-flat-button
+        color="primary"
+        routerLink="/compare"
+        data-testid="btn-new-comparison"
+        class="new-comparison-btn">
+        <mat-icon>add</mat-icon>
+        <span>New Comparison</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Error Banner -->
+  @if (errorMessage()) {
+    <div class="error-banner" role="alert">
+      <mat-icon class="error-icon">error_outline</mat-icon>
+      <div class="error-content">
+        <div class="error-title">Failed to load history</div>
+        <div class="error-text">{{ errorMessage() }}</div>
+      </div>
+      <button mat-stroked-button color="warn" (click)="loadComparisons()" class="retry-btn">
+        Retry
+      </button>
+    </div>
+  }
+
+  <!-- Loading Bar -->
+  @if (isLoading() && comparisons().length === 0) {
+    <div class="loading-container">
+      <mat-progress-bar mode="indeterminate" class="custom-progress-bar"></mat-progress-bar>
+      <p class="loading-text">Loading comparison history...</p>
+    </div>
+  }
+
+  <!-- Empty State -->
+  @if (!isLoading() && comparisons().length === 0 && !errorMessage()) {
+    <mat-card class="empty-state-card" data-testid="empty-history-state">
+      <mat-card-content class="empty-content">
+        <div class="empty-icon-wrapper">
+          <mat-icon class="empty-icon">manage_search</mat-icon>
+        </div>
+        <h2 class="empty-title">No comparisons found</h2>
+        <p class="empty-description">
+          Run your first dataset comparison to inspect match stats, side-by-side diffs, and generate Excel reports.
+        </p>
+        <a
+          mat-flat-button
+          color="primary"
+          routerLink="/compare"
+          data-testid="btn-start-first-comparison"
+          class="start-first-btn">
+          <mat-icon>play_arrow</mat-icon>
+          <span>Start Comparison</span>
+        </a>
+      </mat-card-content>
+    </mat-card>
+  }
+
+  <!-- History Table -->
+  @if (comparisons().length > 0) {
+    <div class="table-card">
+      <div class="table-container">
+        <table mat-table [dataSource]="comparisons()" class="history-table" aria-label="Comparison History Table">
+          
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let row">
+              <a
+                [routerLink]="['/results', row.id]"
+                class="id-link"
+                matTooltip="View full comparison results">
+                #{{ row.id | slice:0:8 }}
+              </a>
+            </td>
+          </ng-container>
+
+          <!-- Created Column -->
+          <ng-container matColumnDef="createdAt">
+            <th mat-header-cell *matHeaderCellDef> Created </th>
+            <td mat-cell *matCellDef="let row" class="timestamp-cell">
+              {{ row.createdAt | date:'MMM d, y, h:mm a' }}
+            </td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-chip-set>
+                <mat-chip [class]="'status-chip ' + getStatusClass(row.status)" highlighted>
+                  {{ row.status }}
+                </mat-chip>
+              </mat-chip-set>
+            </td>
+          </ng-container>
+
+          <!-- DS1 Source Column -->
+          <ng-container matColumnDef="ds1Source">
+            <th mat-header-cell *matHeaderCellDef> DS1 Source </th>
+            <td mat-cell *matCellDef="let row" class="source-cell">
+              <div class="source-wrapper" [matTooltip]="row.ds1FileName || 'SQL Query'">
+                <mat-icon class="source-icon">{{ row.ds1Type === 'SQL_QUERY' ? 'database' : 'description' }}</mat-icon>
+                <span class="source-text">{{ getSourceLabel(row.ds1Type, row.ds1FileName) }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- DS2 Source Column -->
+          <ng-container matColumnDef="ds2Source">
+            <th mat-header-cell *matHeaderCellDef> DS2 Source </th>
+            <td mat-cell *matCellDef="let row" class="source-cell">
+              <div class="source-wrapper" [matTooltip]="row.ds2FileName || 'SQL Query'">
+                <mat-icon class="source-icon">{{ row.ds2Type === 'SQL_QUERY' ? 'database' : 'description' }}</mat-icon>
+                <span class="source-text">{{ getSourceLabel(row.ds2Type, row.ds2FileName) }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Records Column -->
+          <ng-container matColumnDef="records">
+            <th mat-header-cell *matHeaderCellDef> Records </th>
+            <td mat-cell *matCellDef="let row" class="records-cell">
+              <span class="records-badge">
+                {{ formatRecords(row.ds1RecordCount, row.ds2RecordCount) }}
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="actions-header"> Actions </th>
+            <td mat-cell *matCellDef="let row" class="actions-cell">
+              <div class="actions-wrapper">
+                <button
+                  mat-icon-button
+                  color="primary"
+                  (click)="navigateToResults(row.id)"
+                  matTooltip="View Results"
+                  aria-label="View Results"
+                  data-testid="btn-view-results"
+                  class="action-btn">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+
+                <button
+                  mat-icon-button
+                  color="warn"
+                  (click)="deleteComparison(row.id)"
+                  [disabled]="isDeleting()[row.id]"
+                  matTooltip="Delete Comparison"
+                  aria-label="Delete comparison"
+                  data-testid="btn-delete-comparison"
+                  class="action-btn delete-btn">
+                  <mat-icon>delete_outline</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="history-row"></tr>
+        </table>
+      </div>
+    </div>
+  }
+</div>

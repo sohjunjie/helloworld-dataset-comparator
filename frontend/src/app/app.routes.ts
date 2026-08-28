@@ -3,8 +3,12 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'compare',
+    redirectTo: 'history',
     pathMatch: 'full'
+  },
+  {
+    path: 'history',
+    loadComponent: () => import('./pages/history/history.component').then(m => m.HistoryComponent)
   },
   {
     path: 'compare',
