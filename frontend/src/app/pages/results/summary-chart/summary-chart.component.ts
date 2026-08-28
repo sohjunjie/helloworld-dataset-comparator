@@ -32,26 +32,32 @@ export class SummaryChartComponent {
     '#7b1fa2'  // Missing in DS1 (Purple)
   ];
 
-  barChartData = computed<ChartData<'bar'>>(() => {
+  readonly chartLabels = [
+    'Fully Matching',
+    'DS1 Mismatched',
+    'DS2 Mismatched',
+    'Missing from DS2',
+    'Missing from DS1'
+  ];
+
+  private getChartValues(): number[] {
     const s = this.summary();
     const matchCount = Math.max(s?.ds1FullyMatching ?? 0, s?.ds2FullyMatching ?? 0);
+    return [
+      matchCount,
+      s?.ds1NotMatching ?? 0,
+      s?.ds2NotMatching ?? 0,
+      s?.ds1MissingInDs2 ?? 0,
+      s?.ds2MissingInDs1 ?? 0
+    ];
+  }
+
+  barChartData = computed<ChartData<'bar'>>(() => {
     return {
-      labels: [
-        'Fully Matching',
-        'DS1 Mismatched',
-        'DS2 Mismatched',
-        'Missing from DS2',
-        'Missing from DS1'
-      ],
+      labels: this.chartLabels,
       datasets: [
         {
-          data: [
-            matchCount,
-            s?.ds1NotMatching ?? 0,
-            s?.ds2NotMatching ?? 0,
-            s?.ds1MissingInDs2 ?? 0,
-            s?.ds2MissingInDs1 ?? 0
-          ],
+          data: this.getChartValues(),
           label: 'Records',
           backgroundColor: this.chartColors,
           borderColor: this.chartColors,
@@ -63,34 +69,16 @@ export class SummaryChartComponent {
   });
 
   doughnutChartData = computed<ChartData<'doughnut'>>(() => {
-    const s = this.summary();
-    const matchCount = Math.max(s?.ds1FullyMatching ?? 0, s?.ds2FullyMatching ?? 0);
     return {
-      labels: [
-        'Fully Matching',
-        'DS1 Mismatched',
-        'DS2 Mismatched',
-        'Missing from DS2',
-        'Missing from DS1'
-      ],
+      labels: this.chartLabels,
       datasets: [
         {
-          data: [
-            matchCount,
-            s?.ds1NotMatching ?? 0,
-            s?.ds2NotMatching ?? 0,
-            s?.ds1MissingInDs2 ?? 0,
-            s?.ds2MissingInDs1 ?? 0
-          ],
+          data: this.getChartValues(),
           backgroundColor: this.chartColors,
           hoverOffset: 6
         }
       ]
     };
-  });
-
-  activeChartData = computed<ChartData<any>>(() => {
-    return this.chartType() === 'bar' ? this.barChartData() : this.doughnutChartData();
   });
 
   chartOptions: ChartConfiguration['options'] = {

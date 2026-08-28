@@ -101,7 +101,7 @@ describe('SummaryChartComponent', () => {
     fixture.detectChanges();
     expect(component.chartType()).toBe('doughnut');
 
-    const activeData = component.activeChartData();
-    expect(activeData.datasets[0].data).toEqual([9800, 150, 350, 50, 84]);
+    const doughnutData = component.doughnutChartData();
+    expect(doughnutData.datasets[0].data).toEqual([9800, 150, 350, 50, 84]);
   });
 });
