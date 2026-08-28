@@ -109,4 +109,67 @@ describe('DatasetInputComponent', () => {
     expect(component.selectedFile()).toBe(file);
     expect(component.isValid()).toBe(true);
   });
+
+  it('should display inline error when no file is selected in file mode', () => {
+    expect(component.selectedFile()).toBeNull();
+    fixture.detectChanges();
+
+    const errorEl = fixture.nativeElement.querySelector('.field-error-hint mat-error');
+    expect(errorEl).toBeTruthy();
+    expect(errorEl.textContent).toContain('No file selected');
+  });
+
+  it('should validate custom delimiter and show inline errors for empty or multi-character input', () => {
+    const file = new File(['test'], 'ds1.csv', { type: 'text/csv' });
+    component.onFileSelected(file);
+    component.delimiterType.set('CUSTOM');
+    component.setCustomDelimiter('');
+    fixture.detectChanges();
+
+    expect(component.isCustomDelimiterValid()).toBe(false);
+    expect(component.isValid()).toBe(false);
+
+    let errorEl = fixture.nativeElement.querySelector('.custom-delimiter-input mat-error');
+    expect(errorEl).toBeTruthy();
+    expect(errorEl.textContent).toContain('Delimiter required');
+
+    component.setCustomDelimiter('||');
+    fixture.detectChanges();
+    expect(component.isCustomDelimiterValid()).toBe(false);
+    expect(component.isValid()).toBe(false);
+    errorEl = fixture.nativeElement.querySelector('.custom-delimiter-input mat-error');
+    expect(errorEl.textContent).toContain('Must be 1 char');
+
+    component.setCustomDelimiter('|');
+    fixture.detectChanges();
+    expect(component.isCustomDelimiterValid()).toBe(true);
+    expect(component.isValid()).toBe(true);
+  });
+
+  it('should display inline errors for missing SQL query and invalid port in SQL mode', () => {
+    component.setSourceType('SQL_QUERY');
+    component.onSqlQueryChanged('');
+    component.setHost('localhost');
+    component.setPort(70000); // Out of range
+    component.setDatabase('');
+    component.setUsername('');
+    component.setPassword('');
+    fixture.detectChanges();
+
+    expect(component.isValid()).toBe(false);
+
+    const sqlError = fixture.nativeElement.querySelector('.sql-error-hint mat-error');
+    expect(sqlError).toBeTruthy();
+    expect(sqlError.textContent).toContain('SQL query is required');
+
+    const portError = fixture.nativeElement.querySelector('.port-field mat-error');
+    expect(portError).toBeTruthy();
+    expect(portError.textContent).toContain('Port must be between 1 and 65535');
+
+    const dbError = fixture.nativeElement.querySelector('.db-field mat-error');
+    expect(dbError).toBeTruthy();
+    expect(dbError.textContent).toContain('Database is required');
+  });
 });
+
+

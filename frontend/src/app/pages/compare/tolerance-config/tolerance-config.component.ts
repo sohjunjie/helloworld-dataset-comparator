@@ -6,6 +6,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { InstantErrorStateMatcher } from '../../../utils/instant-error-state-matcher';
 import { ToleranceConfig } from '../../../models/comparison.model';
 
 export interface ToleranceItem {
@@ -16,6 +18,9 @@ export interface ToleranceItem {
 @Component({
   selector: 'app-tolerance-config',
   standalone: true,
+  providers: [
+    { provide: ErrorStateMatcher, useClass: InstantErrorStateMatcher }
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -55,11 +60,16 @@ export interface ToleranceItem {
                   (ngModelChange)="updateColumn(idx, $event)"
                   [disabled]="disabled()"
                   placeholder="Select numeric column"
+                  required
+                  [errorStateMatcher]="errorMatcher"
                 >
                   @for (col of availableColumns(); track col) {
                     <mat-option [value]="col">{{ col }}</mat-option>
                   }
                 </mat-select>
+                @if (!item.columnName.trim()) {
+                  <mat-error>Column is required</mat-error>
+                }
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="percentage-field">
@@ -73,8 +83,13 @@ export interface ToleranceItem {
                   [ngModel]="item.percentage"
                   (ngModelChange)="updatePercentage(idx, $event)"
                   [disabled]="disabled()"
+                  required
+                  [errorStateMatcher]="errorMatcher"
                 />
                 <span matTextSuffix>%</span>
+                @if (isInvalidPercentage(item.percentage)) {
+                  <mat-error>Percentage must be between 0 and 100</mat-error>
+                }
               </mat-form-field>
 
               <button
@@ -160,8 +175,11 @@ export interface ToleranceItem {
   `]
 })
 export class ToleranceConfigComponent {
+  readonly errorMatcher = new InstantErrorStateMatcher();
+
   availableColumns = input<string[]>([]);
   disabled = input<boolean>(false);
+
 
   tolerancesChange = output<ToleranceConfig[]>();
 
@@ -192,10 +210,12 @@ export class ToleranceConfigComponent {
   }
 
   updatePercentage(index: number, percentageVal: number | string): void {
-    let num = typeof percentageVal === 'string' ? parseFloat(percentageVal) : percentageVal;
-    if (isNaN(num)) num = 0;
-    if (num < 0) num = 0;
-    if (num > 100) num = 100;
+    let num: number;
+    if (typeof percentageVal === 'string') {
+      num = percentageVal.trim() === '' ? NaN : parseFloat(percentageVal);
+    } else {
+      num = percentageVal;
+    }
 
     const list = [...this.tolerances()];
     if (list[index]) {
@@ -205,10 +225,31 @@ export class ToleranceConfigComponent {
     }
   }
 
+  isInvalidPercentage(percentage: number | null | undefined): boolean {
+    return percentage === null || percentage === undefined || isNaN(percentage) || percentage < 0 || percentage > 100;
+  }
+
+  private isItemValid(t: ToleranceItem): boolean {
+    return (
+      t.columnName.trim().length > 0 &&
+      t.percentage !== null &&
+      t.percentage !== undefined &&
+      !isNaN(t.percentage) &&
+      t.percentage >= 0 &&
+      t.percentage <= 100
+    );
+  }
+
+  isValid(): boolean {
+    return this.tolerances().every(t => this.isItemValid(t));
+  }
+
   private emitChange(): void {
     const validTolerances: ToleranceConfig[] = this.tolerances()
-      .filter(t => t.columnName.trim().length > 0)
+      .filter(t => this.isItemValid(t))
       .map(t => ({ columnName: t.columnName.trim(), percentage: t.percentage }));
     this.tolerancesChange.emit(validTolerances);
   }
+
 }
+

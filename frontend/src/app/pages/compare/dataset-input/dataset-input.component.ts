@@ -11,6 +11,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { FileDropzoneComponent } from '../file-dropzone/file-dropzone.component';
 import { SqlEditorComponent } from '../sql-editor/sql-editor.component';
 import { DataSourceType, DatabaseConnectionConfig } from '../../../models/comparison.model';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { InstantErrorStateMatcher } from '../../../utils/instant-error-state-matcher';
 
 export interface DelimiterOption {
   value: string;
@@ -20,7 +22,11 @@ export interface DelimiterOption {
 @Component({
   selector: 'app-dataset-input',
   standalone: true,
+  providers: [
+    { provide: ErrorStateMatcher, useClass: InstantErrorStateMatcher }
+  ],
   imports: [
+
     CommonModule,
     FormsModule,
     MatCardModule,
@@ -64,6 +70,12 @@ export interface DelimiterOption {
               (fileRemoved)="onFileRemoved()"
             ></app-file-dropzone>
 
+            @if (!selectedFile()) {
+              <div class="field-error-hint" role="status">
+                <mat-error>No file selected. Please drop or browse a dataset file.</mat-error>
+              </div>
+            }
+
             <div class="delimiter-row">
               <mat-form-field appearance="outline" class="delimiter-select">
                 <mat-label>Delimiter</mat-label>
@@ -85,23 +97,37 @@ export interface DelimiterOption {
                     matInput
                     [(ngModel)]="customDelimiterModel"
                     (ngModelChange)="customDelimiter.set($event); onStateChanged()"
-                    maxlength="1"
                     placeholder="e.g. ^"
                     [disabled]="disabled()"
+                    required
+                    pattern="^.$"
+                    [errorStateMatcher]="errorMatcher"
                   />
                   <mat-hint>1 char</mat-hint>
+                  @if (!customDelimiter().trim()) {
+                    <mat-error>Delimiter required</mat-error>
+                  } @else if (customDelimiter().length !== 1) {
+                    <mat-error>Must be 1 char</mat-error>
+                  }
                 </mat-form-field>
               }
             </div>
           </div>
         } @else {
           <div class="sql-query-section">
-            <app-sql-editor
-              #sqlEditor
-              [disabled]="disabled()"
-              [query]="sqlQuery()"
-              (queryChange)="onSqlQueryChanged($event)"
-            ></app-sql-editor>
+            <div class="sql-editor-container">
+              <app-sql-editor
+                #sqlEditor
+                [disabled]="disabled()"
+                [query]="sqlQuery()"
+                (queryChange)="onSqlQueryChanged($event)"
+              ></app-sql-editor>
+              @if (!sqlQuery().trim()) {
+                <div class="sql-error-hint" role="status">
+                  <mat-error>SQL query is required (must start with SELECT)</mat-error>
+                </div>
+              }
+            </div>
 
             <mat-expansion-panel [expanded]="true" class="connection-panel">
               <mat-expansion-panel-header>
@@ -124,6 +150,7 @@ export interface DelimiterOption {
                     [disabled]="disabled()"
                     required
                     placeholder="localhost"
+                    [errorStateMatcher]="errorMatcher"
                   />
                   @if (!host().trim()) {
                     <mat-error>Host is required</mat-error>
@@ -142,9 +169,10 @@ export interface DelimiterOption {
                     min="1"
                     max="65535"
                     placeholder="5432"
+                    [errorStateMatcher]="errorMatcher"
                   />
-                  @if (!port() || port() <= 0) {
-                    <mat-error>Valid port is required</mat-error>
+                  @if (!port() || port() < 1 || port() > 65535) {
+                    <mat-error>Port must be between 1 and 65535</mat-error>
                   }
                 </mat-form-field>
 
@@ -157,6 +185,7 @@ export interface DelimiterOption {
                     [disabled]="disabled()"
                     required
                     placeholder="e.g. comparator_db"
+                    [errorStateMatcher]="errorMatcher"
                   />
                   @if (!database().trim()) {
                     <mat-error>Database is required</mat-error>
@@ -172,6 +201,7 @@ export interface DelimiterOption {
                     [disabled]="disabled()"
                     required
                     placeholder="e.g. postgres"
+                    [errorStateMatcher]="errorMatcher"
                   />
                   @if (!username().trim()) {
                     <mat-error>Username is required</mat-error>
@@ -188,6 +218,7 @@ export interface DelimiterOption {
                     [disabled]="disabled()"
                     required
                     placeholder="••••••••"
+                    [errorStateMatcher]="errorMatcher"
                   />
                   @if (!password()) {
                     <mat-error>Password is required</mat-error>
@@ -338,6 +369,8 @@ export interface DelimiterOption {
 export class DatasetInputComponent {
   @ViewChild('sqlEditor') sqlEditor?: SqlEditorComponent;
 
+  readonly errorMatcher = new InstantErrorStateMatcher();
+
   title = input<string>('Dataset');
   disabled = input<boolean>(false);
 
@@ -387,6 +420,43 @@ export class DatasetInputComponent {
     this.onStateChanged();
   }
 
+  setCustomDelimiter(delim: string): void {
+    this.customDelimiterModel = delim;
+    this.customDelimiter.set(delim);
+    this.onStateChanged();
+  }
+
+  setPort(portNum: number): void {
+    this.portModel = portNum;
+    this.port.set(portNum);
+    this.onStateChanged();
+  }
+
+  setHost(hostStr: string): void {
+    this.hostModel = hostStr;
+    this.host.set(hostStr);
+    this.onStateChanged();
+  }
+
+  setDatabase(db: string): void {
+    this.databaseModel = db;
+    this.database.set(db);
+    this.onStateChanged();
+  }
+
+  setUsername(user: string): void {
+    this.usernameModel = user;
+    this.username.set(user);
+    this.onStateChanged();
+  }
+
+  setPassword(pwd: string): void {
+    this.passwordModel = pwd;
+    this.password.set(pwd);
+    this.onStateChanged();
+  }
+
+
   onSourceTypeChanged(type: DataSourceType): void {
     this.sourceType.set(type);
     this.onStateChanged();
@@ -421,12 +491,17 @@ export class DatasetInputComponent {
     return type;
   }
 
+  isCustomDelimiterValid(): boolean {
+    return this.customDelimiter().length === 1 && this.customDelimiter().trim().length > 0;
+  }
+
   isConnectionValid(): boolean {
+    const p = Number(this.port());
     return (
       !!this.host()?.trim() &&
-      !!this.port() &&
-      this.port() > 0 &&
-      this.port() <= 65535 &&
+      !isNaN(p) &&
+      p >= 1 &&
+      p <= 65535 &&
       !!this.database()?.trim() &&
       !!this.username()?.trim() &&
       !!this.password()
@@ -439,10 +514,13 @@ export class DatasetInputComponent {
 
   isValid(): boolean {
     if (this.sourceType() === 'FILE_UPLOAD') {
-      return !!this.selectedFile();
+      const hasValidFile = !!this.selectedFile();
+      const hasValidDelimiter = this.delimiterType() !== 'CUSTOM' || this.isCustomDelimiterValid();
+      return hasValidFile && hasValidDelimiter;
     }
     return this.isSqlValid();
   }
+
 
   getConnectionConfig(): DatabaseConnectionConfig {
     return {

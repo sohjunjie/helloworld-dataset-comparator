@@ -80,13 +80,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
         }
       },
       error: (err) => {
-        // If SSE hasn't failed yet, don't necessarily abort, but record error if persistent
-        if (this.isLoading()) {
-          // SSE subscription might still be running
-        } else {
-          this.errorMessage.set(err.message || 'Failed to load comparison metadata');
-          this.isLoading.set(false);
-        }
+        this.errorMessage.set(err?.error?.message || err?.message || 'Failed to load comparison metadata');
+        this.isLoading.set(false);
       }
     });
   }
@@ -113,7 +108,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
         if (this.summary()?.status === 'COMPLETED') {
           return;
         }
-        this.errorMessage.set(err.message || 'Connection lost or comparison failed');
+        this.errorMessage.set(err?.error?.message || err?.message || 'Connection lost or comparison failed');
         this.isLoading.set(false);
       }
     });
@@ -126,11 +121,12 @@ export class ResultsComponent implements OnInit, OnDestroy {
         this.isLoading.set(false);
       },
       error: (err) => {
-        this.errorMessage.set(err.message || 'Failed to fetch final summary data');
+        this.errorMessage.set(err?.error?.message || err?.message || 'Failed to fetch final summary data');
         this.isLoading.set(false);
       }
     });
   }
+
 
   private formatStageName(stage: string): string {
     switch (stage?.toUpperCase()) {

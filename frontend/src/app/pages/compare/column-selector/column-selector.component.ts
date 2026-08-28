@@ -7,10 +7,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { InstantErrorStateMatcher } from '../../../utils/instant-error-state-matcher';
 
 @Component({
   selector: 'app-column-selector',
   standalone: true,
+  providers: [
+    { provide: ErrorStateMatcher, useClass: InstantErrorStateMatcher }
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -32,11 +37,16 @@ import { MatIconModule } from '@angular/material/icon';
             (ngModelChange)="onSelectChange($event)"
             [disabled]="disabled()"
             placeholder="Choose columns to match on"
+            required
+            [errorStateMatcher]="errorMatcher"
           >
             @for (col of allOptions(); track col) {
               <mat-option [value]="col">{{ col }}</mat-option>
             }
           </mat-select>
+          @if (selectedKeys().length === 0) {
+            <mat-error>At least one key column must be selected</mat-error>
+          }
           <mat-hint>Columns used to join and compare dataset records</mat-hint>
         </mat-form-field>
 
@@ -141,6 +151,8 @@ import { MatIconModule } from '@angular/material/icon';
   `]
 })
 export class ColumnSelectorComponent {
+  readonly errorMatcher = new InstantErrorStateMatcher();
+
   availableColumns = input<string[]>([]);
   disabled = input<boolean>(false);
 
@@ -159,7 +171,14 @@ export class ColumnSelectorComponent {
     return Array.from(combined);
   }
 
+  setSelectedKeys(keys: string[]): void {
+    this.selectedKeysModel = keys || [];
+    this.selectedKeys.set(keys || []);
+    this.selectedKeysChange.emit(this.selectedKeys());
+  }
+
   onSelectChange(keys: string[]): void {
+
     this.selectedKeys.set(keys || []);
     this.selectedKeysModel = keys || [];
     this.selectedKeysChange.emit(this.selectedKeys());
@@ -190,4 +209,9 @@ export class ColumnSelectorComponent {
     this.selectedKeysModel = updated;
     this.selectedKeysChange.emit(updated);
   }
+
+  isValid(): boolean {
+    return this.selectedKeys().length > 0;
+  }
 }
+

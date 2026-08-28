@@ -228,6 +228,35 @@ describe('ResultsComponent', () => {
     expect(errorBanner.textContent).toContain('DuckDB comparison failed on invalid column');
   });
 
+  it('should display error banner with errorMessage and hide charts/tables when comparison status is FAILED on initial load', () => {
+    const failedSummary: ComparisonSummary = {
+      id: 'test-comp-123',
+      status: 'FAILED',
+      createdAt: '2026-08-28T00:00:00Z',
+      errorMessage: 'PostgreSQL connection failed: connection refused to port 5432'
+    };
+    comparisonServiceMock.getComparison.mockReturnValue(of(failedSummary));
+
+    fixture.detectChanges();
+
+    expect(component.errorMessage()).toBe('PostgreSQL connection failed: connection refused to port 5432');
+    expect(component.isLoading()).toBe(false);
+
+    const errorBanner = fixture.nativeElement.querySelector('.error-banner');
+    expect(errorBanner).toBeTruthy();
+    expect(errorBanner.textContent).toContain('PostgreSQL connection failed: connection refused to port 5432');
+
+    // Tables, charts, and summary cards must not be rendered
+    expect(fixture.nativeElement.querySelector('app-summary-cards')).toBeNull();
+    expect(fixture.nativeElement.querySelector('app-summary-chart')).toBeNull();
+    expect(fixture.nativeElement.querySelector('app-detail-table')).toBeNull();
+
+    // Download button must be disabled
+    const downloadBtn = fixture.nativeElement.querySelector('[data-testid="btn-download-report"]') as HTMLButtonElement;
+    expect(downloadBtn.disabled).toBe(true);
+  });
+
+
   it('should render toolbar with Back to Compare link and Download Report button', () => {
     fixture.detectChanges();
 

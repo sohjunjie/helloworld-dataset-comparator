@@ -242,6 +242,51 @@ describe('CompareComponent', () => {
     expect(compareBtn.disabled).toBe(false);
   });
 
+  it('should disable compare button if a tolerance row has invalid percentage', () => {
+    component.currentStep.set(2);
+    component.comparisonId.set('comp-12345');
+    component.availableColumns.set(['id', 'salary']);
+    component.onKeyColumnsChanged(['id']);
+    fixture.detectChanges();
+
+    const compareBtn = fixture.nativeElement.querySelector('.compare-btn') as HTMLButtonElement;
+    expect(compareBtn.disabled).toBe(false);
+
+    // Add invalid tolerance
+    const tolComp = component.toleranceConfigComponent;
+    if (tolComp) {
+      tolComp.addTolerance();
+      tolComp.updateColumn(0, 'salary');
+      tolComp.updatePercentage(0, 150); // > 100 invalid
+      fixture.detectChanges();
+
+      expect(tolComp.isValid()).toBe(false);
+      expect(component.canCompare()).toBe(false);
+      expect(compareBtn.disabled).toBe(true);
+    }
+  });
+
+  it('should disable upload button if custom delimiter is empty or multi-character', () => {
+    const file1 = new File(['1,Alice'], 'ds1.csv', { type: 'text/csv' });
+    const file2 = new File(['1,Bob'], 'ds2.csv', { type: 'text/csv' });
+    component.ds1InputComponent?.onFileSelected(file1);
+    component.ds2InputComponent?.onFileSelected(file2);
+    fixture.detectChanges();
+
+    const uploadBtn = fixture.nativeElement.querySelector('.upload-btn') as HTMLButtonElement;
+    expect(uploadBtn.disabled).toBe(false);
+
+    // Set custom delimiter to empty string
+    component.ds1InputComponent!.delimiterType.set('CUSTOM');
+    component.ds1InputComponent!.customDelimiter.set('');
+    fixture.detectChanges();
+
+    expect(component.ds1InputComponent!.isValid()).toBe(false);
+    expect(component.canUpload()).toBe(false);
+    expect(uploadBtn.disabled).toBe(true);
+  });
+
+
   it('should execute comparison, track SSE progress, and navigate to results page on completion', async () => {
     component.currentStep.set(2);
     component.comparisonId.set('comp-12345');

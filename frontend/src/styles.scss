@@ -53,3 +53,31 @@ body {
   }
 }
 
+/* Error toast notification styling */
+.error-snackbar {
+  --mdc-snackbar-container-color: #b91c1c;
+  --mdc-snackbar-supporting-text-color: #ffffff;
+  --mat-snack-bar-button-color: #fef08a;
+
+  .mdc-snackbar__surface {
+    background-color: #b91c1c !important;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  }
+
+  .mdc-snackbar__label {
+    color: #ffffff !important;
+    font-weight: 500;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .mat-mdc-snack-bar-action {
+    color: #fef08a !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+}
+
+

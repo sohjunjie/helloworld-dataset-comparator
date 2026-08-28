@@ -389,6 +389,8 @@ export class CompareComponent {
 
   @ViewChild('ds1Input') ds1InputComponent?: DatasetInputComponent;
   @ViewChild('ds2Input') ds2InputComponent?: DatasetInputComponent;
+  @ViewChild(ColumnSelectorComponent) columnSelectorComponent?: ColumnSelectorComponent;
+  @ViewChild(ToleranceConfigComponent) toleranceConfigComponent?: ToleranceConfigComponent;
 
   currentStep = signal<number>(1);
   comparisonId = signal<string | null>(null);
@@ -483,8 +485,11 @@ export class CompareComponent {
   }
 
   canCompare(): boolean {
-    return this.selectedKeyColumns().length > 0;
+    const hasKeys = this.selectedKeyColumns().length > 0;
+    const tolerancesValid = this.toleranceConfigComponent ? this.toleranceConfigComponent.isValid() : true;
+    return hasKeys && tolerancesValid;
   }
+
 
   startComparison(): void {
     const id = this.comparisonId();

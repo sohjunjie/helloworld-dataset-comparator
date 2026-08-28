@@ -68,4 +68,21 @@ describe('ColumnSelectorComponent', () => {
 
     expect(component.selectedKeys()).toEqual(['email']);
   });
+
+  it('should display inline mat-error when no key columns are selected and report isValid false', () => {
+    component.setSelectedKeys([]);
+    fixture.detectChanges();
+
+    expect(component.isValid()).toBe(false);
+    const errorEl = fixture.nativeElement.querySelector('.select-dropdown mat-error');
+    expect(errorEl).toBeTruthy();
+    expect(errorEl.textContent).toContain('At least one key column must be selected');
+
+    component.setSelectedKeys(['id']);
+    fixture.detectChanges();
+    expect(component.isValid()).toBe(true);
+    expect(fixture.nativeElement.querySelector('.select-dropdown mat-error')).toBeNull();
+  });
+
 });
+

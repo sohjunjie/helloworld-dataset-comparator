@@ -73,12 +73,37 @@ describe('ToleranceConfigComponent', () => {
     expect(emitted).toEqual([{ columnName: 'amount', percentage: 5.5 }]);
   });
 
-  it('should clamp/validate percentage between 0 and 100', () => {
+  it('should validate percentage between 0 and 100 and show inline error when out of range', () => {
     component.addTolerance();
+    component.updateColumn(0, 'amount');
     component.updatePercentage(0, 150);
-    expect(component.tolerances()[0].percentage).toBe(100);
+    fixture.detectChanges();
 
-    component.updatePercentage(0, -10);
-    expect(component.tolerances()[0].percentage).toBe(0);
+    expect(component.isValid()).toBe(false);
+    const errorEl = fixture.nativeElement.querySelector('.percentage-field mat-error');
+    expect(errorEl).toBeTruthy();
+    expect(errorEl.textContent).toContain('Percentage must be between 0 and 100');
+
+    component.updatePercentage(0, -5);
+    fixture.detectChanges();
+    expect(component.isValid()).toBe(false);
+
+    component.updatePercentage(0, 5);
+    fixture.detectChanges();
+    expect(component.isValid()).toBe(true);
+    expect(fixture.nativeElement.querySelector('.percentage-field mat-error')).toBeNull();
+  });
+
+  it('should show inline error when column is empty', () => {
+    component.addTolerance();
+    component.updateColumn(0, '');
+    component.updatePercentage(0, 2);
+    fixture.detectChanges();
+
+    expect(component.isValid()).toBe(false);
+    const colError = fixture.nativeElement.querySelector('.column-field mat-error');
+    expect(colError).toBeTruthy();
+    expect(colError.textContent).toContain('Column is required');
   });
 });
+
