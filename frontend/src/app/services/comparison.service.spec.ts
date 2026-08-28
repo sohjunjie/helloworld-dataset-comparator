@@ -195,15 +195,15 @@ describe('ComparisonService', () => {
       last: true
     };
 
-    service.getMismatches(comparisonId, 0, 50, 'DS1').subscribe(res => {
+    service.getMismatches(comparisonId, 0, 50, 'ds1').subscribe(res => {
       expect(res).toEqual(mockPaged);
     });
 
-    const req = httpTesting.expectOne((r) => r.url.includes(`/api/v1/comparisons/${comparisonId}/mismatches`) || r.url.includes(`/api/comparisons/${comparisonId}/mismatches`));
+    const req = httpTesting.expectOne((r) => r.url.includes(`/api/v1/comparisons/${comparisonId}/results/mismatches`) || r.url.includes(`/api/comparisons/${comparisonId}/results/mismatches`));
     expect(req.request.method).toBe('GET');
     expect(req.request.params.get('page')).toBe('0');
     expect(req.request.params.get('size')).toBe('50');
-    expect(req.request.params.get('direction')).toBe('DS1');
+    expect(req.request.params.get('direction')).toBe('ds1');
     req.flush(mockPaged);
   });
 
@@ -218,11 +218,11 @@ describe('ComparisonService', () => {
       last: true
     };
 
-    service.getMissing(comparisonId, 0, 50, 'DS1').subscribe(res => {
+    service.getMissing(comparisonId, 0, 50, 'ds1').subscribe(res => {
       expect(res).toEqual(mockPaged);
     });
 
-    const req = httpTesting.expectOne((r) => r.url.includes(`/api/v1/comparisons/${comparisonId}/missing`) || r.url.includes(`/api/comparisons/${comparisonId}/missing`));
+    const req = httpTesting.expectOne((r) => r.url.includes(`/api/v1/comparisons/${comparisonId}/results/missing`) || r.url.includes(`/api/comparisons/${comparisonId}/results/missing`));
     expect(req.request.method).toBe('GET');
     req.flush(mockPaged);
   });
@@ -235,6 +235,20 @@ describe('ComparisonService', () => {
     const req = httpTesting.expectOne((r) => r.url.endsWith(`/api/v1/comparisons/${comparisonId}`) || r.url.endsWith(`/api/comparisons/${comparisonId}`));
     expect(req.request.method).toBe('DELETE');
     req.flush(null);
+  });
+
+  it('should stream report blob with downloadReport', () => {
+    const comparisonId = 'comp-123';
+    const mockBlob = new Blob(['mock-excel-binary'], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+    service.downloadReport(comparisonId).subscribe(res => {
+      expect(res).toEqual(mockBlob);
+    });
+
+    const req = httpTesting.expectOne((r) => r.url.endsWith(`/api/v1/comparisons/${comparisonId}/report`) || r.url.endsWith(`/api/comparisons/${comparisonId}/report`));
+    expect(req.request.method).toBe('GET');
+    expect(req.request.responseType).toBe('blob');
+    req.flush(mockBlob);
   });
 
   it('should return report download url', () => {

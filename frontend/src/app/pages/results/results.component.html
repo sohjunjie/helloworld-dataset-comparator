@@ -71,6 +71,76 @@
       <section class="summary-chart-section" aria-label="Summary Charts">
         <app-summary-chart [summary]="summary()!"></app-summary-chart>
       </section>
+
+      <!-- Tabbed Detail Tables Section -->
+      <section class="detail-tables-section" aria-label="Detailed Results">
+        <div class="detail-section-header">
+          <h2 class="section-title">Result Details</h2>
+          <p class="section-subtitle">Inspect side-by-side mismatch diffs and missing records</p>
+        </div>
+
+        <mat-tab-group
+          animationDuration="200ms"
+          class="results-tab-group"
+          data-testid="results-tab-group">
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <mat-icon class="tab-icon warning-icon">difference</mat-icon>
+              <span>Mismatches</span>
+              @if (summary() && (summary()!.ds1NotMatching || summary()!.ds2NotMatching)) {
+                <span class="tab-count-badge badge-warn">
+                  {{ (summary()!.ds1NotMatching || 0) + (summary()!.ds2NotMatching || 0) }}
+                </span>
+              }
+            </ng-template>
+            <div class="tab-body-wrapper">
+              <app-detail-table
+                [comparisonId]="comparisonId()"
+                resultType="mismatches"
+                data-testid="tab-table-mismatches">
+              </app-detail-table>
+            </div>
+          </mat-tab>
+
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <mat-icon class="tab-icon error-icon">remove_circle_outline</mat-icon>
+              <span>Missing from DS2</span>
+              @if (summary() && summary()!.ds1MissingInDs2) {
+                <span class="tab-count-badge badge-error">
+                  {{ summary()!.ds1MissingInDs2 }}
+                </span>
+              }
+            </ng-template>
+            <div class="tab-body-wrapper">
+              <app-detail-table
+                [comparisonId]="comparisonId()"
+                resultType="missing_from_ds2"
+                data-testid="tab-table-missing-ds2">
+              </app-detail-table>
+            </div>
+          </mat-tab>
+
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <mat-icon class="tab-icon purple-icon">add_circle_outline</mat-icon>
+              <span>Missing from DS1</span>
+              @if (summary() && summary()!.ds2MissingInDs1) {
+                <span class="tab-count-badge badge-purple">
+                  {{ summary()!.ds2MissingInDs1 }}
+                </span>
+              }
+            </ng-template>
+            <div class="tab-body-wrapper">
+              <app-detail-table
+                [comparisonId]="comparisonId()"
+                resultType="missing_from_ds1"
+                data-testid="tab-table-missing-ds1">
+              </app-detail-table>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </section>
     </main>
   }
 </div>

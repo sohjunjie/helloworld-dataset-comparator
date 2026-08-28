@@ -117,35 +117,39 @@ export class ComparisonService {
     id: string,
     page = 0,
     size = 50,
-    direction?: string
+    direction?: 'ds1' | 'ds2' | string
   ): Observable<PagedResult<MismatchDetail>> {
     let params = new HttpParams().set('page', page.toString()).set('size', size.toString());
     if (direction) {
       params = params.set('direction', direction);
     }
-    return this.http.get<PagedResult<MismatchDetail>>(`${this.baseUrl}/${id}/mismatches`, { params });
+    return this.http.get<PagedResult<MismatchDetail>>(`${this.baseUrl}/${id}/results/mismatches`, { params });
   }
 
   getMissing(
     id: string,
     page = 0,
     size = 50,
-    direction?: string
+    direction?: 'ds1' | 'ds2' | string
   ): Observable<PagedResult<MissingDetail>> {
     let params = new HttpParams().set('page', page.toString()).set('size', size.toString());
     if (direction) {
       params = params.set('direction', direction);
     }
-    return this.http.get<PagedResult<MissingDetail>>(`${this.baseUrl}/${id}/missing`, { params });
+    return this.http.get<PagedResult<MissingDetail>>(`${this.baseUrl}/${id}/results/missing`, { params });
   }
 
   getMatches(id: string, page = 0, size = 50): Observable<PagedResult<Record<string, unknown>>> {
     const params = new HttpParams().set('page', page.toString()).set('size', size.toString());
-    return this.http.get<PagedResult<Record<string, unknown>>>(`${this.baseUrl}/${id}/matches`, { params });
+    return this.http.get<PagedResult<Record<string, unknown>>>(`${this.baseUrl}/${id}/results/matches`, { params });
   }
 
   deleteComparison(id: string): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
+  downloadReport(id: string): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/${id}/report`, { responseType: 'blob' });
   }
 
   getReportUrl(id: string): string {

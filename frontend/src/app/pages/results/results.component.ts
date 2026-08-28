@@ -7,12 +7,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { ComparisonService } from '../../services/comparison.service';
 import { ProgressService } from '../../services/progress.service';
 import { ComparisonSummary } from '../../models/comparison.model';
 import { SummaryCardsComponent } from './summary-cards/summary-cards.component';
 import { SummaryChartComponent } from './summary-chart/summary-chart.component';
+import { DetailTableComponent } from './detail-table/detail-table.component';
 
 @Component({
   selector: 'app-results',
@@ -25,8 +27,10 @@ import { SummaryChartComponent } from './summary-chart/summary-chart.component';
     MatIconModule,
     MatCardModule,
     MatChipsModule,
+    MatTabsModule,
     SummaryCardsComponent,
-    SummaryChartComponent
+    SummaryChartComponent,
+    DetailTableComponent
   ],
   templateUrl: './results.component.html',
   styleUrl: './results.component.scss'
@@ -38,6 +42,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   comparisonId = signal<string>('');
   isLoading = signal<boolean>(true);
+  isDownloading = signal<boolean>(false);
   currentStage = signal<string>('Initializing comparison...');
   progressPercent = signal<number>(0);
   summary = signal<ComparisonSummary | null>(null);
@@ -148,9 +153,26 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   downloadReport(): void {
     const id = this.comparisonId();
-    if (!id) return;
-    const url = this.comparisonService.getReportUrl(id);
-    window.open(url, '_blank');
+    if (!id || this.isDownloading()) return;
+
+    this.isDownloading.set(true);
+    this.comparisonService.downloadReport(id).subscribe({
+      next: (blob) => {
+        this.isDownloading.set(false);
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `comparison-${id}.xlsx`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      },
+      error: (err) => {
+        this.isDownloading.set(false);
+        this.errorMessage.set(err.message || 'Failed to download comparison report.');
+      }
+    });
   }
 
   ngOnDestroy(): void {

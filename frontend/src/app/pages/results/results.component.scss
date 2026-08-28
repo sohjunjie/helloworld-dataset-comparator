@@ -138,5 +138,88 @@
 .results-content {
   display: flex;
   flex-direction: column;
+  gap: 24px;
+}
+
+.detail-tables-section {
+  display: flex;
+  flex-direction: column;
   gap: 16px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+.detail-section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .section-title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+  }
+
+  .section-subtitle {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #64748b;
+  }
+}
+
+.results-tab-group {
+  .mat-mdc-tab-header {
+    margin-bottom: 16px;
+  }
+
+  .tab-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+    vertical-align: middle;
+
+    &.warning-icon {
+      color: #ed6c02;
+    }
+
+    &.error-icon {
+      color: #d32f2f;
+    }
+
+    &.purple-icon {
+      color: #7b1fa2;
+    }
+  }
+
+  .tab-count-badge {
+    margin-left: 8px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    &.badge-warn {
+      background: #fef3c7;
+      color: #b45309;
+    }
+
+    &.badge-error {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    &.badge-purple {
+      background: #f3e8ff;
+      color: #7e22ce;
+    }
+  }
+
+  .tab-body-wrapper {
+    padding-top: 16px;
+  }
 }

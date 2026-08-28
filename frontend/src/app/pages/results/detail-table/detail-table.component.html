@@ -1,0 +1,158 @@
+<div class="detail-table-wrapper">
+  <!-- Loading Spinner -->
+  @if (isLoading()) {
+    <div class="loading-state-container" data-testid="table-loading-spinner">
+      <mat-spinner diameter="44" strokeWidth="4"></mat-spinner>
+      <span class="loading-text">Fetching result records...</span>
+    </div>
+  }
+
+  <!-- Error Message Banner -->
+  @if (!isLoading() && errorMessage()) {
+    <div class="table-error-banner" role="alert" data-testid="table-error">
+      <mat-icon class="error-icon">error_outline</mat-icon>
+      <span class="error-text">{{ errorMessage() }}</span>
+      <button mat-stroked-button color="warn" (click)="loadData()" class="retry-btn">
+        <mat-icon>refresh</mat-icon>
+        <span>Retry</span>
+      </button>
+    </div>
+  }
+
+  <!-- Empty State -->
+  @if (!isLoading() && !errorMessage() && totalElements() === 0) {
+    <div class="empty-state-container" data-testid="empty-state">
+      <mat-icon class="empty-icon">check_circle_outline</mat-icon>
+      <h3 class="empty-title">No Records Found</h3>
+      <p class="empty-description">
+        @if (resultType() === 'mismatches') {
+          There are no mismatched record pairs between the datasets.
+        } @else if (resultType() === 'missing_from_ds2') {
+          All records from Dataset 1 are present in Dataset 2.
+        } @else {
+          All records from Dataset 2 are present in Dataset 1.
+        }
+      </p>
+    </div>
+  }
+
+  <!-- Data Tables -->
+  @if (!isLoading() && !errorMessage() && totalElements() > 0) {
+    <div class="table-scroll-container">
+      @if (resultType() === 'mismatches') {
+        <!-- Side-by-Side Mismatches Table -->
+        <table class="comparator-table side-by-side-table" data-testid="mismatches-table">
+          <thead>
+            <tr class="super-header-row">
+              <th [attr.colspan]="ds1Columns().length + 1" class="super-header ds1-super-header">
+                <span class="dataset-tag tag-ds1">Dataset 1 (Left)</span>
+              </th>
+              <th class="divider-header" aria-hidden="true"></th>
+              <th [attr.colspan]="ds2Columns().length + 1" class="super-header ds2-super-header">
+                <span class="dataset-tag tag-ds2">Dataset 2 (Right)</span>
+              </th>
+            </tr>
+            <tr class="column-header-row">
+              <th class="col-header row-num-col">#</th>
+              @for (col of ds1Columns(); track col) {
+                <th class="col-header ds1-col-header" [attr.data-testid]="'header-ds1-' + col">
+                  {{ col }}
+                </th>
+              }
+              <th class="divider-col" aria-hidden="true"></th>
+              <th class="col-header row-num-col">#</th>
+              @for (col of ds2Columns(); track col) {
+                <th class="col-header ds2-col-header" [attr.data-testid]="'header-ds2-' + col">
+                  {{ col }}
+                </th>
+              }
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of mismatchRows(); track (row.rowNumberDs1 || $index)) {
+              <tr class="data-row mismatch-row">
+                <td class="row-cell row-num-cell">
+                  {{ row.rowNumberDs1 || (pageIndex() * pageSize() + $index + 1) }}
+                </td>
+                @for (col of ds1Columns(); track col) {
+                  <td
+                    class="row-cell data-cell ds1-cell"
+                    [class.cell-mismatched]="isDiffering(row, col)"
+                    [class.null-value]="isNullValue(getDs1Value(row, col))"
+                    [attr.data-testid]="'ds1-cell-' + col"
+                    [title]="formatValue(getDs1Value(row, col))">
+                    <span class="cell-content">{{ formatValue(getDs1Value(row, col)) }}</span>
+                    @if (isDiffering(row, col)) {
+                      <span class="diff-chip" matTooltip="Differing value in Dataset 2">diff</span>
+                    }
+                  </td>
+                }
+                <td class="divider-cell" aria-hidden="true"></td>
+                <td class="row-cell row-num-cell">
+                  {{ row.rowNumberDs2 || (pageIndex() * pageSize() + $index + 1) }}
+                </td>
+                @for (col of ds2Columns(); track col) {
+                  <td
+                    class="row-cell data-cell ds2-cell"
+                    [class.cell-mismatched]="isDiffering(row, col)"
+                    [class.null-value]="isNullValue(getDs2Value(row, col))"
+                    [attr.data-testid]="'ds2-cell-' + col"
+                    [title]="formatValue(getDs2Value(row, col))">
+                    <span class="cell-content">{{ formatValue(getDs2Value(row, col)) }}</span>
+                    @if (isDiffering(row, col)) {
+                      <span class="diff-chip" matTooltip="Differing value in Dataset 1">diff</span>
+                    }
+                  </td>
+                }
+              </tr>
+            }
+          </tbody>
+        </table>
+      } @else {
+        <!-- Single Missing Dataset Table -->
+        <table class="comparator-table single-table" data-testid="missing-table">
+          <thead>
+            <tr class="column-header-row">
+              <th class="col-header row-num-col">#</th>
+              @for (col of missingColumns(); track col) {
+                <th class="col-header" [attr.data-testid]="'header-missing-' + col">
+                  {{ col }}
+                </th>
+              }
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of missingRows(); track (row.rowNumber || $index)) {
+              <tr class="data-row missing-row">
+                <td class="row-cell row-num-cell">
+                  {{ row.rowNumber || (pageIndex() * pageSize() + $index + 1) }}
+                </td>
+                @for (col of missingColumns(); track col) {
+                  <td
+                    class="row-cell data-cell"
+                    [class.null-value]="isNullValue(getMissingValue(row, col))"
+                    [attr.data-testid]="'missing-cell-' + col"
+                    [title]="formatValue(getMissingValue(row, col))">
+                    <span class="cell-content">{{ formatValue(getMissingValue(row, col)) }}</span>
+                  </td>
+                }
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </div>
+
+    <!-- Server-Side Pagination -->
+    <mat-paginator
+      [length]="totalElements()"
+      [pageSize]="pageSize()"
+      [pageIndex]="pageIndex()"
+      [pageSizeOptions]="[10, 25, 50, 100]"
+      (page)="onPageChange($event)"
+      aria-label="Select results page"
+      data-testid="detail-paginator"
+      class="detail-paginator">
+    </mat-paginator>
+  }
+</div>

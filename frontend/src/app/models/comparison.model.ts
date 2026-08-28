@@ -101,6 +101,7 @@ export interface MismatchDetail {
   id?: string;
   rowNumberDs1?: number;
   rowNumberDs2?: number;
+  keyValues?: Record<string, unknown>;
   dataDs1: Record<string, unknown>;
   dataDs2: Record<string, unknown>;
   differingColumns: string[];
@@ -109,6 +110,8 @@ export interface MismatchDetail {
 export interface MissingDetail {
   id?: string;
   rowNumber?: number;
+  keyValues?: Record<string, unknown>;
   data: Record<string, unknown>;
+  missingFrom?: string;
   direction?: 'DS1' | 'DS2';
 }

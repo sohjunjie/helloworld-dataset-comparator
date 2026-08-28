@@ -66,9 +66,15 @@ describe('ResultsComponent', () => {
 
     progressSubject = new Subject<ProgressUpdate>();
 
+    const mockBlob = new Blob(['mock-excel'], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
     comparisonServiceMock = {
       getComparison: vi.fn().mockReturnValue(of(mockCompletedSummary)),
-      getReportUrl: vi.fn().mockReturnValue('/api/v1/comparisons/test-comp-123/report')
+      getReportUrl: vi.fn().mockReturnValue('/api/v1/comparisons/test-comp-123/report'),
+      downloadReport: vi.fn().mockReturnValue(of(mockBlob)),
+      getHeaders: vi.fn().mockReturnValue(of({ ds1: [], ds2: [] })),
+      getMismatches: vi.fn().mockReturnValue(of({ content: [], page: 0, size: 50, totalElements: 0, totalPages: 0, last: true })),
+      getMissing: vi.fn().mockReturnValue(of({ content: [], page: 0, size: 50, totalElements: 0, totalPages: 0, last: true }))
     };
 
     progressServiceMock = {
@@ -111,11 +117,21 @@ describe('ResultsComponent', () => {
     expect(component.summary()).toEqual(mockCompletedSummary);
     expect(component.isLoading()).toBe(false);
 
-    // Summary cards and chart are rendered
+    // Summary cards, chart, tab group, and active detail table are rendered
     const summaryCards = fixture.nativeElement.querySelector('app-summary-cards');
     const summaryChart = fixture.nativeElement.querySelector('app-summary-chart');
+    const tabGroup = fixture.nativeElement.querySelector('[data-testid="results-tab-group"]');
+    const activeDetailTable = fixture.nativeElement.querySelector('app-detail-table');
+    const tabs = fixture.nativeElement.querySelectorAll('.mat-mdc-tab');
+
     expect(summaryCards).toBeTruthy();
     expect(summaryChart).toBeTruthy();
+    expect(tabGroup).toBeTruthy();
+    expect(activeDetailTable).toBeTruthy();
+    expect(tabs.length).toBe(3);
+    expect(tabs[0].textContent).toContain('Mismatches');
+    expect(tabs[1].textContent).toContain('Missing from DS2');
+    expect(tabs[2].textContent).toContain('Missing from DS1');
   });
 
   it('should display progress bar with stage and percentage during active progress stream', () => {
@@ -222,14 +238,17 @@ describe('ResultsComponent', () => {
     expect(downloadBtn).toBeTruthy();
   });
 
-  it('should trigger report download url on Download Report button click', () => {
+  it('should trigger blob report download on Download Report button click', () => {
     fixture.detectChanges();
 
-    const openSpy = vi.spyOn(window, 'open').mockImplementation(() => null);
+    const createObjectURLSpy = vi.spyOn(window.URL, 'createObjectURL').mockReturnValue('blob:mock-url');
+    const revokeObjectURLSpy = vi.spyOn(window.URL, 'revokeObjectURL').mockImplementation(() => {});
+
     const downloadBtn = fixture.nativeElement.querySelector('[data-testid="btn-download-report"]') as HTMLButtonElement;
     downloadBtn.click();
 
-    expect(comparisonServiceMock.getReportUrl).toHaveBeenCalledWith('test-comp-123');
-    expect(openSpy).toHaveBeenCalledWith('/api/v1/comparisons/test-comp-123/report', '_blank');
+    expect(comparisonServiceMock.downloadReport).toHaveBeenCalledWith('test-comp-123');
+    expect(createObjectURLSpy).toHaveBeenCalled();
+    expect(revokeObjectURLSpy).toHaveBeenCalledWith('blob:mock-url');
   });
 });
