@@ -1,0 +1,164 @@
+<div class="compare-page-container">
+  <!-- Header -->
+  <div class="page-header">
+    <div class="header-info">
+      <h1 class="page-title">New Dataset Comparison</h1>
+      <p class="page-subtitle">
+        Upload two datasets (CSV, TXT, Excel) or query PostgreSQL databases to compare records, detect differences, and analyze missing data.
+      </p>
+    </div>
+    @if (currentStep() === 2) {
+      <button mat-button color="warn" (click)="resetForm()" [disabled]="isComparing()">
+        <mat-icon>restart_alt</mat-icon>
+        Start Over
+      </button>
+    }
+  </div>
+
+  <!-- Error Alert -->
+  @if (errorMessage()) {
+    <div class="error-banner" role="alert">
+      <mat-icon class="error-icon">error_outline</mat-icon>
+      <span class="error-text">{{ errorMessage() }}</span>
+      <button mat-icon-button (click)="errorMessage.set(null)" aria-label="Dismiss error">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  }
+
+  <!-- Step 1: Dataset Inputs -->
+  <div class="step-card" [class.completed-step]="currentStep() === 2">
+    <div class="step-header">
+      <span class="step-badge">1</span>
+      <div class="step-heading">
+        <h2>Select Datasets</h2>
+        <p>Choose source files or SQL queries and configure connections for both datasets.</p>
+      </div>
+    </div>
+
+    <div class="datasets-grid">
+      <app-dataset-input
+        #ds1Input
+        title="Dataset 1 (Primary / Source)"
+        [disabled]="isUploading() || isComparing() || currentStep() === 2"
+        (fileChanged)="onDs1FileChanged($event)"
+        (stateChanged)="onDatasetStateChanged()"
+      ></app-dataset-input>
+
+      <app-dataset-input
+        #ds2Input
+        title="Dataset 2 (Target / Comparison)"
+        [disabled]="isUploading() || isComparing() || currentStep() === 2"
+        (fileChanged)="onDs2FileChanged($event)"
+        (stateChanged)="onDatasetStateChanged()"
+      ></app-dataset-input>
+    </div>
+
+    @if (currentStep() === 1) {
+      <div class="step-actions">
+        <button
+          mat-flat-button
+          color="primary"
+          class="upload-btn"
+          [disabled]="!canUpload() || isUploading()"
+          (click)="uploadFiles()"
+        >
+          @if (isUploading()) {
+            <mat-spinner diameter="20" class="btn-spinner"></mat-spinner>
+            Analyzing Datasets...
+          } @else {
+            <ng-container>
+              <mat-icon>upload_file</mat-icon>
+              Upload & Analyze Datasets
+            </ng-container>
+          }
+        </button>
+      </div>
+    }
+  </div>
+
+  <!-- Step 2: Configuration & Execution -->
+  @if (currentStep() === 2) {
+    <div class="step-card active-step">
+      <div class="step-header">
+        <span class="step-badge">2</span>
+        <div class="step-heading">
+          <h2>Configure Comparison & Execute</h2>
+          <p>Select the unique key column(s) to match records on and configure matching tolerances.</p>
+        </div>
+      </div>
+
+      <div class="config-sections">
+        <!-- Key Column Selection -->
+        <div class="config-item">
+          <app-column-selector
+            [availableColumns]="availableColumns()"
+            [disabled]="isComparing()"
+            (selectedKeysChange)="onKeyColumnsChanged($event)"
+          ></app-column-selector>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <!-- Tolerance Configuration -->
+        <div class="config-item">
+          <app-tolerance-config
+            [availableColumns]="availableColumns()"
+            [disabled]="isComparing()"
+            (tolerancesChange)="onTolerancesChanged($event)"
+          ></app-tolerance-config>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <!-- Options -->
+        <div class="config-item options-row">
+          <mat-checkbox
+            [(ngModel)]="caseSensitiveModel"
+            (ngModelChange)="caseSensitive.set($event)"
+            [disabled]="isComparing()"
+            color="primary"
+          >
+            <span class="checkbox-label">Case-sensitive string comparison</span>
+          </mat-checkbox>
+        </div>
+
+        <!-- Progress Bar during Execution -->
+        @if (isComparing()) {
+          <div class="progress-section">
+            <div class="progress-label-row">
+              <span class="progress-stage">{{ progressStage() }}</span>
+              <span class="progress-percent">{{ progressPercent() }}%</span>
+            </div>
+            <mat-progress-bar
+              [mode]="progressPercent() > 0 ? 'determinate' : 'indeterminate'"
+              [value]="progressPercent()"
+            ></mat-progress-bar>
+            <span class="progress-hint">Comparing datasets via embedded engine...</span>
+          </div>
+        }
+
+        <!-- Execution Action -->
+        <div class="step-actions">
+          <button
+            mat-flat-button
+            color="primary"
+            class="compare-btn"
+            [disabled]="!canCompare() || isComparing()"
+            (click)="startComparison()"
+          >
+            @if (isComparing()) {
+              <mat-spinner diameter="20" class="btn-spinner"></mat-spinner>
+              Running Comparison...
+            } @else {
+              <ng-container>
+                <mat-icon>play_arrow</mat-icon>
+                Start Comparison
+              </ng-container>
+            }
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>
