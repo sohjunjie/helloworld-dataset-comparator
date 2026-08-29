@@ -105,37 +105,17 @@
     background: #f8fafc;
   }
 
-  .super-header-row {
-    .super-header {
-      padding: 10px 16px;
-      font-weight: 600;
-      text-align: center;
-      border-bottom: 1px solid #e2e8f0;
-
-      &.ds1-super-header {
-        background: #f0f9ff;
-      }
-
-      &.ds2-super-header {
-        background: #f0fdf4;
-      }
-    }
-
-    .divider-header {
-      width: 4px;
-      padding: 0;
-      background: #94a3b8;
-      border: none;
-    }
-  }
-
-  .dataset-tag {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 6px;
-    font-size: 0.8rem;
+  .dataset-tag,
+  .ds-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.72rem;
     font-weight: 700;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.03em;
+    line-height: 1;
 
     &.tag-ds1 {
       background: #e0f2fe;
@@ -167,13 +147,6 @@
         color: #94a3b8;
       }
     }
-
-    .divider-col {
-      width: 4px;
-      padding: 0;
-      background: #94a3b8;
-      border: none;
-    }
   }
 
   tbody {
@@ -190,7 +163,7 @@
     }
 
     .row-cell {
-      padding: 9px 14px;
+      padding: 8px 14px;
       border-bottom: 1px solid #e2e8f0;
       white-space: nowrap;
       vertical-align: middle;
@@ -208,7 +181,8 @@
         font-size: 0.82rem;
       }
 
-      &.null-value .cell-content {
+      &.null-value .cell-content,
+      .null-val .val-text {
         color: #94a3b8;
         font-style: italic;
       }
@@ -216,36 +190,50 @@
       /* Mismatched Cell Highlighting */
       &.cell-mismatched {
         background-color: #fff7ed !important;
-        color: #9a3412 !important;
-        font-weight: 600;
         border-left: 2px solid #ea580c;
         border-right: 2px solid #ea580c;
       }
     }
 
-    .divider-cell {
-      width: 4px;
-      padding: 0;
-      background: #94a3b8;
-      border: none;
-    }
-
     .cell-content {
       display: inline-block;
-      margin-right: 6px;
     }
 
-    .diff-chip {
-      display: inline-block;
-      font-size: 0.65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      padding: 1px 5px;
+    .diff-inline-comparison {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 4px;
       border-radius: 4px;
-      background-color: #ffedd5;
-      color: #c2410c;
-      border: 1px solid #fed7aa;
-      vertical-align: middle;
+
+      .diff-val {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-weight: 600;
+
+        &.ds1-val {
+          color: #0369a1;
+        }
+
+        &.ds2-val {
+          color: #15803d;
+        }
+
+        .val-text {
+          color: inherit;
+        }
+      }
+
+      .diff-arrow-icon {
+        font-size: 15px;
+        width: 15px;
+        height: 15px;
+        color: #ea580c;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
   }
 }

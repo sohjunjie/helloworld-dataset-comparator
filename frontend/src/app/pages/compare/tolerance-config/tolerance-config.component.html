@@ -1,0 +1,77 @@
+<div class="tolerance-container">
+  <div class="tolerance-header">
+    <div class="header-text">
+      <span class="section-title">Numeric Tolerances (Optional)</span>
+      <span class="section-desc">Allow near-matches on numerical columns within a percentage variance.</span>
+    </div>
+    <button
+      mat-stroked-button
+      type="button"
+      class="add-tolerance-btn"
+      (click)="addTolerance()"
+      [disabled]="disabled()"
+    >
+      <mat-icon>add</mat-icon>
+      Add Tolerance Column
+    </button>
+  </div>
+
+  @if (tolerances().length > 0) {
+    <div class="tolerance-list">
+      @for (item of tolerances(); track $index; let idx = $index) {
+        <div class="tolerance-row">
+          <mat-form-field appearance="outline" class="column-field">
+            <mat-label>Column</mat-label>
+            <mat-select
+              [ngModel]="item.columnName"
+              (ngModelChange)="updateColumn(idx, $event)"
+              [disabled]="disabled()"
+              placeholder="Select numeric column"
+              required
+              [errorStateMatcher]="errorMatcher"
+            >
+              @for (col of availableColumns(); track col) {
+                <mat-option [value]="col">{{ col }}</mat-option>
+              }
+            </mat-select>
+            @if (!item.columnName.trim()) {
+              <mat-error>Column is required</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="percentage-field">
+            <mat-label>Tolerance %</mat-label>
+            <input
+              matInput
+              type="number"
+              min="0"
+              max="100"
+              step="0.1"
+              [ngModel]="item.percentage"
+              (ngModelChange)="updatePercentage(idx, $event)"
+              [disabled]="disabled()"
+              required
+              [errorStateMatcher]="errorMatcher"
+            />
+            <span matTextSuffix>%</span>
+            @if (isInvalidPercentage(item.percentage)) {
+              <mat-error>Percentage must be between 0 and 100</mat-error>
+            }
+          </mat-form-field>
+
+          <button
+            mat-icon-button
+            type="button"
+            color="warn"
+            class="remove-btn"
+            aria-label="Remove tolerance"
+            (click)="removeTolerance(idx)"
+            [disabled]="disabled()"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      }
+    </div>
+  }
+</div>

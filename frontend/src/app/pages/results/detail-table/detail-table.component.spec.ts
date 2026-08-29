@@ -116,33 +116,32 @@ describe('DetailTableComponent', () => {
     expect(component.totalElements()).toBe(2);
     expect(component.isLoading()).toBe(false);
 
-    // Verify side-by-side table is rendered
+    // Verify unified table is rendered
     const table = fixture.nativeElement.querySelector('[data-testid="mismatches-table"]');
     expect(table).toBeTruthy();
 
-    // Verify dynamic column headers for DS1 and DS2
-    expect(component.ds1Columns()).toContain('id');
-    expect(component.ds1Columns()).toContain('customer');
-    expect(component.ds1Columns()).toContain('amount');
-    expect(component.ds1Columns()).toContain('status');
-
-    expect(component.ds2Columns()).toContain('id');
-    expect(component.ds2Columns()).toContain('customer');
-    expect(component.ds2Columns()).toContain('amount');
-    expect(component.ds2Columns()).toContain('status');
+    // Verify dynamic unified column headers
+    expect(component.unifiedColumns()).toEqual(['id', 'customer', 'amount', 'status']);
   });
 
-  it('should highlight differing cells with cell-mismatched CSS class', () => {
+  it('should display single value for matching columns and inline arrow diff for differing columns', () => {
     setupComponent('test-comp-123', 'mismatches');
 
-    // First row has differing amount and status
+    // First row has differing amount (100.5 vs 105) and status ('PENDING' vs 'COMPLETED')
     const ds1AmountCell = fixture.nativeElement.querySelector('[data-testid="ds1-cell-amount"]');
     const ds2AmountCell = fixture.nativeElement.querySelector('[data-testid="ds2-cell-amount"]');
     const ds1CustomerCell = fixture.nativeElement.querySelector('[data-testid="ds1-cell-customer"]');
 
     expect(ds1AmountCell.classList).toContain('cell-mismatched');
     expect(ds2AmountCell.classList).toContain('cell-mismatched');
+    expect(ds1AmountCell.textContent).toContain('100.5');
+    expect(ds1AmountCell.textContent).toContain('105');
+    expect(ds1AmountCell.textContent).toContain('DS1');
+    expect(ds1AmountCell.textContent).toContain('DS2');
+
+    // Customer column is identical ('Alice'), so no diff badge and single value rendered
     expect(ds1CustomerCell.classList).not.toContain('cell-mismatched');
+    expect(ds1CustomerCell.textContent.trim()).toBe('Alice');
   });
 
   it('should load and render missing from DS2 records', () => {

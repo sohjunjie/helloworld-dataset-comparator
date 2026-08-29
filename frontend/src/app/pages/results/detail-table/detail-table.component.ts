@@ -5,7 +5,8 @@ import {
   SimpleChanges,
   inject,
   input,
-  signal
+  signal,
+  computed
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
@@ -48,6 +49,27 @@ export class DetailTableComponent implements OnInit, OnChanges {
   ds1Columns = signal<string[]>([]);
   ds2Columns = signal<string[]>([]);
   missingColumns = signal<string[]>([]);
+
+  unifiedColumns = computed<string[]>(() => {
+    const ds1 = this.ds1Columns();
+    const ds2 = this.ds2Columns();
+    const seen = new Set<string>();
+    const cols: string[] = [];
+
+    for (const c of ds1) {
+      if (!seen.has(c.toLowerCase())) {
+        seen.add(c.toLowerCase());
+        cols.push(c);
+      }
+    }
+    for (const c of ds2) {
+      if (!seen.has(c.toLowerCase())) {
+        seen.add(c.toLowerCase());
+        cols.push(c);
+      }
+    }
+    return cols;
+  });
 
   pageIndex = signal<number>(0);
   pageSize = signal<number>(50);
@@ -193,6 +215,16 @@ export class DetailTableComponent implements OnInit, OnChanges {
 
   getDs2Value(row: MismatchDetail, col: string): unknown {
     return row.dataDs2 ? row.dataDs2[col] : undefined;
+  }
+
+  getUnifiedValue(row: MismatchDetail, col: string): unknown {
+    if (row.dataDs1 && row.dataDs1[col] !== undefined) {
+      return row.dataDs1[col];
+    }
+    if (row.dataDs2 && row.dataDs2[col] !== undefined) {
+      return row.dataDs2[col];
+    }
+    return undefined;
   }
 
   getMissingValue(row: MissingDetail, col: string): unknown {

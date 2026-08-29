@@ -1,0 +1,52 @@
+.column-selector-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.selection-controls {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.select-dropdown {
+  flex: 1;
+  min-width: 260px;
+}
+
+.manual-entry-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.manual-input {
+  width: 200px;
+}
+
+.add-manual-btn {
+  height: 56px;
+}
+
+.selected-chips-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 4px 0;
+}
+
+.chips-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #475569;
+}
+
+.key-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}

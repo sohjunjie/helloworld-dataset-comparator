@@ -1,0 +1,64 @@
+<div class="column-selector-container">
+  <div class="selection-controls">
+    <mat-form-field appearance="outline" class="select-dropdown">
+      <mat-label>Select Key Column(s)</mat-label>
+      <mat-select
+        multiple
+        [(ngModel)]="selectedKeysModel"
+        (ngModelChange)="onSelectChange($event)"
+        [disabled]="disabled()"
+        placeholder="Choose columns to match on"
+        required
+        [errorStateMatcher]="errorMatcher"
+      >
+        @for (col of allOptions(); track col) {
+          <mat-option [value]="col">{{ col }}</mat-option>
+        }
+      </mat-select>
+      @if (selectedKeys().length === 0) {
+        <mat-error>At least one key column must be selected</mat-error>
+      }
+      <mat-hint>Columns used to join and compare dataset records</mat-hint>
+    </mat-form-field>
+
+    <div class="manual-entry-row">
+      <mat-form-field appearance="outline" class="manual-input">
+        <mat-label>Or Type Column Name</mat-label>
+        <input
+          matInput
+          [(ngModel)]="manualColumnModel"
+          (ngModelChange)="manualColumnInput.set($event)"
+          (keydown.enter)="$event.preventDefault(); addManualColumn()"
+          [disabled]="disabled()"
+          placeholder="e.g. custom_id"
+        />
+      </mat-form-field>
+      <button
+        mat-stroked-button
+        type="button"
+        class="add-manual-btn"
+        (click)="addManualColumn()"
+        [disabled]="disabled() || !manualColumnInput().trim()"
+      >
+        <mat-icon>add</mat-icon>
+        Add
+      </button>
+    </div>
+  </div>
+
+  @if (selectedKeys().length > 0) {
+    <div class="selected-chips-wrapper">
+      <span class="chips-label">Active Key Columns:</span>
+      <mat-chip-set class="key-chips">
+        @for (key of selectedKeys(); track key) {
+          <mat-chip-row (removed)="removeKey(key)">
+            {{ key }}
+            <button matChipRemove [disabled]="disabled()" [attr.aria-label]="'Remove ' + key">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+        }
+      </mat-chip-set>
+    </div>
+  }
+</div>

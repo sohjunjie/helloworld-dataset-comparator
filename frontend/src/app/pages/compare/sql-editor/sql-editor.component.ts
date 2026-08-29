@@ -19,87 +19,8 @@ import { EditorView, placeholder as cmPlaceholder } from '@codemirror/view';
   selector: 'app-sql-editor',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <div class="sql-editor-wrapper">
-      <div class="sql-editor-header">
-        <span class="editor-label">SQL Query (PostgreSQL SELECT)</span>
-      </div>
-      <div
-        #editorContainer
-        class="editor-container"
-        [class.is-disabled]="disabled()"
-      ></div>
-    </div>
-  `,
-  styles: [`
-    .sql-editor-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      width: 100%;
-    }
-
-    .sql-editor-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .editor-label {
-      font-size: 0.8125rem;
-      font-weight: 600;
-      color: #475569;
-      text-transform: uppercase;
-      letter-spacing: 0.025em;
-    }
-
-    .editor-container {
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      overflow: hidden;
-      background-color: #ffffff;
-      transition: border-color 0.2s, box-shadow 0.2s;
-
-      &:focus-within {
-        border-color: #3b82f6;
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
-      }
-
-      &.is-disabled {
-        opacity: 0.65;
-        pointer-events: none;
-        background-color: #f8fafc;
-      }
-    }
-
-    ::ng-deep .cm-editor {
-      min-height: 150px;
-      max-height: 320px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
-      font-size: 13.5px;
-    }
-
-    ::ng-deep .cm-scroller {
-      min-height: 150px;
-      overflow: auto;
-      line-height: 1.5;
-    }
-
-    ::ng-deep .cm-gutters {
-      background-color: #f8fafc;
-      color: #94a3b8;
-      border-right: 1px solid #e2e8f0;
-    }
-
-    ::ng-deep .cm-activeLineGutter {
-      background-color: #e2e8f0;
-      color: #1e293b;
-    }
-
-    ::ng-deep .cm-activeLine {
-      background-color: #f1f5f9;
-    }
-  `]
+  templateUrl: './sql-editor.component.html',
+  styleUrl: './sql-editor.component.scss'
 })
 export class SqlEditorComponent implements AfterViewInit, OnDestroy {
   @ViewChild('editorContainer') private editorContainerRef!: ElementRef<HTMLDivElement>;

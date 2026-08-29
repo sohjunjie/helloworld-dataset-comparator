@@ -40,67 +40,55 @@
   @if (!isLoading() && !errorMessage() && totalElements() > 0) {
     <div class="table-scroll-container">
       @if (resultType() === 'mismatches') {
-        <!-- Side-by-Side Mismatches Table -->
-        <table class="comparator-table side-by-side-table" data-testid="mismatches-table">
+        <!-- Unified Mismatches Table with Inline Value Diffs -->
+        <table class="comparator-table unified-diff-table" data-testid="mismatches-table">
           <thead>
-            <tr class="super-header-row">
-              <th [attr.colspan]="ds1Columns().length + 1" class="super-header ds1-super-header">
-                <span class="dataset-tag tag-ds1">Dataset 1 (Left)</span>
-              </th>
-              <th class="divider-header" aria-hidden="true"></th>
-              <th [attr.colspan]="ds2Columns().length + 1" class="super-header ds2-super-header">
-                <span class="dataset-tag tag-ds2">Dataset 2 (Right)</span>
-              </th>
-            </tr>
             <tr class="column-header-row">
               <th class="col-header row-num-col">#</th>
-              @for (col of ds1Columns(); track col) {
-                <th class="col-header ds1-col-header" [attr.data-testid]="'header-ds1-' + col">
-                  {{ col }}
-                </th>
-              }
-              <th class="divider-col" aria-hidden="true"></th>
-              <th class="col-header row-num-col">#</th>
-              @for (col of ds2Columns(); track col) {
-                <th class="col-header ds2-col-header" [attr.data-testid]="'header-ds2-' + col">
+              @for (col of unifiedColumns(); track col) {
+                <th class="col-header" [attr.data-testid]="'header-ds1-' + col">
                   {{ col }}
                 </th>
               }
             </tr>
           </thead>
           <tbody>
-            @for (row of mismatchRows(); track (row.rowNumberDs1 || $index)) {
+            @for (row of mismatchRows(); track (row.rowNumberDs1 || row.rowNumberDs2 || $index)) {
               <tr class="data-row mismatch-row">
                 <td class="row-cell row-num-cell">
-                  {{ row.rowNumberDs1 || (pageIndex() * pageSize() + $index + 1) }}
+                  {{ row.rowNumberDs1 || row.rowNumberDs2 || (pageIndex() * pageSize() + $index + 1) }}
                 </td>
-                @for (col of ds1Columns(); track col) {
+                @for (col of unifiedColumns(); track col) {
                   <td
-                    class="row-cell data-cell ds1-cell"
+                    class="row-cell data-cell"
                     [class.cell-mismatched]="isDiffering(row, col)"
-                    [class.null-value]="isNullValue(getDs1Value(row, col))"
-                    [attr.data-testid]="'ds1-cell-' + col"
-                    [title]="formatValue(getDs1Value(row, col))">
-                    <span class="cell-content">{{ formatValue(getDs1Value(row, col)) }}</span>
-                    @if (isDiffering(row, col)) {
-                      <span class="diff-chip" matTooltip="Differing value in Dataset 2">diff</span>
-                    }
-                  </td>
-                }
-                <td class="divider-cell" aria-hidden="true"></td>
-                <td class="row-cell row-num-cell">
-                  {{ row.rowNumberDs2 || (pageIndex() * pageSize() + $index + 1) }}
-                </td>
-                @for (col of ds2Columns(); track col) {
-                  <td
-                    class="row-cell data-cell ds2-cell"
-                    [class.cell-mismatched]="isDiffering(row, col)"
-                    [class.null-value]="isNullValue(getDs2Value(row, col))"
-                    [attr.data-testid]="'ds2-cell-' + col"
-                    [title]="formatValue(getDs2Value(row, col))">
-                    <span class="cell-content">{{ formatValue(getDs2Value(row, col)) }}</span>
-                    @if (isDiffering(row, col)) {
-                      <span class="diff-chip" matTooltip="Differing value in Dataset 1">diff</span>
+                    [class.null-value]="!isDiffering(row, col) && isNullValue(getUnifiedValue(row, col))"
+                    [attr.data-testid]="'ds1-cell-' + col">
+                    @if (!isDiffering(row, col)) {
+                      <!-- Matching Value: Displayed Once -->
+                      <span class="cell-content" [title]="formatValue(getUnifiedValue(row, col))">
+                        {{ formatValue(getUnifiedValue(row, col)) }}
+                      </span>
+                    } @else {
+                      <!-- Differing Value: Inline Arrow Comparison -->
+                      <div class="diff-inline-comparison">
+                        <span
+                          class="diff-val ds1-val"
+                          [class.null-val]="isNullValue(getDs1Value(row, col))"
+                          [title]="'Dataset 1: ' + formatValue(getDs1Value(row, col))">
+                          <span class="ds-badge tag-ds1">DS1</span>
+                          <span class="val-text">{{ formatValue(getDs1Value(row, col)) }}</span>
+                        </span>
+                        <mat-icon class="diff-arrow-icon" aria-hidden="true">arrow_forward</mat-icon>
+                        <span
+                          class="diff-val ds2-val cell-mismatched"
+                          [class.null-val]="isNullValue(getDs2Value(row, col))"
+                          [attr.data-testid]="'ds2-cell-' + col"
+                          [title]="'Dataset 2: ' + formatValue(getDs2Value(row, col))">
+                          <span class="ds-badge tag-ds2">DS2</span>
+                          <span class="val-text">{{ formatValue(getDs2Value(row, col)) }}</span>
+                        </span>
+                      </div>
                     }
                   </td>
                 }

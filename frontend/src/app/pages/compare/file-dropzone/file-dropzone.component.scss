@@ -1,0 +1,127 @@
+.dropzone-container {
+  border: 2px dashed #cbd5e1;
+  border-radius: 8px;
+  padding: 24px 16px;
+  text-align: center;
+  background-color: #f8fafc;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  outline: none;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover:not(.disabled):not(.has-file) {
+    border-color: #3b82f6;
+    background-color: #eff6ff;
+  }
+
+  &:focus-visible {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+  }
+
+  &.dragover {
+    border-color: #2563eb;
+    background-color: #dbeafe;
+    transform: scale(1.01);
+  }
+
+  &.has-file {
+    border-style: solid;
+    border-color: #93c5fd;
+    background-color: #f0f9ff;
+    cursor: default;
+  }
+
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+.file-input {
+  display: none;
+}
+
+.dropzone-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.dropzone-icon {
+  font-size: 36px;
+  width: 36px;
+  height: 36px;
+  color: #64748b;
+}
+
+.dropzone-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .primary-text {
+    font-weight: 500;
+    color: #334155;
+  }
+
+  .secondary-text {
+    font-size: 0.875rem;
+    color: #64748b;
+
+    .browse-link {
+      color: #2563eb;
+      font-weight: 500;
+      text-decoration: underline;
+    }
+  }
+}
+
+.dropzone-file-info {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
+  padding: 4px 8px;
+}
+
+.file-icon {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+  color: #2563eb;
+}
+
+.file-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+  overflow: hidden;
+
+  .file-name {
+    font-weight: 500;
+    color: #1e293b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  .file-size {
+    font-size: 0.75rem;
+    color: #64748b;
+  }
+}
+
+.remove-file-btn {
+  color: #64748b;
+  &:hover {
+    color: #ef4444;
+  }
+}

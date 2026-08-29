@@ -1,0 +1,52 @@
+<div
+  class="dropzone-container"
+  [class.dragover]="isDragOver()"
+  [class.has-file]="!!selectedFile()"
+  [class.disabled]="disabled()"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+  (drop)="onDrop($event)"
+  (click)="triggerBrowse()"
+  (keydown.enter)="triggerBrowse()"
+  (keydown.space)="triggerBrowse()"
+  tabindex="0"
+  role="button"
+  [attr.aria-label]="label() || 'File dropzone'"
+>
+  <input
+    #fileInput
+    type="file"
+    class="file-input"
+    [accept]="accept()"
+    [disabled]="disabled()"
+    (change)="onFileChange($event)"
+  />
+
+  @if (!selectedFile()) {
+    <div class="dropzone-empty">
+      <mat-icon class="dropzone-icon">cloud_upload</mat-icon>
+      <div class="dropzone-text">
+        <span class="primary-text">Drag and drop file here</span>
+        <span class="secondary-text">or <span class="browse-link">browse</span> (.csv, .txt, .xls, .xlsx)</span>
+      </div>
+    </div>
+  } @else {
+    <div class="dropzone-file-info" (click)="$event.stopPropagation()">
+      <mat-icon class="file-icon">{{ getFileIcon(selectedFile()!.name) }}</mat-icon>
+      <div class="file-details">
+        <span class="file-name" [title]="selectedFile()!.name">{{ selectedFile()!.name }}</span>
+        <span class="file-size">{{ formatFileSize(selectedFile()!.size) }}</span>
+      </div>
+      <button
+        mat-icon-button
+        type="button"
+        class="remove-file-btn"
+        aria-label="Remove file"
+        (click)="removeFile($event)"
+        [disabled]="disabled()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  }
+</div>

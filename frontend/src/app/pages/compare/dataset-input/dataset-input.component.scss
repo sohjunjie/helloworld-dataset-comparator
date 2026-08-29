@@ -1,0 +1,132 @@
+.dataset-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  background-color: #ffffff;
+}
+
+mat-card-header {
+  padding: 16px 20px 8px;
+}
+
+.card-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #0f172a;
+}
+
+.title-icon {
+  color: #3b82f6;
+}
+
+.card-body {
+  padding: 8px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.source-type-toggle {
+  margin-bottom: 4px;
+}
+
+.radio-group {
+  display: flex;
+  gap: 16px;
+}
+
+.file-upload-section, .sql-query-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.delimiter-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-top: 8px;
+}
+
+.delimiter-select {
+  flex: 1;
+  background-color: #ffffff;
+  border-radius: 4px;
+
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    background-color: #ffffff;
+  }
+}
+
+.custom-delimiter-input {
+  width: 120px;
+  background-color: #ffffff;
+  border-radius: 4px;
+
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    background-color: #ffffff;
+  }
+}
+
+.connection-panel {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  background-color: #f8fafc;
+}
+
+.panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.panel-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  color: #64748b;
+}
+
+.connection-form-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+  padding-top: 8px;
+
+  .db-field {
+    grid-column: 1 / -1;
+  }
+
+  .user-field, .pass-field {
+    grid-column: span 1;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    .user-field, .pass-field {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+.form-field {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 4px;
+
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    background-color: #ffffff;
+  }
+}

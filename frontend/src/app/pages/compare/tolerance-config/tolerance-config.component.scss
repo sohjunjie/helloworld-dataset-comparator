@@ -1,0 +1,62 @@
+.tolerance-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.tolerance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.section-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.section-desc {
+  font-size: 0.8125rem;
+  color: #64748b;
+}
+
+.tolerance-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.tolerance-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.column-field {
+  flex: 2;
+  min-width: 180px;
+}
+
+.percentage-field {
+  flex: 1;
+  min-width: 120px;
+  max-width: 160px;
+}
+
+.remove-btn {
+  margin-bottom: 22px;
+}
