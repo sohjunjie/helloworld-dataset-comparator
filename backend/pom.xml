@@ -68,6 +68,13 @@
             <version>5.4.0</version>
         </dependency>
 
+        <!-- CSV parsing -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>1.13.0</version>
+        </dependency>
+
         <!-- Validation -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

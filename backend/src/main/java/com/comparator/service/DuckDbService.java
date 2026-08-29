@@ -97,28 +97,6 @@ public class DuckDbService {
         }
     }
 
-    /**
-     * Convert CSV/TXT file to Parquet format using DuckDB.
-     */
-    public void csvToParquet(Path csvPath, Path parquetPath, char delimiter) {
-        String normalizedCsvPath = normalizePath(csvPath);
-        String normalizedParquetPath = normalizePath(parquetPath);
-        String delimEscaped = formatDelimiter(delimiter);
-
-        String sql = String.format(
-                "COPY (SELECT * FROM read_csv('%s', delim='%s', header=true, auto_detect=true)) TO '%s' (FORMAT PARQUET)",
-                normalizedCsvPath,
-                delimEscaped,
-                normalizedParquetPath
-        );
-
-        try (Connection conn = createConnection();
-             Statement stmt = conn.createStatement()) {
-            stmt.execute(sql);
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to convert CSV to Parquet: " + e.getMessage(), e);
-        }
-    }
 
     /**
      * Read Parquet schema and return list of column names.
@@ -283,16 +261,5 @@ public class DuckDbService {
         return path.toAbsolutePath().toString().replace('\\', '/').replace("'", "''");
     }
 
-    private String formatDelimiter(char delimiter) {
-        if (delimiter == '\t') {
-            return "\\t";
-        }
-        if (delimiter == '\'') {
-            return "''";
-        }
-        if (delimiter == '\\') {
-            return "\\\\";
-        }
-        return String.valueOf(delimiter);
-    }
+
 }

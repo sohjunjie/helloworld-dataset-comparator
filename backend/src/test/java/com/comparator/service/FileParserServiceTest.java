@@ -184,4 +184,50 @@ class FileParserServiceTest {
         assertThat(Files.exists(targetParquet)).isTrue();
         assertThat(headers).containsExactly("colA", "colB", "colC");
     }
+
+    @Test
+    @DisplayName("Should resolve appropriate strategy for different file extensions")
+    void shouldResolveStrategyCorrectly() {
+        assertThat(fileParserService.resolveStrategy("data.csv")).isInstanceOf(com.comparator.service.strategy.CsvFileParsingStrategy.class);
+        assertThat(fileParserService.resolveStrategy("data.txt")).isInstanceOf(com.comparator.service.strategy.TxtFileParsingStrategy.class);
+        assertThat(fileParserService.resolveStrategy("data.tsv")).isInstanceOf(com.comparator.service.strategy.TxtFileParsingStrategy.class);
+        assertThat(fileParserService.resolveStrategy("data.xlsx")).isInstanceOf(com.comparator.service.strategy.ExcelFileParsingStrategy.class);
+        assertThat(fileParserService.resolveStrategy("data.xls")).isInstanceOf(com.comparator.service.strategy.ExcelFileParsingStrategy.class);
+        assertThat(fileParserService.resolveStrategy("unknown.bin")).isInstanceOf(com.comparator.service.strategy.CsvFileParsingStrategy.class);
+    }
+
+    @Test
+    @DisplayName("Should parse CSV with quotes, newlines, and commas using Commons CSV")
+    void shouldParseQuotedCsvWithCommonsCsv() throws IOException {
+        String csvContent = "id,name,comment\n1,\"Doe, John\",\"Multi-line\ncomment\"\n2,\"Smith, Jane\",\"Normal\"\n";
+        MockMultipartFile file = new MockMultipartFile("ds1File", "quoted.csv", "text/csv", csvContent.getBytes(StandardCharsets.UTF_8));
+        Path targetParquet = tempDir.resolve("quoted-test").resolve("ds1.parquet");
+
+        List<String> headers = fileParserService.parseFileToParquet(file, targetParquet, "auto");
+
+        assertThat(Files.exists(targetParquet)).isTrue();
+        assertThat(headers).containsExactly("id", "name", "comment");
+        List<java.util.Map<String, Object>> rows = duckDbService.queryParquet(targetParquet, 0, 10);
+        assertThat(rows).hasSize(2);
+        assertThat(rows.get(0).get("name")).isEqualTo("Doe, John");
+        assertThat(rows.get(0).get("comment")).isEqualTo("Multi-line\ncomment");
+    }
+
+    @Test
+    @DisplayName("Should parse semicolon delimited file with auto detection")
+    void shouldParseSemicolonDelimitedFile() throws IOException {
+        String content = "a;b;c\n1;2;3\n4;5;6\n";
+        MockMultipartFile file = new MockMultipartFile("ds1File", "data.csv", "text/csv", content.getBytes(StandardCharsets.UTF_8));
+        Path targetParquet = tempDir.resolve("semicolon-test").resolve("ds1.parquet");
+
+        List<String> headers = fileParserService.parseFileToParquet(file, targetParquet, "semicolon");
+
+        assertThat(Files.exists(targetParquet)).isTrue();
+        assertThat(headers).containsExactly("a", "b", "c");
+        List<java.util.Map<String, Object>> rows = duckDbService.queryParquet(targetParquet, 0, 10);
+        assertThat(rows).hasSize(2);
+        assertThat(rows.get(0).get("a")).isEqualTo("1");
+        assertThat(rows.get(0).get("b")).isEqualTo("2");
+        assertThat(rows.get(0).get("c")).isEqualTo("3");
+    }
 }

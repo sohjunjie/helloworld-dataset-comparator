@@ -16,6 +16,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class ComparisonEngineTest {
 
     private DuckDbService duckDbService;
+    private FileParserService fileParserService;
     private ComparisonEngine comparisonEngine;
 
     @TempDir
@@ -25,6 +26,11 @@ class ComparisonEngineTest {
     void setUp() {
         duckDbService = new DuckDbService();
         comparisonEngine = new ComparisonEngine(duckDbService);
+        fileParserService = new FileParserService(new DelimiterDetector(), duckDbService);
+    }
+
+    private void parseCsvToParquet(Path csvPath, Path parquetPath) throws Exception {
+        fileParserService.parseStreamToParquet(Files.newInputStream(csvPath), parquetPath, "auto", csvPath.getFileName().toString());
     }
 
     @Test
@@ -37,8 +43,8 @@ class ComparisonEngineTest {
 
         Path ds1Parquet = tempDir.resolve("ds1.parquet");
         Path ds2Parquet = tempDir.resolve("ds2.parquet");
-        duckDbService.csvToParquet(ds1Csv, ds1Parquet, ',');
-        duckDbService.csvToParquet(ds2Csv, ds2Parquet, ',');
+        parseCsvToParquet(ds1Csv, ds1Parquet);
+        parseCsvToParquet(ds2Csv, ds2Parquet);
 
         ComparisonResult result = comparisonEngine.compare(
                 ds1Parquet, ds2Parquet, tempDir, List.of("id"), List.of(), false
@@ -72,8 +78,8 @@ class ComparisonEngineTest {
 
         Path ds1Parquet = tempDir.resolve("ds1.parquet");
         Path ds2Parquet = tempDir.resolve("ds2.parquet");
-        duckDbService.csvToParquet(ds1Csv, ds1Parquet, ',');
-        duckDbService.csvToParquet(ds2Csv, ds2Parquet, ',');
+        parseCsvToParquet(ds1Csv, ds1Parquet);
+        parseCsvToParquet(ds2Csv, ds2Parquet);
 
         ComparisonResult result = comparisonEngine.compare(
                 ds1Parquet, ds2Parquet, tempDir, List.of("id"), List.of(), false
@@ -99,8 +105,8 @@ class ComparisonEngineTest {
 
         Path ds1Parquet = tempDir.resolve("ds1.parquet");
         Path ds2Parquet = tempDir.resolve("ds2.parquet");
-        duckDbService.csvToParquet(ds1Csv, ds1Parquet, ',');
-        duckDbService.csvToParquet(ds2Csv, ds2Parquet, ',');
+        parseCsvToParquet(ds1Csv, ds1Parquet);
+        parseCsvToParquet(ds2Csv, ds2Parquet);
 
         ComparisonResult result = comparisonEngine.compare(
                 ds1Parquet, ds2Parquet, tempDir, List.of("dept", "emp_id"), List.of(), false
@@ -124,8 +130,8 @@ class ComparisonEngineTest {
 
         Path ds1Parquet = tempDir.resolve("ds1.parquet");
         Path ds2Parquet = tempDir.resolve("ds2.parquet");
-        duckDbService.csvToParquet(ds1Csv, ds1Parquet, ',');
-        duckDbService.csvToParquet(ds2Csv, ds2Parquet, ',');
+        parseCsvToParquet(ds1Csv, ds1Parquet);
+        parseCsvToParquet(ds2Csv, ds2Parquet);
 
         ComparisonResult result = comparisonEngine.compare(
                 ds1Parquet, ds2Parquet, tempDir, List.of("id"), List.of(), false
@@ -145,8 +151,8 @@ class ComparisonEngineTest {
 
         Path ds1Parquet = tempDir.resolve("ds1.parquet");
         Path ds2Parquet = tempDir.resolve("ds2.parquet");
-        duckDbService.csvToParquet(ds1Csv, ds1Parquet, ',');
-        duckDbService.csvToParquet(ds2Csv, ds2Parquet, ',');
+        parseCsvToParquet(ds1Csv, ds1Parquet);
+        parseCsvToParquet(ds2Csv, ds2Parquet);
 
         assertThatThrownBy(() -> comparisonEngine.compare(
                 ds1Parquet, ds2Parquet, tempDir, List.of("id"), List.of(), false
@@ -168,8 +174,8 @@ class ComparisonEngineTest {
 
         Path ds1Parquet = tempDir.resolve("ds1.parquet");
         Path ds2Parquet = tempDir.resolve("ds2.parquet");
-        duckDbService.csvToParquet(ds1Csv, ds1Parquet, ',');
-        duckDbService.csvToParquet(ds2Csv, ds2Parquet, ',');
+        parseCsvToParquet(ds1Csv, ds1Parquet);
+        parseCsvToParquet(ds2Csv, ds2Parquet);
 
         com.comparator.model.dto.ToleranceConfig tol = new com.comparator.model.dto.ToleranceConfig("score", 5.0);
         ComparisonResult result = comparisonEngine.compare(
@@ -196,8 +202,8 @@ class ComparisonEngineTest {
 
         Path ds1Parquet = tempDir.resolve("ds1.parquet");
         Path ds2Parquet = tempDir.resolve("ds2.parquet");
-        duckDbService.csvToParquet(ds1Csv, ds1Parquet, ',');
-        duckDbService.csvToParquet(ds2Csv, ds2Parquet, ',');
+        parseCsvToParquet(ds1Csv, ds1Parquet);
+        parseCsvToParquet(ds2Csv, ds2Parquet);
 
         com.comparator.model.dto.ToleranceConfig tol = new com.comparator.model.dto.ToleranceConfig("score", 10.0);
         ComparisonResult result = comparisonEngine.compare(
@@ -218,8 +224,8 @@ class ComparisonEngineTest {
 
         Path ds1Parquet = tempDir.resolve("ds1.parquet");
         Path ds2Parquet = tempDir.resolve("ds2.parquet");
-        duckDbService.csvToParquet(ds1Csv, ds1Parquet, ',');
-        duckDbService.csvToParquet(ds2Csv, ds2Parquet, ',');
+        parseCsvToParquet(ds1Csv, ds1Parquet);
+        parseCsvToParquet(ds2Csv, ds2Parquet);
 
         com.comparator.model.dto.ToleranceConfig negativeTol = new com.comparator.model.dto.ToleranceConfig("val", -1.0);
         assertThatThrownBy(() -> comparisonEngine.compare(
@@ -244,8 +250,8 @@ class ComparisonEngineTest {
 
         Path ds1Parquet = tempDir.resolve("ds1.parquet");
         Path ds2Parquet = tempDir.resolve("ds2.parquet");
-        duckDbService.csvToParquet(ds1Csv, ds1Parquet, ',');
-        duckDbService.csvToParquet(ds2Csv, ds2Parquet, ',');
+        parseCsvToParquet(ds1Csv, ds1Parquet);
+        parseCsvToParquet(ds2Csv, ds2Parquet);
 
         // Case-insensitive (caseSensitive = false) -> K1=k1, ALICE=Alice, NEW YORK=New York
         ComparisonResult caseInsensitiveResult = comparisonEngine.compare(
@@ -277,8 +283,8 @@ class ComparisonEngineTest {
 
         Path ds1Parquet = tempDir.resolve("ds1.parquet");
         Path ds2Parquet = tempDir.resolve("ds2.parquet");
-        duckDbService.csvToParquet(ds1Csv, ds1Parquet, ',');
-        duckDbService.csvToParquet(ds2Csv, ds2Parquet, ',');
+        parseCsvToParquet(ds1Csv, ds1Parquet);
+        parseCsvToParquet(ds2Csv, ds2Parquet);
 
         ComparisonResult result = comparisonEngine.compare(
                 ds1Parquet, ds2Parquet, tempDir, List.of("id"), List.of(), true
@@ -302,8 +308,8 @@ class ComparisonEngineTest {
 
         Path ds1Parquet = tempDir.resolve("ds1.parquet");
         Path ds2Parquet = tempDir.resolve("ds2.parquet");
-        duckDbService.csvToParquet(ds1Csv, ds1Parquet, ',');
-        duckDbService.csvToParquet(ds2Csv, ds2Parquet, ',');
+        parseCsvToParquet(ds1Csv, ds1Parquet);
+        parseCsvToParquet(ds2Csv, ds2Parquet);
 
         ComparisonResult result = comparisonEngine.compare(
                 ds1Parquet, ds2Parquet, tempDir, List.of("id"), List.of(), true

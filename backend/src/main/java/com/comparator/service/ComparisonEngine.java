@@ -107,11 +107,11 @@ public class ComparisonEngine {
         try (Connection conn = duckDbService.createConnection();
              Statement stmt = conn.createStatement()) {
 
-            // 1. Create source views with unified schema (NULL columns for missing ones)
-            String ds1ViewSelect = allCols.stream()
+            // 1. Create source views with unified schema (NULL columns for missing ones) and row numbers
+            String ds1ViewSelect = "ROW_NUMBER() OVER () AS _ds1_rn, " + allCols.stream()
                     .map(col -> ds1Headers.contains(col) ? quote(col) : "NULL AS " + quote(col))
                     .collect(Collectors.joining(", "));
-            String ds2ViewSelect = allCols.stream()
+            String ds2ViewSelect = "ROW_NUMBER() OVER () AS _ds2_rn, " + allCols.stream()
                     .map(col -> ds2Headers.contains(col) ? quote(col) : "NULL AS " + quote(col))
                     .collect(Collectors.joining(", "));
 
@@ -123,22 +123,27 @@ public class ComparisonEngine {
             String keyJoinConditionRev = buildKeyJoinCondition(keyColumns, "ds2", "ds1", isCaseSensitive);
 
             // 2. Missing from DS2 (records in DS1 not in DS2)
+            String allColsSelect = allCols.stream().map(this::quote).collect(Collectors.joining(", "));
             stmt.execute(String.format(
-                    "CREATE TABLE missing_from_ds2 AS SELECT ds1.* FROM ds1 ANTI JOIN ds2 ON %s",
+                    "CREATE TABLE missing_from_ds2 AS SELECT %s FROM ds1 ANTI JOIN ds2 ON %s ORDER BY ds1._ds1_rn",
+                    allColsSelect,
                     keyJoinCondition
             ));
             stmt.execute(String.format("COPY (SELECT * FROM missing_from_ds2) TO '%s' (FORMAT PARQUET)", normMissingDs2));
 
             // 3. Missing from DS1 (records in DS2 not in DS1)
             stmt.execute(String.format(
-                    "CREATE TABLE missing_from_ds1 AS SELECT ds2.* FROM ds2 ANTI JOIN ds1 ON %s",
+                    "CREATE TABLE missing_from_ds1 AS SELECT %s FROM ds2 ANTI JOIN ds1 ON %s ORDER BY ds2._ds2_rn",
+                    allColsSelect,
                     keyJoinConditionRev
             ));
             stmt.execute(String.format("COPY (SELECT * FROM missing_from_ds1) TO '%s' (FORMAT PARQUET)", normMissingDs1));
 
             // 4. Matched pairs comparison
             List<String> selectFields = new ArrayList<>();
-            selectFields.add("ROW_NUMBER() OVER () AS _pair_id");
+            selectFields.add("ROW_NUMBER() OVER (ORDER BY ds1._ds1_rn) AS _pair_id");
+            selectFields.add("ds1._ds1_rn AS _ds1_rn");
+            selectFields.add("ds2._ds2_rn AS _ds2_rn");
 
             // Build match condition and diff columns expression
             String matchCondition;
@@ -217,7 +222,7 @@ public class ComparisonEngine {
             }
 
             String allMatchedPairsSql = String.format(
-                    "CREATE TABLE all_matched_pairs AS SELECT %s FROM ds1 INNER JOIN ds2 ON %s",
+                    "CREATE TABLE all_matched_pairs AS SELECT %s FROM ds1 INNER JOIN ds2 ON %s ORDER BY ds1._ds1_rn",
                     String.join(", ", selectFields),
                     keyJoinCondition
             );
@@ -225,38 +230,38 @@ public class ComparisonEngine {
 
             // 5. Build matches table
             List<String> matchesSelectCols = new ArrayList<>();
-            matchesSelectCols.add("ROW_NUMBER() OVER () AS _row_id");
+            matchesSelectCols.add("ROW_NUMBER() OVER (ORDER BY _pair_id) AS _row_id");
             for (int i = 0; i < allCols.size(); i++) {
                 matchesSelectCols.add(quote("ds1_c" + i) + " AS " + quote(allCols.get(i)));
             }
             stmt.execute(String.format(
-                    "CREATE TABLE matches AS SELECT %s FROM all_matched_pairs WHERE _is_full_match = TRUE",
+                    "CREATE TABLE matches AS SELECT %s FROM all_matched_pairs WHERE _is_full_match = TRUE ORDER BY _pair_id",
                     String.join(", ", matchesSelectCols)
             ));
             stmt.execute(String.format("COPY (SELECT * FROM matches) TO '%s' (FORMAT PARQUET)", normMatches));
 
             // 6. Build mismatches_ds1 table
             List<String> mismatchDs1SelectCols = new ArrayList<>();
-            mismatchDs1SelectCols.add("ROW_NUMBER() OVER () AS _row_id");
+            mismatchDs1SelectCols.add("ROW_NUMBER() OVER (ORDER BY _pair_id) AS _row_id");
             mismatchDs1SelectCols.add("_diff_columns");
             for (int i = 0; i < allCols.size(); i++) {
                 mismatchDs1SelectCols.add(quote("ds1_c" + i) + " AS " + quote(allCols.get(i)));
             }
             stmt.execute(String.format(
-                    "CREATE TABLE mismatches_ds1 AS SELECT %s FROM all_matched_pairs WHERE _is_full_match = FALSE",
+                    "CREATE TABLE mismatches_ds1 AS SELECT %s FROM all_matched_pairs WHERE _is_full_match = FALSE ORDER BY _pair_id",
                     String.join(", ", mismatchDs1SelectCols)
             ));
             stmt.execute(String.format("COPY (SELECT * FROM mismatches_ds1) TO '%s' (FORMAT PARQUET)", normMismatchesDs1));
 
             // 7. Build mismatches_ds2 table
             List<String> mismatchDs2SelectCols = new ArrayList<>();
-            mismatchDs2SelectCols.add("ROW_NUMBER() OVER () AS _row_id");
+            mismatchDs2SelectCols.add("ROW_NUMBER() OVER (ORDER BY _pair_id) AS _row_id");
             mismatchDs2SelectCols.add("_diff_columns");
             for (int i = 0; i < allCols.size(); i++) {
                 mismatchDs2SelectCols.add(quote("ds2_c" + i) + " AS " + quote(allCols.get(i)));
             }
             stmt.execute(String.format(
-                    "CREATE TABLE mismatches_ds2 AS SELECT %s FROM all_matched_pairs WHERE _is_full_match = FALSE",
+                    "CREATE TABLE mismatches_ds2 AS SELECT %s FROM all_matched_pairs WHERE _is_full_match = FALSE ORDER BY _pair_id",
                     String.join(", ", mismatchDs2SelectCols)
             ));
             stmt.execute(String.format("COPY (SELECT * FROM mismatches_ds2) TO '%s' (FORMAT PARQUET)", normMismatchesDs2));

@@ -54,6 +54,11 @@ class ExcelReportServiceTest {
         excelReportService = new ExcelReportService(duckDbService, appProperties, objectMapper);
     }
 
+    private void parseCsvToParquet(Path csvPath, Path parquetPath) throws Exception {
+        FileParserService fileParserService = new FileParserService(new DelimiterDetector(), duckDbService);
+        fileParserService.parseStreamToParquet(Files.newInputStream(csvPath), parquetPath, "auto", csvPath.getFileName().toString());
+    }
+
     @Test
     @DisplayName("Generates valid Excel report with Summary, Mismatches, and Missing sheets")
     void testGenerateValidReport() throws Exception {
@@ -67,8 +72,8 @@ class ExcelReportServiceTest {
         Files.writeString(ds1Csv, "id,name,score\n1,Alice,90\n2,Bob,80\n3,Only1,70\n");
         Files.writeString(ds2Csv, "id,name,score\n1,Alice,90\n2,Robert,85\n4,Only2,60\n");
 
-        duckDbService.csvToParquet(ds1Csv, compDir.resolve("ds1.parquet"), ',');
-        duckDbService.csvToParquet(ds2Csv, compDir.resolve("ds2.parquet"), ',');
+        parseCsvToParquet(ds1Csv, compDir.resolve("ds1.parquet"));
+        parseCsvToParquet(ds2Csv, compDir.resolve("ds2.parquet"));
 
         ComparisonEngine engine = new ComparisonEngine(duckDbService);
         engine.compare(
@@ -204,8 +209,8 @@ class ExcelReportServiceTest {
         Files.writeString(ds1Csv, "id,name\n1,Alice\n2,Bob\n");
         Files.writeString(ds2Csv, "id,name\n1,Alice\n2,Bob\n");
 
-        duckDbService.csvToParquet(ds1Csv, compDir.resolve("ds1.parquet"), ',');
-        duckDbService.csvToParquet(ds2Csv, compDir.resolve("ds2.parquet"), ',');
+        parseCsvToParquet(ds1Csv, compDir.resolve("ds1.parquet"));
+        parseCsvToParquet(ds2Csv, compDir.resolve("ds2.parquet"));
 
         ComparisonEngine engine = new ComparisonEngine(duckDbService);
         engine.compare(
