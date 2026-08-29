@@ -133,17 +133,17 @@
       "norm_label": "columnheader"
     },
     {
-      "label": "ToleranceConfig",
+      "label": "ComparisonResult",
       "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/model/dto/ToleranceConfig.java",
-      "source_location": "L8",
+      "source_file": "backend/src/main/java/com/comparator/model/dto/ComparisonResult.java",
+      "source_location": "L3",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_model_dto_toleranceconfig_toleranceconfig",
+      "id": "backend_src_main_java_com_comparator_model_dto_comparisonresult_comparisonresult",
       "community": 15,
       "community_name": ".compare",
-      "norm_label": "toleranceconfig"
+      "norm_label": "comparisonresult"
     },
     {
       "label": "ComparisonEngineTest",
@@ -250,6 +250,19 @@
       "norm_label": "uploadproperties"
     },
     {
+      "label": "ComparisonRepository",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/repository/ComparisonRepository.java",
+      "source_location": "L10",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_repository_comparisonrepository_comparisonrepository",
+      "community": 18,
+      "community_name": "AppProperties",
+      "norm_label": "comparisonrepository"
+    },
+    {
       "label": "CleanupService",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/comparator/service/CleanupService.java",
@@ -263,6 +276,45 @@
       "norm_label": "cleanupservice"
     },
     {
+      "label": "ComparisonRepositoryTest",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/repository/ComparisonRepositoryTest.java",
+      "source_location": "L17",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_repository_comparisonrepositorytest_comparisonrepositorytest",
+      "community": 18,
+      "community_name": "AppProperties",
+      "norm_label": "comparisonrepositorytest"
+    },
+    {
+      "label": "CleanupIntegrationTest",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/service/CleanupIntegrationTest.java",
+      "source_location": "L23",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_service_cleanupintegrationtest_cleanupintegrationtest",
+      "community": 18,
+      "community_name": "AppProperties",
+      "norm_label": "cleanupintegrationtest"
+    },
+    {
+      "label": "ShortTtlOverrideTest",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/service/CleanupIntegrationTest.java",
+      "source_location": "L93",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_service_cleanupintegrationtest_shortttloverridetest",
+      "community": 18,
+      "community_name": "AppProperties",
+      "norm_label": "shortttloverridetest"
+    },
+    {
       "label": "CleanupServiceTest",
       "file_type": "code",
       "source_file": "backend/src/test/java/com/comparator/service/CleanupServiceTest.java",
@@ -274,32 +326,6 @@
       "community": 18,
       "community_name": "AppProperties",
       "norm_label": "cleanupservicetest"
-    },
-    {
-      "label": "ExcelReportServiceTest",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/service/ExcelReportServiceTest.java",
-      "source_location": "L34",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_service_excelreportservicetest_excelreportservicetest",
-      "community": 18,
-      "community_name": "AppProperties",
-      "norm_label": "excelreportservicetest"
-    },
-    {
-      "label": "DelimiterDetector",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/DelimiterDetector.java",
-      "source_location": "L15",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_delimiterdetector_delimiterdetector",
-      "community": 19,
-      "community_name": "DelimiterDetectorTest",
-      "norm_label": "delimiterdetector"
     },
     {
       "label": "DelimiterDetectorTest",
@@ -328,6 +354,19 @@
       "norm_label": "comparisonexecuteintegrationtest"
     },
     {
+      "label": "ComparisonProgressIntegrationTest",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonProgressIntegrationTest.java",
+      "source_location": "L35",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_controller_comparisonprogressintegrationtest_comparisonprogressintegrationtest",
+      "community": 2,
+      "community_name": "org.junit.jupiter.api.DisplayName",
+      "norm_label": "comparisonprogressintegrationtest"
+    },
+    {
       "label": "ComparisonResultsIntegrationTest",
       "file_type": "code",
       "source_file": "backend/src/test/java/com/comparator/controller/ComparisonResultsIntegrationTest.java",
@@ -341,17 +380,17 @@
       "norm_label": "comparisonresultsintegrationtest"
     },
     {
-      "label": "ProgressServiceTest",
+      "label": "ComparisonUploadControllerTest",
       "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/service/ProgressServiceTest.java",
-      "source_location": "L13",
+      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonUploadControllerTest.java",
+      "source_location": "L32",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_service_progressservicetest_progressservicetest",
+      "id": "backend_src_test_java_com_comparator_controller_comparisonuploadcontrollertest_comparisonuploadcontrollertest",
       "community": 2,
       "community_name": "org.junit.jupiter.api.DisplayName",
-      "norm_label": "progressservicetest"
+      "norm_label": "comparisonuploadcontrollertest"
     },
     {
       "label": "ExcelReportService",
@@ -523,32 +562,6 @@
       "norm_label": "pagedresult"
     },
     {
-      "label": "ProgressUpdate",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/model/dto/ProgressUpdate.java",
-      "source_location": "L5",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_model_dto_progressupdate_progressupdate",
-      "community": 26,
-      "community_name": "ComparisonController.java",
-      "norm_label": "progressupdate"
-    },
-    {
-      "label": "ProgressService",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/ProgressService.java",
-      "source_location": "L18",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_progressservice_progressservice",
-      "community": 26,
-      "community_name": "ComparisonController.java",
-      "norm_label": "progressservice"
-    },
-    {
       "label": "MismatchDetail",
       "file_type": "code",
       "source_file": "frontend/src/app/models/comparison.model.ts",
@@ -601,19 +614,6 @@
       "norm_label": "resulttabletype"
     },
     {
-      "label": "ComparisonResult",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/model/dto/ComparisonResult.java",
-      "source_location": "L3",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_model_dto_comparisonresult_comparisonresult",
-      "community": 29,
-      "community_name": "DuckDbService",
-      "norm_label": "comparisonresult"
-    },
-    {
       "label": "DatabaseConnectionConfig",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/comparator/model/dto/DatabaseConnectionConfig.java",
@@ -625,6 +625,19 @@
       "community": 29,
       "community_name": "DuckDbService",
       "norm_label": "databaseconnectionconfig"
+    },
+    {
+      "label": "UploadConfigRequest",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/model/dto/UploadConfigRequest.java",
+      "source_location": "L5",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_model_dto_uploadconfigrequest_uploadconfigrequest",
+      "community": 29,
+      "community_name": "DuckDbService",
+      "norm_label": "uploadconfigrequest"
     },
     {
       "label": "ComparisonEngine",
@@ -679,19 +692,6 @@
       "norm_label": "parquetrowwriter"
     },
     {
-      "label": "FileParserService",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/FileParserService.java",
-      "source_location": "L30",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_fileparserservice_fileparserservice",
-      "community": 29,
-      "community_name": "DuckDbService",
-      "norm_label": "fileparserservice"
-    },
-    {
       "label": "JdbcConnectionProvider",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/comparator/service/JdbcConnectionProvider.java",
@@ -716,6 +716,19 @@
       "community": 29,
       "community_name": "DuckDbService",
       "norm_label": "postgresjdbcconnectionprovider"
+    },
+    {
+      "label": "ProgressService",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/ProgressService.java",
+      "source_location": "L18",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_progressservice_progressservice",
+      "community": 29,
+      "community_name": "DuckDbService",
+      "norm_label": "progressservice"
     },
     {
       "label": "SqlDataSourceService",
@@ -770,6 +783,32 @@
       "norm_label": "sqlvalidationtests"
     },
     {
+      "label": "DelimiterDetector",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/DelimiterDetector.java",
+      "source_location": "L15",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_delimiterdetector_delimiterdetector",
+      "community": 30,
+      "community_name": "FileParserService",
+      "norm_label": "delimiterdetector"
+    },
+    {
+      "label": "FileParserService",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/FileParserService.java",
+      "source_location": "L30",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_fileparserservice_fileparserservice",
+      "community": 30,
+      "community_name": "FileParserService",
+      "norm_label": "fileparserservice"
+    },
+    {
       "label": "FileParserServiceTest",
       "file_type": "code",
       "source_file": "backend/src/test/java/com/comparator/service/FileParserServiceTest.java",
@@ -779,7 +818,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_service_fileparserservicetest_fileparserservicetest",
       "community": 30,
-      "community_name": "FileParserServiceTest",
+      "community_name": "FileParserService",
       "norm_label": "fileparserservicetest"
     },
     {
@@ -792,7 +831,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_util_exceltestutils_exceltestutils",
       "community": 30,
-      "community_name": "FileParserServiceTest",
+      "community_name": "FileParserService",
       "norm_label": "exceltestutils"
     },
     {
@@ -807,6 +846,32 @@
       "community": 32,
       "community_name": "CompareComponent",
       "norm_label": "comparecomponent"
+    },
+    {
+      "label": "ProgressUpdate",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/model/dto/ProgressUpdate.java",
+      "source_location": "L5",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_model_dto_progressupdate_progressupdate",
+      "community": 34,
+      "community_name": "ProgressServiceTest",
+      "norm_label": "progressupdate"
+    },
+    {
+      "label": "ProgressServiceTest",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/service/ProgressServiceTest.java",
+      "source_location": "L13",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_service_progressservicetest_progressservicetest",
+      "community": 34,
+      "community_name": "ProgressServiceTest",
+      "norm_label": "progressservicetest"
     },
     {
       "label": "ResultsComponent",
@@ -857,7 +922,7 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_dto_comparisonexecuterequest_comparisonexecuterequest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "comparisonexecuterequest"
     },
     {
@@ -870,7 +935,7 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_dto_comparisonexecuterequest_deserializer",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "deserializer"
     },
     {
@@ -883,8 +948,21 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_dto_comparisonrequest_comparisonrequest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "comparisonrequest"
+    },
+    {
+      "label": "ToleranceConfig",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/model/dto/ToleranceConfig.java",
+      "source_location": "L8",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_model_dto_toleranceconfig_toleranceconfig",
+      "community": 40,
+      "community_name": "ComparisonStatus",
+      "norm_label": "toleranceconfig"
     },
     {
       "label": "UploadResponse",
@@ -896,7 +974,7 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_dto_uploadresponse_uploadresponse",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "uploadresponse"
     },
     {
@@ -909,7 +987,7 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_enums_comparisonstatus_comparisonstatus",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "comparisonstatus"
     },
     {
@@ -922,21 +1000,8 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_enums_datasourcetype_datasourcetype",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "datasourcetype"
-    },
-    {
-      "label": "ComparisonRepository",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/repository/ComparisonRepository.java",
-      "source_location": "L10",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_repository_comparisonrepository_comparisonrepository",
-      "community": 40,
-      "community_name": "ComparisonRepository",
-      "norm_label": "comparisonrepository"
     },
     {
       "label": "AppPropertiesTest",
@@ -948,7 +1013,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_config_apppropertiestest_apppropertiestest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "apppropertiestest"
     },
     {
@@ -961,21 +1026,8 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_controller_comparisoncontrollertest_comparisoncontrollertest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "comparisoncontrollertest"
-    },
-    {
-      "label": "ComparisonProgressIntegrationTest",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonProgressIntegrationTest.java",
-      "source_location": "L35",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_controller_comparisonprogressintegrationtest_comparisonprogressintegrationtest",
-      "community": 40,
-      "community_name": "ComparisonRepository",
-      "norm_label": "comparisonprogressintegrationtest"
     },
     {
       "label": "ComparisonReportIntegrationTest",
@@ -987,7 +1039,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_controller_comparisonreportintegrationtest_comparisonreportintegrationtest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "comparisonreportintegrationtest"
     },
     {
@@ -1000,7 +1052,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_controller_comparisonsqluploadcontrollertest_comparisonsqluploadcontrollertest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "comparisonsqluploadcontrollertest"
     },
     {
@@ -1013,21 +1065,8 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_controller_comparisonsqluploadcontrollertest_testjdbcconfig",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "testjdbcconfig"
-    },
-    {
-      "label": "ComparisonUploadControllerTest",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonUploadControllerTest.java",
-      "source_location": "L32",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_controller_comparisonuploadcontrollertest_comparisonuploadcontrollertest",
-      "community": 40,
-      "community_name": "ComparisonRepository",
-      "norm_label": "comparisonuploadcontrollertest"
     },
     {
       "label": "MaxFileSizeLimitTest",
@@ -1039,7 +1078,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_controller_comparisonuploadcontrollertest_maxfilesizelimittest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "maxfilesizelimittest"
     },
     {
@@ -1052,7 +1091,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_controller_springmultipartlimitintegrationtest_springmultipartlimitintegrationtest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "springmultipartlimitintegrationtest"
     },
     {
@@ -1065,47 +1104,8 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_datacomparatorapplicationtests_datacomparatorapplicationtests",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "datacomparatorapplicationtests"
-    },
-    {
-      "label": "ComparisonRepositoryTest",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/repository/ComparisonRepositoryTest.java",
-      "source_location": "L17",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_repository_comparisonrepositorytest_comparisonrepositorytest",
-      "community": 40,
-      "community_name": "ComparisonRepository",
-      "norm_label": "comparisonrepositorytest"
-    },
-    {
-      "label": "CleanupIntegrationTest",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/service/CleanupIntegrationTest.java",
-      "source_location": "L23",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_service_cleanupintegrationtest_cleanupintegrationtest",
-      "community": 40,
-      "community_name": "ComparisonRepository",
-      "norm_label": "cleanupintegrationtest"
-    },
-    {
-      "label": "ShortTtlOverrideTest",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/service/CleanupIntegrationTest.java",
-      "source_location": "L93",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_service_cleanupintegrationtest_shortttloverridetest",
-      "community": 40,
-      "community_name": "ComparisonRepository",
-      "norm_label": "shortttloverridetest"
     },
     {
       "label": "SummaryCardsComponent",
@@ -1134,19 +1134,6 @@
       "norm_label": "summarychartcomponent"
     },
     {
-      "label": "UploadConfigRequest",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/model/dto/UploadConfigRequest.java",
-      "source_location": "L5",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_model_dto_uploadconfigrequest_uploadconfigrequest",
-      "community": 5,
-      "community_name": "ComparisonRecord",
-      "norm_label": "uploadconfigrequest"
-    },
-    {
       "label": "ComparisonRecord",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/comparator/model/entity/ComparisonRecord.java",
@@ -1171,6 +1158,19 @@
       "community": 5,
       "community_name": "ComparisonRecord",
       "norm_label": "comparisonservicetest"
+    },
+    {
+      "label": "ExcelReportServiceTest",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/service/ExcelReportServiceTest.java",
+      "source_location": "L34",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_service_excelreportservicetest_excelreportservicetest",
+      "community": 5,
+      "community_name": "ComparisonRecord",
+      "norm_label": "excelreportservicetest"
     },
     {
       "label": "HistoryComponent",
@@ -1824,6 +1824,18 @@
       "norm_label": ".columnheader()"
     },
     {
+      "label": ".buildKeyJoinCondition()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/ComparisonEngine.java",
+      "source_location": "L284",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_comparisonengine_comparisonengine_buildkeyjoincondition",
+      "community": 15,
+      "community_name": ".compare",
+      "norm_label": ".buildkeyjoincondition()"
+    },
+    {
       "label": ".compare()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/comparator/service/ComparisonEngine.java",
@@ -1839,7 +1851,7 @@
       "label": ".escapeSingleQuotes()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/comparator/service/ComparisonEngine.java",
-      "source_location": "L317",
+      "source_location": "L309",
       "_callable": true,
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_service_comparisonengine_comparisonengine_escapesinglequotes",
@@ -1851,13 +1863,37 @@
       "label": ".normalizePath()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/comparator/service/ComparisonEngine.java",
-      "source_location": "L321",
+      "source_location": "L313",
       "_callable": true,
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_service_comparisonengine_comparisonengine_normalizepath",
       "community": 15,
       "community_name": ".compare",
       "norm_label": ".normalizepath()"
+    },
+    {
+      "label": ".quote()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/ComparisonEngine.java",
+      "source_location": "L305",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_comparisonengine_comparisonengine_quote",
+      "community": 15,
+      "community_name": ".compare",
+      "norm_label": ".quote()"
+    },
+    {
+      "label": ".createConnection()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/DuckDbService.java",
+      "source_location": "L26",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_duckdbservice_duckdbservice_createconnection",
+      "community": 15,
+      "community_name": ".compare",
+      "norm_label": ".createconnection()"
     },
     {
       "label": ".csvToParquet()",
@@ -1870,6 +1906,18 @@
       "community": 15,
       "community_name": ".compare",
       "norm_label": ".csvtoparquet()"
+    },
+    {
+      "label": ".executeQueryToMaps()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/DuckDbService.java",
+      "source_location": "L75",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_duckdbservice_duckdbservice_executequerytomaps",
+      "community": 15,
+      "community_name": ".compare",
+      "norm_label": ".executequerytomaps()"
     },
     {
       "label": ".formatDelimiter()",
@@ -1894,6 +1942,30 @@
       "community": 15,
       "community_name": ".compare",
       "norm_label": ".getcolumnheaders()"
+    },
+    {
+      "label": ".shouldCompareKeysWithMixedTypesAsStrings()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/service/ComparisonEngineTest.java",
+      "source_location": "L355",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_service_comparisonenginetest_comparisonenginetest_shouldcomparekeyswithmixedtypesasstrings",
+      "community": 15,
+      "community_name": ".compare",
+      "norm_label": ".shouldcomparekeyswithmixedtypesasstrings()"
+    },
+    {
+      "label": ".shouldCompareMixedDataAsStringsWhenNoToleranceSpecified()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/service/ComparisonEngineTest.java",
+      "source_location": "L324",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_service_comparisonenginetest_comparisonenginetest_shouldcomparemixeddataasstringswhennotolerancespecified",
+      "community": 15,
+      "community_name": ".compare",
+      "norm_label": ".shouldcomparemixeddataasstringswhennotolerancespecified()"
     },
     {
       "label": ".shouldDetectFullMatchesWhenIdentical()",
@@ -2184,6 +2256,42 @@
       "norm_label": ".updatepercentage()"
     },
     {
+      "label": ".findAllByOrderByCreatedAtDesc()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/repository/ComparisonRepository.java",
+      "source_location": "L15",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_repository_comparisonrepository_comparisonrepository_findallbyorderbycreatedatdesc",
+      "community": 18,
+      "community_name": "AppProperties",
+      "norm_label": ".findallbyorderbycreatedatdesc()"
+    },
+    {
+      "label": ".findByCreatedAtBefore()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/repository/ComparisonRepository.java",
+      "source_location": "L13",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_repository_comparisonrepository_comparisonrepository_findbycreatedatbefore",
+      "community": 18,
+      "community_name": "AppProperties",
+      "norm_label": ".findbycreatedatbefore()"
+    },
+    {
+      "label": ".cleanup()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/CleanupService.java",
+      "source_location": "L32",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_cleanupservice_cleanupservice_cleanup",
+      "community": 18,
+      "community_name": "AppProperties",
+      "norm_label": ".cleanup()"
+    },
+    {
       "label": ".CleanupService()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/comparator/service/CleanupService.java",
@@ -2210,6 +2318,42 @@
     {
       "label": ".setUp()",
       "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonControllerTest.java",
+      "source_location": "L41",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_controller_comparisoncontrollertest_comparisoncontrollertest_setup",
+      "community": 18,
+      "community_name": "AppProperties",
+      "norm_label": ".setup()"
+    },
+    {
+      "label": ".setupMockDatabase()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonSqlUploadControllerTest.java",
+      "source_location": "L99",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_controller_comparisonsqluploadcontrollertest_comparisonsqluploadcontrollertest_setupmockdatabase",
+      "community": 18,
+      "community_name": "AppProperties",
+      "norm_label": ".setupmockdatabase()"
+    },
+    {
+      "label": ".setUp()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/repository/ComparisonRepositoryTest.java",
+      "source_location": "L23",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_repository_comparisonrepositorytest_comparisonrepositorytest_setup",
+      "community": 18,
+      "community_name": "AppProperties",
+      "norm_label": ".setup()"
+    },
+    {
+      "label": ".setUp()",
+      "file_type": "code",
       "source_file": "backend/src/test/java/com/comparator/service/CleanupServiceTest.java",
       "source_location": "L39",
       "_callable": true,
@@ -2218,6 +2362,42 @@
       "community": 18,
       "community_name": "AppProperties",
       "norm_label": ".setup()"
+    },
+    {
+      "label": ".shouldCleanUpExpiredRecordsAndFiles()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/service/CleanupServiceTest.java",
+      "source_location": "L50",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_service_cleanupservicetest_cleanupservicetest_shouldcleanupexpiredrecordsandfiles",
+      "community": 18,
+      "community_name": "AppProperties",
+      "norm_label": ".shouldcleanupexpiredrecordsandfiles()"
+    },
+    {
+      "label": ".shouldDoNothingWhenNoExpiredRecords()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/service/CleanupServiceTest.java",
+      "source_location": "L92",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_service_cleanupservicetest_cleanupservicetest_shoulddonothingwhennoexpiredrecords",
+      "community": 18,
+      "community_name": "AppProperties",
+      "norm_label": ".shoulddonothingwhennoexpiredrecords()"
+    },
+    {
+      "label": ".shouldHandleMissingDirectoryGracefully()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/service/CleanupServiceTest.java",
+      "source_location": "L74",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_service_cleanupservicetest_cleanupservicetest_shouldhandlemissingdirectorygracefully",
+      "community": 18,
+      "community_name": "AppProperties",
+      "norm_label": ".shouldhandlemissingdirectorygracefully()"
     },
     {
       "label": ".setUp()",
@@ -2268,18 +2448,6 @@
       "norm_label": ".setup()"
     },
     {
-      "label": ".countOccurrences()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/DelimiterDetector.java",
-      "source_location": "L122",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_delimiterdetector_delimiterdetector_countoccurrences",
-      "community": 19,
-      "community_name": "DelimiterDetectorTest",
-      "norm_label": ".countoccurrences()"
-    },
-    {
       "label": ".detect()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/comparator/service/DelimiterDetector.java",
@@ -2302,18 +2470,6 @@
       "community": 19,
       "community_name": "DelimiterDetectorTest",
       "norm_label": ".resolvedelimiter()"
-    },
-    {
-      "label": ".setUp()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/service/DelimiterDetectorTest.java",
-      "source_location": "L19",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_service_delimiterdetectortest_delimiterdetectortest_setup",
-      "community": 19,
-      "community_name": "DelimiterDetectorTest",
-      "norm_label": ".setup()"
     },
     {
       "label": ".shouldAnalyzeUpToFirstTenLines()",
@@ -2460,18 +2616,6 @@
       "norm_label": ".tostream()"
     },
     {
-      "label": ".setUp()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/service/FileParserServiceTest.java",
-      "source_location": "L28",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_service_fileparserservicetest_fileparserservicetest_setup",
-      "community": 19,
-      "community_name": "DelimiterDetectorTest",
-      "norm_label": ".setup()"
-    },
-    {
       "label": ".shouldBindPropertiesCorrectly()",
       "file_type": "code",
       "source_file": "backend/src/test/java/com/comparator/config/AppPropertiesTest.java",
@@ -2482,18 +2626,6 @@
       "community": 2,
       "community_name": "org.junit.jupiter.api.DisplayName",
       "norm_label": ".shouldbindpropertiescorrectly()"
-    },
-    {
-      "label": ".shouldPerformFullRoundTrip()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonControllerTest.java",
-      "source_location": "L86",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_controller_comparisoncontrollertest_comparisoncontrollertest_shouldperformfullroundtrip",
-      "community": 2,
-      "community_name": "org.junit.jupiter.api.DisplayName",
-      "norm_label": ".shouldperformfullroundtrip()"
     },
     {
       "label": ".shouldReturn404ForNonExistentComparison()",
@@ -2652,40 +2784,16 @@
       "norm_label": ".testsubscribesseeventsendpoint()"
     },
     {
-      "label": ".testDownloadReportNotCompleted()",
+      "label": ".setUp()",
       "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonReportIntegrationTest.java",
-      "source_location": "L175",
+      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonResultsIntegrationTest.java",
+      "source_location": "L45",
       "_callable": true,
       "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_controller_comparisonreportintegrationtest_comparisonreportintegrationtest_testdownloadreportnotcompleted",
+      "id": "backend_src_test_java_com_comparator_controller_comparisonresultsintegrationtest_comparisonresultsintegrationtest_setup",
       "community": 2,
       "community_name": "org.junit.jupiter.api.DisplayName",
-      "norm_label": ".testdownloadreportnotcompleted()"
-    },
-    {
-      "label": ".testDownloadReportNotFound()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonReportIntegrationTest.java",
-      "source_location": "L168",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_controller_comparisonreportintegrationtest_comparisonreportintegrationtest_testdownloadreportnotfound",
-      "community": 2,
-      "community_name": "org.junit.jupiter.api.DisplayName",
-      "norm_label": ".testdownloadreportnotfound()"
-    },
-    {
-      "label": ".testDownloadReportSuccess()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonReportIntegrationTest.java",
-      "source_location": "L108",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_controller_comparisonreportintegrationtest_comparisonreportintegrationtest_testdownloadreportsuccess",
-      "community": 2,
-      "community_name": "org.junit.jupiter.api.DisplayName",
-      "norm_label": ".testdownloadreportsuccess()"
+      "norm_label": ".setup()"
     },
     {
       "label": ".test404Handling()",
@@ -2758,42 +2866,6 @@
       "community": 2,
       "community_name": "org.junit.jupiter.api.DisplayName",
       "norm_label": ".testroutealiases()"
-    },
-    {
-      "label": ".shouldHandleConnectionErrorInUpload()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonSqlUploadControllerTest.java",
-      "source_location": "L264",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_controller_comparisonsqluploadcontrollertest_comparisonsqluploadcontrollertest_shouldhandleconnectionerrorinupload",
-      "community": 2,
-      "community_name": "org.junit.jupiter.api.DisplayName",
-      "norm_label": ".shouldhandleconnectionerrorinupload()"
-    },
-    {
-      "label": ".shouldHandleQueryTimeoutInUpload()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonSqlUploadControllerTest.java",
-      "source_location": "L284",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_controller_comparisonsqluploadcontrollertest_comparisonsqluploadcontrollertest_shouldhandlequerytimeoutinupload",
-      "community": 2,
-      "community_name": "org.junit.jupiter.api.DisplayName",
-      "norm_label": ".shouldhandlequerytimeoutinupload()"
-    },
-    {
-      "label": ".shouldRejectDmlQueriesInUpload()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonSqlUploadControllerTest.java",
-      "source_location": "L245",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_controller_comparisonsqluploadcontrollertest_comparisonsqluploadcontrollertest_shouldrejectdmlqueriesinupload",
-      "community": 2,
-      "community_name": "org.junit.jupiter.api.DisplayName",
-      "norm_label": ".shouldrejectdmlqueriesinupload()"
     },
     {
       "label": ".shouldAcceptCustomDelimiterInConfigPart()",
@@ -2928,138 +3000,6 @@
       "norm_label": ".shouldthrow404whennotfound()"
     },
     {
-      "label": ".testEmitCompletedCleansUpEmitters()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/service/ProgressServiceTest.java",
-      "source_location": "L84",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_service_progressservicetest_progressservicetest_testemitcompletedcleansupemitters",
-      "community": 2,
-      "community_name": "org.junit.jupiter.api.DisplayName",
-      "norm_label": ".testemitcompletedcleansupemitters()"
-    },
-    {
-      "label": ".testEmitFailedCleansUpEmitters()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/service/ProgressServiceTest.java",
-      "source_location": "L95",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_service_progressservicetest_progressservicetest_testemitfailedcleansupemitters",
-      "community": 2,
-      "community_name": "org.junit.jupiter.api.DisplayName",
-      "norm_label": ".testemitfailedcleansupemitters()"
-    },
-    {
-      "label": ".testEmitProgressEvent()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/service/ProgressServiceTest.java",
-      "source_location": "L70",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_service_progressservicetest_progressservicetest_testemitprogressevent",
-      "community": 2,
-      "community_name": "org.junit.jupiter.api.DisplayName",
-      "norm_label": ".testemitprogressevent()"
-    },
-    {
-      "label": ".testEmitToSingleEmitter()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/service/ProgressServiceTest.java",
-      "source_location": "L114",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_service_progressservicetest_progressservicetest_testemittosingleemitter",
-      "community": 2,
-      "community_name": "org.junit.jupiter.api.DisplayName",
-      "norm_label": ".testemittosingleemitter()"
-    },
-    {
-      "label": ".testEmitWithNoSubscribers()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/service/ProgressServiceTest.java",
-      "source_location": "L106",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_service_progressservicetest_progressservicetest_testemitwithnosubscribers",
-      "community": 2,
-      "community_name": "org.junit.jupiter.api.DisplayName",
-      "norm_label": ".testemitwithnosubscribers()"
-    },
-    {
-      "label": ".testMultipleSubscribersForSameComparison()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/service/ProgressServiceTest.java",
-      "source_location": "L58",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_service_progressservicetest_progressservicetest_testmultiplesubscribersforsamecomparison",
-      "community": 2,
-      "community_name": "org.junit.jupiter.api.DisplayName",
-      "norm_label": ".testmultiplesubscribersforsamecomparison()"
-    },
-    {
-      "label": ".testProgressUpdateJsonFormat()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/service/ProgressServiceTest.java",
-      "source_location": "L31",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_service_progressservicetest_progressservicetest_testprogressupdatejsonformat",
-      "community": 2,
-      "community_name": "org.junit.jupiter.api.DisplayName",
-      "norm_label": ".testprogressupdatejsonformat()"
-    },
-    {
-      "label": ".testSubscribeSetsTimeoutFromConfig()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/service/ProgressServiceTest.java",
-      "source_location": "L47",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_service_progressservicetest_progressservicetest_testsubscribesetstimeoutfromconfig",
-      "community": 2,
-      "community_name": "org.junit.jupiter.api.DisplayName",
-      "norm_label": ".testsubscribesetstimeoutfromconfig()"
-    },
-    {
-      "label": ".getId()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/model/entity/ComparisonRecord.java",
-      "source_location": "L98",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_model_entity_comparisonrecord_comparisonrecord_getid",
-      "community": 22,
-      "community_name": "ExcelReportService",
-      "norm_label": ".getid()"
-    },
-    {
-      "label": ".countParquet()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/DuckDbService.java",
-      "source_location": "L33",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_duckdbservice_duckdbservice_countparquet",
-      "community": 22,
-      "community_name": "ExcelReportService",
-      "norm_label": ".countparquet()"
-    },
-    {
-      "label": ".createConnection()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/DuckDbService.java",
-      "source_location": "L26",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_duckdbservice_duckdbservice_createconnection",
-      "community": 22,
-      "community_name": "ExcelReportService",
-      "norm_label": ".createconnection()"
-    },
-    {
       "label": ".addKeyValueRow()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/comparator/service/ExcelReportService.java",
@@ -3118,18 +3058,6 @@
       "community": 22,
       "community_name": "ExcelReportService",
       "norm_label": ".buildmissingsheets()"
-    },
-    {
-      "label": ".buildSummarySheet()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/ExcelReportService.java",
-      "source_location": "L87",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_excelreportservice_excelreportservice_buildsummarysheet",
-      "community": 22,
-      "community_name": "ExcelReportService",
-      "norm_label": ".buildsummarysheet()"
     },
     {
       "label": ".createEmptyDetailSheet()",
@@ -3202,18 +3130,6 @@
       "community": 22,
       "community_name": "ExcelReportService",
       "norm_label": ".normalizepath()"
-    },
-    {
-      "label": ".parseConfig()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/ExcelReportService.java",
-      "source_location": "L378",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_excelreportservice_excelreportservice_parseconfig",
-      "community": 22,
-      "community_name": "ExcelReportService",
-      "norm_label": ".parseconfig()"
     },
     {
       "label": ".parseDiffColumns()",
@@ -3334,18 +3250,6 @@
       "community": 22,
       "community_name": "ExcelReportService",
       "norm_label": ".pagedsheetwriter()"
-    },
-    {
-      "label": ".ComparisonController()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/controller/ComparisonController.java",
-      "source_location": "L74",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_controller_comparisoncontroller_comparisoncontroller_comparisoncontroller",
-      "community": 26,
-      "community_name": "ComparisonController.java",
-      "norm_label": ".comparisoncontroller()"
     },
     {
       "label": ".deleteComparison()",
@@ -3612,102 +3516,6 @@
       "norm_label": ".of()"
     },
     {
-      "label": ".ProgressUpdate()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/model/dto/ProgressUpdate.java",
-      "source_location": "L11",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_model_dto_progressupdate_progressupdate_progressupdate",
-      "community": 26,
-      "community_name": "ComparisonController.java",
-      "norm_label": ".progressupdate()"
-    },
-    {
-      "label": ".emit()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/ProgressService.java",
-      "source_location": "L56",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_progressservice_progressservice_emit",
-      "community": 26,
-      "community_name": "ComparisonController.java",
-      "norm_label": ".emit()"
-    },
-    {
-      "label": ".emitToEmitter()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/ProgressService.java",
-      "source_location": "L98",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_progressservice_progressservice_emittoemitter",
-      "community": 26,
-      "community_name": "ComparisonController.java",
-      "norm_label": ".emittoemitter()"
-    },
-    {
-      "label": ".getEmitterCount()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/ProgressService.java",
-      "source_location": "L116",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_progressservice_progressservice_getemittercount",
-      "community": 26,
-      "community_name": "ComparisonController.java",
-      "norm_label": ".getemittercount()"
-    },
-    {
-      "label": ".ProgressService()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/ProgressService.java",
-      "source_location": "L27",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_progressservice_progressservice_progressservice",
-      "community": 26,
-      "community_name": "ComparisonController.java",
-      "norm_label": ".progressservice()"
-    },
-    {
-      "label": ".removeEmitter()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/ProgressService.java",
-      "source_location": "L121",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_progressservice_progressservice_removeemitter",
-      "community": 26,
-      "community_name": "ComparisonController.java",
-      "norm_label": ".removeemitter()"
-    },
-    {
-      "label": ".resolveTimeoutMs()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/ProgressService.java",
-      "source_location": "L131",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_progressservice_progressservice_resolvetimeoutms",
-      "community": 26,
-      "community_name": "ComparisonController.java",
-      "norm_label": ".resolvetimeoutms()"
-    },
-    {
-      "label": ".subscribe()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/ProgressService.java",
-      "source_location": "L31",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_progressservice_progressservice_subscribe",
-      "community": 26,
-      "community_name": "ComparisonController.java",
-      "norm_label": ".subscribe()"
-    },
-    {
       "label": ".extractMismatchColumns()",
       "file_type": "code",
       "source_file": "frontend/src/app/pages/results/detail-table/detail-table.component.ts",
@@ -3888,28 +3696,76 @@
       "norm_label": ".getmissing()"
     },
     {
-      "label": ".getConfigJson()",
+      "label": ".ComparisonController()",
       "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/model/entity/ComparisonRecord.java",
-      "source_location": "L162",
+      "source_file": "backend/src/main/java/com/comparator/controller/ComparisonController.java",
+      "source_location": "L74",
       "_callable": true,
       "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_model_entity_comparisonrecord_comparisonrecord_getconfigjson",
+      "id": "backend_src_main_java_com_comparator_controller_comparisoncontroller_comparisoncontroller_comparisoncontroller",
       "community": 29,
       "community_name": "DuckDbService",
-      "norm_label": ".getconfigjson()"
+      "norm_label": ".comparisoncontroller()"
     },
     {
-      "label": ".buildKeyJoinCondition()",
+      "label": ".getDs1DelimiterOrDefault()",
       "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/ComparisonEngine.java",
-      "source_location": "L288",
+      "source_file": "backend/src/main/java/com/comparator/model/dto/UploadConfigRequest.java",
+      "source_location": "L22",
       "_callable": true,
       "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_comparisonengine_comparisonengine_buildkeyjoincondition",
+      "id": "backend_src_main_java_com_comparator_model_dto_uploadconfigrequest_uploadconfigrequest_getds1delimiterordefault",
       "community": 29,
       "community_name": "DuckDbService",
-      "norm_label": ".buildkeyjoincondition()"
+      "norm_label": ".getds1delimiterordefault()"
+    },
+    {
+      "label": ".getDs2DelimiterOrDefault()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/model/dto/UploadConfigRequest.java",
+      "source_location": "L26",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_model_dto_uploadconfigrequest_uploadconfigrequest_getds2delimiterordefault",
+      "community": 29,
+      "community_name": "DuckDbService",
+      "norm_label": ".getds2delimiterordefault()"
+    },
+    {
+      "label": ".resolveDs1Delimiter()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/model/dto/UploadConfigRequest.java",
+      "source_location": "L30",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_model_dto_uploadconfigrequest_uploadconfigrequest_resolveds1delimiter",
+      "community": 29,
+      "community_name": "DuckDbService",
+      "norm_label": ".resolveds1delimiter()"
+    },
+    {
+      "label": ".resolveDs2Delimiter()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/model/dto/UploadConfigRequest.java",
+      "source_location": "L40",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_model_dto_uploadconfigrequest_uploadconfigrequest_resolveds2delimiter",
+      "community": 29,
+      "community_name": "DuckDbService",
+      "norm_label": ".resolveds2delimiter()"
+    },
+    {
+      "label": ".UploadConfigRequest()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/model/dto/UploadConfigRequest.java",
+      "source_location": "L14",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_model_dto_uploadconfigrequest_uploadconfigrequest_uploadconfigrequest",
+      "community": 29,
+      "community_name": "DuckDbService",
+      "norm_label": ".uploadconfigrequest()"
     },
     {
       "label": ".ComparisonEngine()",
@@ -3927,25 +3783,13 @@
       "label": ".getCount()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/comparator/service/ComparisonEngine.java",
-      "source_location": "L304",
+      "source_location": "L296",
       "_callable": true,
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_service_comparisonengine_comparisonengine_getcount",
       "community": 29,
       "community_name": "DuckDbService",
       "norm_label": ".getcount()"
-    },
-    {
-      "label": ".quote()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/ComparisonEngine.java",
-      "source_location": "L313",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_comparisonengine_comparisonengine_quote",
-      "community": 29,
-      "community_name": "DuckDbService",
-      "norm_label": ".quote()"
     },
     {
       "label": ".ComparisonService()",
@@ -3972,90 +3816,6 @@
       "norm_label": ".emitprogress()"
     },
     {
-      "label": ".extractKeyColumns()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/ComparisonService.java",
-      "source_location": "L334",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_comparisonservice_comparisonservice_extractkeycolumns",
-      "community": 29,
-      "community_name": "DuckDbService",
-      "norm_label": ".extractkeycolumns()"
-    },
-    {
-      "label": ".getCompletedComparison()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/ComparisonService.java",
-      "source_location": "L324",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_comparisonservice_comparisonservice_getcompletedcomparison",
-      "community": 29,
-      "community_name": "DuckDbService",
-      "norm_label": ".getcompletedcomparison()"
-    },
-    {
-      "label": ".getMatches()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/ComparisonService.java",
-      "source_location": "L293",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_comparisonservice_comparisonservice_getmatches",
-      "community": 29,
-      "community_name": "DuckDbService",
-      "norm_label": ".getmatches()"
-    },
-    {
-      "label": ".getMismatches()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/ComparisonService.java",
-      "source_location": "L171",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_comparisonservice_comparisonservice_getmismatches",
-      "community": 29,
-      "community_name": "DuckDbService",
-      "norm_label": ".getmismatches()"
-    },
-    {
-      "label": ".getMissing()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/ComparisonService.java",
-      "source_location": "L240",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_comparisonservice_comparisonservice_getmissing",
-      "community": 29,
-      "community_name": "DuckDbService",
-      "norm_label": ".getmissing()"
-    },
-    {
-      "label": ".resolveTimeoutMs()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/ComparisonService.java",
-      "source_location": "L159",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_comparisonservice_comparisonservice_resolvetimeoutms",
-      "community": 29,
-      "community_name": "DuckDbService",
-      "norm_label": ".resolvetimeoutms()"
-    },
-    {
-      "label": ".sanitizeSize()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/ComparisonService.java",
-      "source_location": "L347",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_comparisonservice_comparisonservice_sanitizesize",
-      "community": 29,
-      "community_name": "DuckDbService",
-      "norm_label": ".sanitizesize()"
-    },
-    {
       "label": ".createParquetRowWriter()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/comparator/service/DuckDbService.java",
@@ -4066,30 +3826,6 @@
       "community": 29,
       "community_name": "DuckDbService",
       "norm_label": ".createparquetrowwriter()"
-    },
-    {
-      "label": ".executeQueryToMaps()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/DuckDbService.java",
-      "source_location": "L75",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_duckdbservice_duckdbservice_executequerytomaps",
-      "community": 29,
-      "community_name": "DuckDbService",
-      "norm_label": ".executequerytomaps()"
-    },
-    {
-      "label": ".normalizePath()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/DuckDbService.java",
-      "source_location": "L282",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_duckdbservice_duckdbservice_normalizepath",
-      "community": 29,
-      "community_name": "DuckDbService",
-      "norm_label": ".normalizepath()"
     },
     {
       "label": ".resultSetToParquet()",
@@ -4140,54 +3876,6 @@
       "norm_label": ".writerow()"
     },
     {
-      "label": ".FileParserService()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/FileParserService.java",
-      "source_location": "L36",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_fileparserservice_fileparserservice_fileparserservice",
-      "community": 29,
-      "community_name": "DuckDbService",
-      "norm_label": ".fileparserservice()"
-    },
-    {
-      "label": ".isXls()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/FileParserService.java",
-      "source_location": "L269",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_fileparserservice_fileparserservice_isxls",
-      "community": 29,
-      "community_name": "DuckDbService",
-      "norm_label": ".isxls()"
-    },
-    {
-      "label": ".isXlsx()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/FileParserService.java",
-      "source_location": "L265",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_fileparserservice_fileparserservice_isxlsx",
-      "community": 29,
-      "community_name": "DuckDbService",
-      "norm_label": ".isxlsx()"
-    },
-    {
-      "label": ".parseStreamToParquet()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/FileParserService.java",
-      "source_location": "L54",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_fileparserservice_fileparserservice_parsestreamtoparquet",
-      "community": 29,
-      "community_name": "DuckDbService",
-      "norm_label": ".parsestreamtoparquet()"
-    },
-    {
       "label": ".parseXls()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/comparator/service/FileParserService.java",
@@ -4198,18 +3886,6 @@
       "community": 29,
       "community_name": "DuckDbService",
       "norm_label": ".parsexls()"
-    },
-    {
-      "label": ".parseXlsx()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/FileParserService.java",
-      "source_location": "L95",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_fileparserservice_fileparserservice_parsexlsx",
-      "community": 29,
-      "community_name": "DuckDbService",
-      "norm_label": ".parsexlsx()"
     },
     {
       "label": ".sanitizeHeaders()",
@@ -4246,6 +3922,90 @@
       "community": 29,
       "community_name": "DuckDbService",
       "norm_label": ".getconnection()"
+    },
+    {
+      "label": ".emit()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/ProgressService.java",
+      "source_location": "L56",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_progressservice_progressservice_emit",
+      "community": 29,
+      "community_name": "DuckDbService",
+      "norm_label": ".emit()"
+    },
+    {
+      "label": ".emitToEmitter()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/ProgressService.java",
+      "source_location": "L98",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_progressservice_progressservice_emittoemitter",
+      "community": 29,
+      "community_name": "DuckDbService",
+      "norm_label": ".emittoemitter()"
+    },
+    {
+      "label": ".getEmitterCount()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/ProgressService.java",
+      "source_location": "L116",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_progressservice_progressservice_getemittercount",
+      "community": 29,
+      "community_name": "DuckDbService",
+      "norm_label": ".getemittercount()"
+    },
+    {
+      "label": ".ProgressService()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/ProgressService.java",
+      "source_location": "L27",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_progressservice_progressservice_progressservice",
+      "community": 29,
+      "community_name": "DuckDbService",
+      "norm_label": ".progressservice()"
+    },
+    {
+      "label": ".removeEmitter()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/ProgressService.java",
+      "source_location": "L121",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_progressservice_progressservice_removeemitter",
+      "community": 29,
+      "community_name": "DuckDbService",
+      "norm_label": ".removeemitter()"
+    },
+    {
+      "label": ".resolveTimeoutMs()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/ProgressService.java",
+      "source_location": "L131",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_progressservice_progressservice_resolvetimeoutms",
+      "community": 29,
+      "community_name": "DuckDbService",
+      "norm_label": ".resolvetimeoutms()"
+    },
+    {
+      "label": ".subscribe()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/ProgressService.java",
+      "source_location": "L31",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_progressservice_progressservice_subscribe",
+      "community": 29,
+      "community_name": "DuckDbService",
+      "norm_label": ".subscribe()"
     },
     {
       "label": ".executeAndConvertToParquet()",
@@ -4318,6 +4078,42 @@
       "community": 29,
       "community_name": "DuckDbService",
       "norm_label": ".validateselectsql()"
+    },
+    {
+      "label": ".shouldHandleConnectionErrorInUpload()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonSqlUploadControllerTest.java",
+      "source_location": "L264",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_controller_comparisonsqluploadcontrollertest_comparisonsqluploadcontrollertest_shouldhandleconnectionerrorinupload",
+      "community": 29,
+      "community_name": "DuckDbService",
+      "norm_label": ".shouldhandleconnectionerrorinupload()"
+    },
+    {
+      "label": ".shouldHandleQueryTimeoutInUpload()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonSqlUploadControllerTest.java",
+      "source_location": "L284",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_controller_comparisonsqluploadcontrollertest_comparisonsqluploadcontrollertest_shouldhandlequerytimeoutinupload",
+      "community": 29,
+      "community_name": "DuckDbService",
+      "norm_label": ".shouldhandlequerytimeoutinupload()"
+    },
+    {
+      "label": ".shouldRejectDmlQueriesInUpload()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonSqlUploadControllerTest.java",
+      "source_location": "L245",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_controller_comparisonsqluploadcontrollertest_comparisonsqluploadcontrollertest_shouldrejectdmlqueriesinupload",
+      "community": 29,
+      "community_name": "DuckDbService",
+      "norm_label": ".shouldrejectdmlqueriesinupload()"
     },
     {
       "label": ".setUp()",
@@ -4428,6 +4224,54 @@
       "norm_label": ".shouldrejectemptyqueries()"
     },
     {
+      "label": ".countOccurrences()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/DelimiterDetector.java",
+      "source_location": "L122",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_delimiterdetector_delimiterdetector_countoccurrences",
+      "community": 30,
+      "community_name": "FileParserService",
+      "norm_label": ".countoccurrences()"
+    },
+    {
+      "label": ".FileParserService()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/FileParserService.java",
+      "source_location": "L36",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_fileparserservice_fileparserservice_fileparserservice",
+      "community": 30,
+      "community_name": "FileParserService",
+      "norm_label": ".fileparserservice()"
+    },
+    {
+      "label": ".isXls()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/FileParserService.java",
+      "source_location": "L269",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_fileparserservice_fileparserservice_isxls",
+      "community": 30,
+      "community_name": "FileParserService",
+      "norm_label": ".isxls()"
+    },
+    {
+      "label": ".isXlsx()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/FileParserService.java",
+      "source_location": "L265",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_fileparserservice_fileparserservice_isxlsx",
+      "community": 30,
+      "community_name": "FileParserService",
+      "norm_label": ".isxlsx()"
+    },
+    {
       "label": ".parseFileToParquet()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/comparator/service/FileParserService.java",
@@ -4436,8 +4280,56 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_service_fileparserservice_fileparserservice_parsefiletoparquet",
       "community": 30,
-      "community_name": "FileParserServiceTest",
+      "community_name": "FileParserService",
       "norm_label": ".parsefiletoparquet()"
+    },
+    {
+      "label": ".parseStreamToParquet()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/FileParserService.java",
+      "source_location": "L54",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_fileparserservice_fileparserservice_parsestreamtoparquet",
+      "community": 30,
+      "community_name": "FileParserService",
+      "norm_label": ".parsestreamtoparquet()"
+    },
+    {
+      "label": ".parseXlsx()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/FileParserService.java",
+      "source_location": "L95",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_fileparserservice_fileparserservice_parsexlsx",
+      "community": 30,
+      "community_name": "FileParserService",
+      "norm_label": ".parsexlsx()"
+    },
+    {
+      "label": ".setUp()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/service/DelimiterDetectorTest.java",
+      "source_location": "L19",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_service_delimiterdetectortest_delimiterdetectortest_setup",
+      "community": 30,
+      "community_name": "FileParserService",
+      "norm_label": ".setup()"
+    },
+    {
+      "label": ".setUp()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/service/FileParserServiceTest.java",
+      "source_location": "L28",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_service_fileparserservicetest_fileparserservicetest_setup",
+      "community": 30,
+      "community_name": "FileParserService",
+      "norm_label": ".setup()"
     },
     {
       "label": ".shouldHandleMixedDataTypesAndSparseCells()",
@@ -4448,7 +4340,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_service_fileparserservicetest_fileparserservicetest_shouldhandlemixeddatatypesandsparsecells",
       "community": 30,
-      "community_name": "FileParserServiceTest",
+      "community_name": "FileParserService",
       "norm_label": ".shouldhandlemixeddatatypesandsparsecells()"
     },
     {
@@ -4460,7 +4352,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_service_fileparserservicetest_fileparserservicetest_shouldhandlemixeddatatypesandsparsecellsinxls",
       "community": 30,
-      "community_name": "FileParserServiceTest",
+      "community_name": "FileParserService",
       "norm_label": ".shouldhandlemixeddatatypesandsparsecellsinxls()"
     },
     {
@@ -4472,7 +4364,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_service_fileparserservicetest_fileparserservicetest_shouldparsecsvwithautodetection",
       "community": 30,
-      "community_name": "FileParserServiceTest",
+      "community_name": "FileParserService",
       "norm_label": ".shouldparsecsvwithautodetection()"
     },
     {
@@ -4484,7 +4376,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_service_fileparserservicetest_fileparserservicetest_shouldparsefrominputstream",
       "community": 30,
-      "community_name": "FileParserServiceTest",
+      "community_name": "FileParserService",
       "norm_label": ".shouldparsefrominputstream()"
     },
     {
@@ -4496,7 +4388,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_service_fileparserservicetest_fileparserservicetest_shouldparsewithdelimiteroverride",
       "community": 30,
-      "community_name": "FileParserServiceTest",
+      "community_name": "FileParserService",
       "norm_label": ".shouldparsewithdelimiteroverride()"
     },
     {
@@ -4508,7 +4400,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_service_fileparserservicetest_fileparserservicetest_shouldparsexlsfiletoparquet",
       "community": 30,
-      "community_name": "FileParserServiceTest",
+      "community_name": "FileParserService",
       "norm_label": ".shouldparsexlsfiletoparquet()"
     },
     {
@@ -4520,7 +4412,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_service_fileparserservicetest_fileparserservicetest_shouldparsexlswithemptysheet",
       "community": 30,
-      "community_name": "FileParserServiceTest",
+      "community_name": "FileParserService",
       "norm_label": ".shouldparsexlswithemptysheet()"
     },
     {
@@ -4532,7 +4424,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_service_fileparserservicetest_fileparserservicetest_shouldparsexlswithonlyheaders",
       "community": 30,
-      "community_name": "FileParserServiceTest",
+      "community_name": "FileParserService",
       "norm_label": ".shouldparsexlswithonlyheaders()"
     },
     {
@@ -4544,7 +4436,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_service_fileparserservicetest_fileparserservicetest_shouldparsexlsxfiletoparquet",
       "community": 30,
-      "community_name": "FileParserServiceTest",
+      "community_name": "FileParserService",
       "norm_label": ".shouldparsexlsxfiletoparquet()"
     },
     {
@@ -4556,7 +4448,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_service_fileparserservicetest_fileparserservicetest_shouldparsexlsxwithemptysheet",
       "community": 30,
-      "community_name": "FileParserServiceTest",
+      "community_name": "FileParserService",
       "norm_label": ".shouldparsexlsxwithemptysheet()"
     },
     {
@@ -4568,7 +4460,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_service_fileparserservicetest_fileparserservicetest_shouldparsexlsxwithonlyheaders",
       "community": 30,
-      "community_name": "FileParserServiceTest",
+      "community_name": "FileParserService",
       "norm_label": ".shouldparsexlsxwithonlyheaders()"
     },
     {
@@ -4580,7 +4472,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_util_exceltestutils_exceltestutils_createtestxls",
       "community": 30,
-      "community_name": "FileParserServiceTest",
+      "community_name": "FileParserService",
       "norm_label": ".createtestxls()"
     },
     {
@@ -4592,7 +4484,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_util_exceltestutils_exceltestutils_createtestxlsx",
       "community": 30,
-      "community_name": "FileParserServiceTest",
+      "community_name": "FileParserService",
       "norm_label": ".createtestxlsx()"
     },
     {
@@ -4604,7 +4496,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_util_exceltestutils_exceltestutils_exceltestutils",
       "community": 30,
-      "community_name": "FileParserServiceTest",
+      "community_name": "FileParserService",
       "norm_label": ".exceltestutils()"
     },
     {
@@ -4740,6 +4632,114 @@
       "norm_label": "logorhandleerror()"
     },
     {
+      "label": ".ProgressUpdate()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/model/dto/ProgressUpdate.java",
+      "source_location": "L11",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_model_dto_progressupdate_progressupdate_progressupdate",
+      "community": 34,
+      "community_name": "ProgressServiceTest",
+      "norm_label": ".progressupdate()"
+    },
+    {
+      "label": ".testEmitCompletedCleansUpEmitters()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/service/ProgressServiceTest.java",
+      "source_location": "L84",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_service_progressservicetest_progressservicetest_testemitcompletedcleansupemitters",
+      "community": 34,
+      "community_name": "ProgressServiceTest",
+      "norm_label": ".testemitcompletedcleansupemitters()"
+    },
+    {
+      "label": ".testEmitFailedCleansUpEmitters()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/service/ProgressServiceTest.java",
+      "source_location": "L95",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_service_progressservicetest_progressservicetest_testemitfailedcleansupemitters",
+      "community": 34,
+      "community_name": "ProgressServiceTest",
+      "norm_label": ".testemitfailedcleansupemitters()"
+    },
+    {
+      "label": ".testEmitProgressEvent()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/service/ProgressServiceTest.java",
+      "source_location": "L70",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_service_progressservicetest_progressservicetest_testemitprogressevent",
+      "community": 34,
+      "community_name": "ProgressServiceTest",
+      "norm_label": ".testemitprogressevent()"
+    },
+    {
+      "label": ".testEmitToSingleEmitter()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/service/ProgressServiceTest.java",
+      "source_location": "L114",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_service_progressservicetest_progressservicetest_testemittosingleemitter",
+      "community": 34,
+      "community_name": "ProgressServiceTest",
+      "norm_label": ".testemittosingleemitter()"
+    },
+    {
+      "label": ".testEmitWithNoSubscribers()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/service/ProgressServiceTest.java",
+      "source_location": "L106",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_service_progressservicetest_progressservicetest_testemitwithnosubscribers",
+      "community": 34,
+      "community_name": "ProgressServiceTest",
+      "norm_label": ".testemitwithnosubscribers()"
+    },
+    {
+      "label": ".testMultipleSubscribersForSameComparison()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/service/ProgressServiceTest.java",
+      "source_location": "L58",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_service_progressservicetest_progressservicetest_testmultiplesubscribersforsamecomparison",
+      "community": 34,
+      "community_name": "ProgressServiceTest",
+      "norm_label": ".testmultiplesubscribersforsamecomparison()"
+    },
+    {
+      "label": ".testProgressUpdateJsonFormat()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/service/ProgressServiceTest.java",
+      "source_location": "L31",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_service_progressservicetest_progressservicetest_testprogressupdatejsonformat",
+      "community": 34,
+      "community_name": "ProgressServiceTest",
+      "norm_label": ".testprogressupdatejsonformat()"
+    },
+    {
+      "label": ".testSubscribeSetsTimeoutFromConfig()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/service/ProgressServiceTest.java",
+      "source_location": "L47",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_service_progressservicetest_progressservicetest_testsubscribesetstimeoutfromconfig",
+      "community": 34,
+      "community_name": "ProgressServiceTest",
+      "norm_label": ".testsubscribesetstimeoutfromconfig()"
+    },
+    {
       "label": ".downloadReport()",
       "file_type": "code",
       "source_file": "frontend/src/app/pages/results/results.component.ts",
@@ -4844,7 +4844,7 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_dto_comparisonexecuterequest_comparisonexecuterequest_comparisonexecuterequest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": ".comparisonexecuterequest()"
     },
     {
@@ -4856,8 +4856,80 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_dto_comparisonexecuterequest_deserializer_deserialize",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": ".deserialize()"
+    },
+    {
+      "label": ".prePersist()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/model/entity/ComparisonRecord.java",
+      "source_location": "L85",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_model_entity_comparisonrecord_comparisonrecord_prepersist",
+      "community": 40,
+      "community_name": "ComparisonStatus",
+      "norm_label": ".prepersist()"
+    },
+    {
+      "label": ".shouldPerformFullRoundTrip()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonControllerTest.java",
+      "source_location": "L86",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_controller_comparisoncontrollertest_comparisoncontrollertest_shouldperformfullroundtrip",
+      "community": 40,
+      "community_name": "ComparisonStatus",
+      "norm_label": ".shouldperformfullroundtrip()"
+    },
+    {
+      "label": ".setUp()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonReportIntegrationTest.java",
+      "source_location": "L55",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_controller_comparisonreportintegrationtest_comparisonreportintegrationtest_setup",
+      "community": 40,
+      "community_name": "ComparisonStatus",
+      "norm_label": ".setup()"
+    },
+    {
+      "label": ".testDownloadReportNotCompleted()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonReportIntegrationTest.java",
+      "source_location": "L175",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_controller_comparisonreportintegrationtest_comparisonreportintegrationtest_testdownloadreportnotcompleted",
+      "community": 40,
+      "community_name": "ComparisonStatus",
+      "norm_label": ".testdownloadreportnotcompleted()"
+    },
+    {
+      "label": ".testDownloadReportNotFound()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonReportIntegrationTest.java",
+      "source_location": "L168",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_controller_comparisonreportintegrationtest_comparisonreportintegrationtest_testdownloadreportnotfound",
+      "community": 40,
+      "community_name": "ComparisonStatus",
+      "norm_label": ".testdownloadreportnotfound()"
+    },
+    {
+      "label": ".testDownloadReportSuccess()",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonReportIntegrationTest.java",
+      "source_location": "L108",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_controller_comparisonreportintegrationtest_comparisonreportintegrationtest_testdownloadreportsuccess",
+      "community": 40,
+      "community_name": "ComparisonStatus",
+      "norm_label": ".testdownloadreportsuccess()"
     },
     {
       "label": ".testJdbcConnectionProvider()",
@@ -4868,20 +4940,8 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_controller_comparisonsqluploadcontrollertest_testjdbcconfig_testjdbcconnectionprovider",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": ".testjdbcconnectionprovider()"
-    },
-    {
-      "label": ".setUp()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/repository/ComparisonRepositoryTest.java",
-      "source_location": "L23",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_repository_comparisonrepositorytest_comparisonrepositorytest_setup",
-      "community": 40,
-      "community_name": "ComparisonRepository",
-      "norm_label": ".setup()"
     },
     {
       "label": ".ds1Matching()",
@@ -4980,54 +5040,6 @@
       "norm_label": ".missinginds2()"
     },
     {
-      "label": ".setUp()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonControllerTest.java",
-      "source_location": "L41",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_controller_comparisoncontrollertest_comparisoncontrollertest_setup",
-      "community": 46,
-      "community_name": "org.junit.jupiter.api.BeforeEach",
-      "norm_label": ".setup()"
-    },
-    {
-      "label": ".setUp()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonReportIntegrationTest.java",
-      "source_location": "L55",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_controller_comparisonreportintegrationtest_comparisonreportintegrationtest_setup",
-      "community": 46,
-      "community_name": "org.junit.jupiter.api.BeforeEach",
-      "norm_label": ".setup()"
-    },
-    {
-      "label": ".setUp()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonResultsIntegrationTest.java",
-      "source_location": "L45",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_controller_comparisonresultsintegrationtest_comparisonresultsintegrationtest_setup",
-      "community": 46,
-      "community_name": "org.junit.jupiter.api.BeforeEach",
-      "norm_label": ".setup()"
-    },
-    {
-      "label": ".setupMockDatabase()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/controller/ComparisonSqlUploadControllerTest.java",
-      "source_location": "L99",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_controller_comparisonsqluploadcontrollertest_comparisonsqluploadcontrollertest_setupmockdatabase",
-      "community": 46,
-      "community_name": "org.junit.jupiter.api.BeforeEach",
-      "norm_label": ".setupmockdatabase()"
-    },
-    {
       "label": ".getChartValues()",
       "file_type": "code",
       "source_file": "frontend/src/app/pages/results/summary-chart/summary-chart.component.ts",
@@ -5124,66 +5136,6 @@
       "norm_label": ".fromentity()"
     },
     {
-      "label": ".getDs1DelimiterOrDefault()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/model/dto/UploadConfigRequest.java",
-      "source_location": "L22",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_model_dto_uploadconfigrequest_uploadconfigrequest_getds1delimiterordefault",
-      "community": 5,
-      "community_name": "ComparisonRecord",
-      "norm_label": ".getds1delimiterordefault()"
-    },
-    {
-      "label": ".getDs2DelimiterOrDefault()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/model/dto/UploadConfigRequest.java",
-      "source_location": "L26",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_model_dto_uploadconfigrequest_uploadconfigrequest_getds2delimiterordefault",
-      "community": 5,
-      "community_name": "ComparisonRecord",
-      "norm_label": ".getds2delimiterordefault()"
-    },
-    {
-      "label": ".resolveDs1Delimiter()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/model/dto/UploadConfigRequest.java",
-      "source_location": "L30",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_model_dto_uploadconfigrequest_uploadconfigrequest_resolveds1delimiter",
-      "community": 5,
-      "community_name": "ComparisonRecord",
-      "norm_label": ".resolveds1delimiter()"
-    },
-    {
-      "label": ".resolveDs2Delimiter()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/model/dto/UploadConfigRequest.java",
-      "source_location": "L40",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_model_dto_uploadconfigrequest_uploadconfigrequest_resolveds2delimiter",
-      "community": 5,
-      "community_name": "ComparisonRecord",
-      "norm_label": ".resolveds2delimiter()"
-    },
-    {
-      "label": ".UploadConfigRequest()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/model/dto/UploadConfigRequest.java",
-      "source_location": "L14",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_model_dto_uploadconfigrequest_uploadconfigrequest_uploadconfigrequest",
-      "community": 5,
-      "community_name": "ComparisonRecord",
-      "norm_label": ".uploadconfigrequest()"
-    },
-    {
       "label": ".ComparisonRecord()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/comparator/model/entity/ComparisonRecord.java",
@@ -5206,6 +5158,18 @@
       "community": 5,
       "community_name": "ComparisonRecord",
       "norm_label": ".getcompletedat()"
+    },
+    {
+      "label": ".getConfigJson()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/model/entity/ComparisonRecord.java",
+      "source_location": "L162",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_model_entity_comparisonrecord_comparisonrecord_getconfigjson",
+      "community": 5,
+      "community_name": "ComparisonRecord",
+      "norm_label": ".getconfigjson()"
     },
     {
       "label": ".getCreatedAt()",
@@ -5376,6 +5340,18 @@
       "norm_label": ".geterrormessage()"
     },
     {
+      "label": ".getId()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/model/entity/ComparisonRecord.java",
+      "source_location": "L98",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_model_entity_comparisonrecord_comparisonrecord_getid",
+      "community": 5,
+      "community_name": "ComparisonRecord",
+      "norm_label": ".getid()"
+    },
+    {
       "label": ".getStatus()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/comparator/model/entity/ComparisonRecord.java",
@@ -5386,18 +5362,6 @@
       "community": 5,
       "community_name": "ComparisonRecord",
       "norm_label": ".getstatus()"
-    },
-    {
-      "label": ".prePersist()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/model/entity/ComparisonRecord.java",
-      "source_location": "L85",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_model_entity_comparisonrecord_comparisonrecord_prepersist",
-      "community": 5,
-      "community_name": "ComparisonRecord",
-      "norm_label": ".prepersist()"
     },
     {
       "label": ".setCompletedAt()",
@@ -5616,30 +5580,6 @@
       "norm_label": ".setstatus()"
     },
     {
-      "label": ".findAllByOrderByCreatedAtDesc()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/repository/ComparisonRepository.java",
-      "source_location": "L15",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_repository_comparisonrepository_comparisonrepository_findallbyorderbycreatedatdesc",
-      "community": 5,
-      "community_name": "ComparisonRecord",
-      "norm_label": ".findallbyorderbycreatedatdesc()"
-    },
-    {
-      "label": ".findByCreatedAtBefore()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/repository/ComparisonRepository.java",
-      "source_location": "L13",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_repository_comparisonrepository_comparisonrepository_findbycreatedatbefore",
-      "community": 5,
-      "community_name": "ComparisonRecord",
-      "norm_label": ".findbycreatedatbefore()"
-    },
-    {
       "label": ".cleanRecord()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/comparator/service/CleanupService.java",
@@ -5650,18 +5590,6 @@
       "community": 5,
       "community_name": "ComparisonRecord",
       "norm_label": ".cleanrecord()"
-    },
-    {
-      "label": ".cleanup()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/CleanupService.java",
-      "source_location": "L32",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_cleanupservice_cleanupservice_cleanup",
-      "community": 5,
-      "community_name": "ComparisonRecord",
-      "norm_label": ".cleanup()"
     },
     {
       "label": ".executeComparisonAsync()",
@@ -5676,6 +5604,66 @@
       "norm_label": ".executecomparisonasync()"
     },
     {
+      "label": ".extractKeyColumns()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/ComparisonService.java",
+      "source_location": "L334",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_comparisonservice_comparisonservice_extractkeycolumns",
+      "community": 5,
+      "community_name": "ComparisonRecord",
+      "norm_label": ".extractkeycolumns()"
+    },
+    {
+      "label": ".getCompletedComparison()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/ComparisonService.java",
+      "source_location": "L324",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_comparisonservice_comparisonservice_getcompletedcomparison",
+      "community": 5,
+      "community_name": "ComparisonRecord",
+      "norm_label": ".getcompletedcomparison()"
+    },
+    {
+      "label": ".getMatches()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/ComparisonService.java",
+      "source_location": "L293",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_comparisonservice_comparisonservice_getmatches",
+      "community": 5,
+      "community_name": "ComparisonRecord",
+      "norm_label": ".getmatches()"
+    },
+    {
+      "label": ".getMismatches()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/ComparisonService.java",
+      "source_location": "L171",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_comparisonservice_comparisonservice_getmismatches",
+      "community": 5,
+      "community_name": "ComparisonRecord",
+      "norm_label": ".getmismatches()"
+    },
+    {
+      "label": ".getMissing()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/ComparisonService.java",
+      "source_location": "L240",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_comparisonservice_comparisonservice_getmissing",
+      "community": 5,
+      "community_name": "ComparisonRecord",
+      "norm_label": ".getmissing()"
+    },
+    {
       "label": ".handleFailure()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/comparator/service/ComparisonService.java",
@@ -5688,6 +5676,54 @@
       "norm_label": ".handlefailure()"
     },
     {
+      "label": ".resolveTimeoutMs()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/ComparisonService.java",
+      "source_location": "L159",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_comparisonservice_comparisonservice_resolvetimeoutms",
+      "community": 5,
+      "community_name": "ComparisonRecord",
+      "norm_label": ".resolvetimeoutms()"
+    },
+    {
+      "label": ".sanitizeSize()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/ComparisonService.java",
+      "source_location": "L347",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_comparisonservice_comparisonservice_sanitizesize",
+      "community": 5,
+      "community_name": "ComparisonRecord",
+      "norm_label": ".sanitizesize()"
+    },
+    {
+      "label": ".countParquet()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/DuckDbService.java",
+      "source_location": "L33",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_duckdbservice_duckdbservice_countparquet",
+      "community": 5,
+      "community_name": "ComparisonRecord",
+      "norm_label": ".countparquet()"
+    },
+    {
+      "label": ".normalizePath()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/DuckDbService.java",
+      "source_location": "L282",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_duckdbservice_duckdbservice_normalizepath",
+      "community": 5,
+      "community_name": "ComparisonRecord",
+      "norm_label": ".normalizepath()"
+    },
+    {
       "label": ".queryParquet()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/comparator/service/DuckDbService.java",
@@ -5698,6 +5734,30 @@
       "community": 5,
       "community_name": "ComparisonRecord",
       "norm_label": ".queryparquet()"
+    },
+    {
+      "label": ".buildSummarySheet()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/ExcelReportService.java",
+      "source_location": "L87",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_excelreportservice_excelreportservice_buildsummarysheet",
+      "community": 5,
+      "community_name": "ComparisonRecord",
+      "norm_label": ".buildsummarysheet()"
+    },
+    {
+      "label": ".parseConfig()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/ExcelReportService.java",
+      "source_location": "L378",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_excelreportservice_excelreportservice_parseconfig",
+      "community": 5,
+      "community_name": "ComparisonRecord",
+      "norm_label": ".parseconfig()"
     },
     {
       "label": ".shouldCreateComparisonRecord()",
@@ -5818,42 +5878,6 @@
       "community": 5,
       "community_name": "ComparisonRecord",
       "norm_label": ".shoulddeleterecordwithshortttloverride()"
-    },
-    {
-      "label": ".shouldCleanUpExpiredRecordsAndFiles()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/service/CleanupServiceTest.java",
-      "source_location": "L50",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_service_cleanupservicetest_cleanupservicetest_shouldcleanupexpiredrecordsandfiles",
-      "community": 5,
-      "community_name": "ComparisonRecord",
-      "norm_label": ".shouldcleanupexpiredrecordsandfiles()"
-    },
-    {
-      "label": ".shouldDoNothingWhenNoExpiredRecords()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/service/CleanupServiceTest.java",
-      "source_location": "L92",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_service_cleanupservicetest_cleanupservicetest_shoulddonothingwhennoexpiredrecords",
-      "community": 5,
-      "community_name": "ComparisonRecord",
-      "norm_label": ".shoulddonothingwhennoexpiredrecords()"
-    },
-    {
-      "label": ".shouldHandleMissingDirectoryGracefully()",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/service/CleanupServiceTest.java",
-      "source_location": "L74",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_service_cleanupservicetest_cleanupservicetest_shouldhandlemissingdirectorygracefully",
-      "community": 5,
-      "community_name": "ComparisonRecord",
-      "norm_label": ".shouldhandlemissingdirectorygracefully()"
     },
     {
       "label": ".shouldPaginateMatchingRecords()",
@@ -6322,17 +6346,6 @@
       "norm_label": "@angular/cdk"
     },
     {
-      "label": "@angular/common",
-      "file_type": "code",
-      "source_file": "frontend/package.json",
-      "source_location": "L15",
-      "_origin": "ast",
-      "id": "frontend_package_dependencies_angular_common",
-      "community": 0,
-      "community_name": "dependencies",
-      "norm_label": "@angular/common"
-    },
-    {
       "label": "@angular/core",
       "file_type": "code",
       "source_file": "frontend/package.json",
@@ -6364,6 +6377,17 @@
       "community": 0,
       "community_name": "dependencies",
       "norm_label": "@angular/material"
+    },
+    {
+      "label": "@angular/router",
+      "file_type": "code",
+      "source_file": "frontend/package.json",
+      "source_location": "L21",
+      "_origin": "ast",
+      "id": "frontend_package_dependencies_angular_router",
+      "community": 0,
+      "community_name": "dependencies",
+      "norm_label": "@angular/router"
     },
     {
       "label": "@fontsource/roboto",
@@ -6410,17 +6434,6 @@
       "norm_label": "@angular/cdk"
     },
     {
-      "label": "@angular/common",
-      "file_type": "concept",
-      "source_file": "frontend/package.json",
-      "source_location": "L15",
-      "_origin": "ast",
-      "id": "angular_common",
-      "community": 0,
-      "community_name": "dependencies",
-      "norm_label": "@angular/common"
-    },
-    {
       "label": "@angular/core",
       "file_type": "concept",
       "source_file": "frontend/package.json",
@@ -6452,6 +6465,17 @@
       "community": 0,
       "community_name": "dependencies",
       "norm_label": "@angular/material"
+    },
+    {
+      "label": "@angular/router",
+      "file_type": "concept",
+      "source_file": "frontend/package.json",
+      "source_location": "L21",
+      "_origin": "ast",
+      "id": "angular_router",
+      "community": 0,
+      "community_name": "dependencies",
+      "norm_label": "@angular/router"
     },
     {
       "label": "@fontsource/roboto",
@@ -7227,6 +7251,28 @@
       "norm_label": "columnheader.java"
     },
     {
+      "label": "ComparisonResult.java",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/model/dto/ComparisonResult.java",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_model_dto_comparisonresult",
+      "community": 15,
+      "community_name": ".compare",
+      "norm_label": "comparisonresult.java"
+    },
+    {
+      "label": "ComparisonEngineTest.java",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/service/ComparisonEngineTest.java",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_service_comparisonenginetest",
+      "community": 15,
+      "community_name": ".compare",
+      "norm_label": "comparisonenginetest.java"
+    },
+    {
       "label": "DuckDbServiceTest.java",
       "file_type": "code",
       "source_file": "backend/src/test/java/com/comparator/service/DuckDbServiceTest.java",
@@ -7280,6 +7326,17 @@
       "community": 18,
       "community_name": "AppProperties",
       "norm_label": "appproperties.java"
+    },
+    {
+      "label": "ComparisonRepository.java",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/repository/ComparisonRepository.java",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_repository_comparisonrepository",
+      "community": 18,
+      "community_name": "AppProperties",
+      "norm_label": "comparisonrepository.java"
     },
     {
       "label": "CleanupService.java",
@@ -7337,6 +7394,17 @@
       "norm_label": "objectmapper"
     },
     {
+      "label": "ProgressServiceTest.java",
+      "file_type": "code",
+      "source_file": "backend/src/test/java/com/comparator/service/ProgressServiceTest.java",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "backend_src_test_java_com_comparator_service_progressservicetest",
+      "community": 18,
+      "community_name": "AppProperties",
+      "norm_label": "progressservicetest.java"
+    },
+    {
       "label": "ObjectMapper",
       "file_type": "code",
       "source_file": "",
@@ -7359,6 +7427,17 @@
       "norm_label": "progressservice"
     },
     {
+      "label": "org.junit.jupiter.api.BeforeEach",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "org_junit_jupiter_api_beforeeach",
+      "community": 18,
+      "community_name": "AppProperties",
+      "norm_label": "org.junit.jupiter.api.beforeeach"
+    },
+    {
       "label": "org.junit.jupiter.api.extension.ExtendWith",
       "file_type": "code",
       "source_file": "",
@@ -7379,6 +7458,50 @@
       "community": 18,
       "community_name": "AppProperties",
       "norm_label": "org.springframework.boot.context.properties.configurationproperties"
+    },
+    {
+      "label": "org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "org_springframework_boot_test_autoconfigure_orm_jpa_datajpatest",
+      "community": 18,
+      "community_name": "AppProperties",
+      "norm_label": "org.springframework.boot.test.autoconfigure.orm.jpa.datajpatest"
+    },
+    {
+      "label": "org.springframework.data.jpa.repository.JpaRepository",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "org_springframework_data_jpa_repository_jparepository",
+      "community": 18,
+      "community_name": "AppProperties",
+      "norm_label": "org.springframework.data.jpa.repository.jparepository"
+    },
+    {
+      "label": "org.springframework.scheduling.annotation.Scheduled",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "org_springframework_scheduling_annotation_scheduled",
+      "community": 18,
+      "community_name": "AppProperties",
+      "norm_label": "org.springframework.scheduling.annotation.scheduled"
+    },
+    {
+      "label": "org.springframework.stereotype.Repository",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "org_springframework_stereotype_repository",
+      "community": 18,
+      "community_name": "AppProperties",
+      "norm_label": "org.springframework.stereotype.repository"
     },
     {
       "label": "DelimiterDetectorTest.java",
@@ -7821,17 +7944,6 @@
       "norm_label": "pagedresult.java"
     },
     {
-      "label": "ProgressUpdate.java",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/model/dto/ProgressUpdate.java",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_model_dto_progressupdate",
-      "community": 26,
-      "community_name": "ComparisonController.java",
-      "norm_label": "progressupdate.java"
-    },
-    {
       "label": "UploadConfigRequest.java",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/comparator/model/dto/UploadConfigRequest.java",
@@ -7841,28 +7953,6 @@
       "community": 26,
       "community_name": "ComparisonController.java",
       "norm_label": "uploadconfigrequest.java"
-    },
-    {
-      "label": "ProgressService.java",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/ProgressService.java",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_progressservice",
-      "community": 26,
-      "community_name": "ComparisonController.java",
-      "norm_label": "progressservice.java"
-    },
-    {
-      "label": "SseEmitter",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_progressservice_java_sseemitter",
-      "community": 26,
-      "community_name": "ComparisonController.java",
-      "norm_label": "sseemitter"
     },
     {
       "label": "com.fasterxml.jackson.annotation.JsonInclude",
@@ -7997,28 +8087,6 @@
       "norm_label": "org.springframework.web.multipart.maxuploadsizeexceededexception"
     },
     {
-      "label": "org.springframework.web.servlet.mvc.method.annotation.SseEmitter",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "org_springframework_web_servlet_mvc_method_annotation_sseemitter",
-      "community": 26,
-      "community_name": "ComparisonController.java",
-      "norm_label": "org.springframework.web.servlet.mvc.method.annotation.sseemitter"
-    },
-    {
-      "label": "ProgressUpdate",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "progressupdate",
-      "community": 26,
-      "community_name": "ComparisonController.java",
-      "norm_label": "progressupdate"
-    },
-    {
       "label": "detail-table.component.ts",
       "file_type": "code",
       "source_file": "frontend/src/app/pages/results/detail-table/detail-table.component.ts",
@@ -8074,17 +8142,6 @@
       "norm_label": "@codemirror/lang-sql"
     },
     {
-      "label": "ComparisonResult.java",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/model/dto/ComparisonResult.java",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_model_dto_comparisonresult",
-      "community": 29,
-      "community_name": "DuckDbService",
-      "norm_label": "comparisonresult.java"
-    },
-    {
       "label": "DatabaseConnectionConfig.java",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/comparator/model/dto/DatabaseConnectionConfig.java",
@@ -8105,39 +8162,6 @@
       "community": 29,
       "community_name": "DuckDbService",
       "norm_label": "comparisonengine.java"
-    },
-    {
-      "label": "ComparisonService.java",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/service/ComparisonService.java",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_comparisonservice",
-      "community": 29,
-      "community_name": "DuckDbService",
-      "norm_label": "comparisonservice.java"
-    },
-    {
-      "label": "MismatchDetail",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_comparisonservice_java_mismatchdetail",
-      "community": 29,
-      "community_name": "DuckDbService",
-      "norm_label": "mismatchdetail"
-    },
-    {
-      "label": "MissingDetail",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_service_comparisonservice_java_missingdetail",
-      "community": 29,
-      "community_name": "DuckDbService",
-      "norm_label": "missingdetail"
     },
     {
       "label": "DelimiterDetector.java",
@@ -8206,6 +8230,17 @@
       "norm_label": "override"
     },
     {
+      "label": "ProgressService.java",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/service/ProgressService.java",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_progressservice",
+      "community": 29,
+      "community_name": "DuckDbService",
+      "norm_label": "progressservice.java"
+    },
+    {
       "label": "SqlDataSourceService.java",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/comparator/service/SqlDataSourceService.java",
@@ -8272,6 +8307,17 @@
       "norm_label": "java.sql.statement"
     },
     {
+      "label": "org.junit.jupiter.api.Nested",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "org_junit_jupiter_api_nested",
+      "community": 29,
+      "community_name": "DuckDbService",
+      "norm_label": "org.junit.jupiter.api.nested"
+    },
+    {
       "label": "org.junit.jupiter.params.ParameterizedTest",
       "file_type": "code",
       "source_file": "",
@@ -8327,15 +8373,26 @@
       "norm_label": "org.springframework.stereotype.service"
     },
     {
-      "label": "org.springframework.web.server.ResponseStatusException",
+      "label": "org.springframework.web.servlet.mvc.method.annotation.SseEmitter",
       "file_type": "code",
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "id": "org_springframework_web_server_responsestatusexception",
+      "id": "org_springframework_web_servlet_mvc_method_annotation_sseemitter",
       "community": 29,
       "community_name": "DuckDbService",
-      "norm_label": "org.springframework.web.server.responsestatusexception"
+      "norm_label": "org.springframework.web.servlet.mvc.method.annotation.sseemitter"
+    },
+    {
+      "label": "ProgressUpdate",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "progressupdate",
+      "community": 29,
+      "community_name": "DuckDbService",
+      "norm_label": "progressupdate"
     },
     {
       "label": "devDependencies",
@@ -8510,7 +8567,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_service_fileparserservicetest",
       "community": 30,
-      "community_name": "FileParserServiceTest",
+      "community_name": "FileParserService",
       "norm_label": "fileparserservicetest.java"
     },
     {
@@ -8521,7 +8578,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_util_exceltestutils",
       "community": 30,
-      "community_name": "FileParserServiceTest",
+      "community_name": "FileParserService",
       "norm_label": "exceltestutils.java"
     },
     {
@@ -8589,6 +8646,28 @@
       "community": 33,
       "community_name": "@codemirror/view",
       "norm_label": "@codemirror/view"
+    },
+    {
+      "label": "ProgressUpdate.java",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/comparator/model/dto/ProgressUpdate.java",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_model_dto_progressupdate",
+      "community": 34,
+      "community_name": "ProgressServiceTest",
+      "norm_label": "progressupdate.java"
+    },
+    {
+      "label": "SseEmitter",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_progressservice_java_sseemitter",
+      "community": 34,
+      "community_name": "ProgressServiceTest",
+      "norm_label": "sseemitter"
     },
     {
       "label": "Component",
@@ -8668,26 +8747,26 @@
       "norm_label": "injectable"
     },
     {
-      "label": "@angular/router",
+      "label": "@angular/common",
       "file_type": "code",
       "source_file": "frontend/package.json",
-      "source_location": "L21",
+      "source_location": "L15",
       "_origin": "ast",
-      "id": "frontend_package_dependencies_angular_router",
+      "id": "frontend_package_dependencies_angular_common",
       "community": 37,
-      "community_name": "@angular/router",
-      "norm_label": "@angular/router"
+      "community_name": "@angular/common",
+      "norm_label": "@angular/common"
     },
     {
-      "label": "@angular/router",
+      "label": "@angular/common",
       "file_type": "concept",
       "source_file": "frontend/package.json",
-      "source_location": "L21",
+      "source_location": "L15",
       "_origin": "ast",
-      "id": "angular_router",
+      "id": "angular_common",
       "community": 37,
-      "community_name": "@angular/router",
-      "norm_label": "@angular/router"
+      "community_name": "@angular/common",
+      "norm_label": "@angular/common"
     },
     {
       "label": "tslib",
@@ -8719,7 +8798,7 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_dto_comparisonexecuterequest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "comparisonexecuterequest.java"
     },
     {
@@ -8730,7 +8809,7 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_dto_comparisonexecuterequest_java_override",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "override"
     },
     {
@@ -8741,7 +8820,7 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_dto_comparisonrequest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "comparisonrequest.java"
     },
     {
@@ -8752,7 +8831,7 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_dto_comparisonsummary",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "comparisonsummary.java"
     },
     {
@@ -8763,7 +8842,7 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_dto_toleranceconfig",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "toleranceconfig.java"
     },
     {
@@ -8774,7 +8853,7 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_dto_uploadresponse",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "uploadresponse.java"
     },
     {
@@ -8785,7 +8864,7 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_entity_comparisonrecord",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "comparisonrecord.java"
     },
     {
@@ -8796,7 +8875,7 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_enums_comparisonstatus",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "comparisonstatus.java"
     },
     {
@@ -8807,7 +8886,7 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_enums_comparisonstatus_comparisonstatus_comparing",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "comparing"
     },
     {
@@ -8818,7 +8897,7 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_enums_comparisonstatus_comparisonstatus_completed",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "completed"
     },
     {
@@ -8829,7 +8908,7 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_enums_comparisonstatus_comparisonstatus_converting",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "converting"
     },
     {
@@ -8840,7 +8919,7 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_enums_comparisonstatus_comparisonstatus_failed",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "failed"
     },
     {
@@ -8851,7 +8930,7 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_enums_comparisonstatus_comparisonstatus_pending",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "pending"
     },
     {
@@ -8862,7 +8941,7 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_enums_comparisonstatus_comparisonstatus_uploaded",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "uploaded"
     },
     {
@@ -8873,7 +8952,7 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_enums_comparisonstatus_comparisonstatus_uploading",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "uploading"
     },
     {
@@ -8884,7 +8963,7 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_enums_datasourcetype",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "datasourcetype.java"
     },
     {
@@ -8895,7 +8974,7 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_enums_datasourcetype_datasourcetype_file_upload",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "file_upload"
     },
     {
@@ -8906,19 +8985,19 @@
       "_origin": "ast",
       "id": "backend_src_main_java_com_comparator_model_enums_datasourcetype_datasourcetype_sql_query",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "sql_query"
     },
     {
-      "label": "ComparisonRepository.java",
+      "label": "ComparisonService.java",
       "file_type": "code",
-      "source_file": "backend/src/main/java/com/comparator/repository/ComparisonRepository.java",
+      "source_file": "backend/src/main/java/com/comparator/service/ComparisonService.java",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "backend_src_main_java_com_comparator_repository_comparisonrepository",
+      "id": "backend_src_main_java_com_comparator_service_comparisonservice",
       "community": 40,
-      "community_name": "ComparisonRepository",
-      "norm_label": "comparisonrepository.java"
+      "community_name": "ComparisonStatus",
+      "norm_label": "comparisonservice.java"
     },
     {
       "label": "AppPropertiesTest.java",
@@ -8928,7 +9007,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_config_apppropertiestest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "apppropertiestest.java"
     },
     {
@@ -8939,7 +9018,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_controller_comparisoncontrollertest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "comparisoncontrollertest.java"
     },
     {
@@ -8950,7 +9029,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_controller_comparisonexecuteintegrationtest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "comparisonexecuteintegrationtest.java"
     },
     {
@@ -8961,7 +9040,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_controller_comparisonprogressintegrationtest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "comparisonprogressintegrationtest.java"
     },
     {
@@ -8972,7 +9051,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_controller_comparisonreportintegrationtest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "comparisonreportintegrationtest.java"
     },
     {
@@ -8983,7 +9062,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_controller_comparisonresultsintegrationtest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "comparisonresultsintegrationtest.java"
     },
     {
@@ -8994,7 +9073,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_controller_comparisonsqluploadcontrollertest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "comparisonsqluploadcontrollertest.java"
     },
     {
@@ -9005,7 +9084,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_controller_comparisonuploadcontrollertest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "comparisonuploadcontrollertest.java"
     },
     {
@@ -9016,7 +9095,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_controller_springmultipartlimitintegrationtest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "springmultipartlimitintegrationtest.java"
     },
     {
@@ -9027,7 +9106,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_datacomparatorapplicationtests",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "datacomparatorapplicationtests.java"
     },
     {
@@ -9038,7 +9117,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_repository_comparisonrepositorytest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "comparisonrepositorytest.java"
     },
     {
@@ -9049,7 +9128,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_service_cleanupintegrationtest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "cleanupintegrationtest.java"
     },
     {
@@ -9060,7 +9139,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_service_comparisonservicetest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "comparisonservicetest.java"
     },
     {
@@ -9071,7 +9150,7 @@
       "_origin": "ast",
       "id": "backend_src_test_java_com_comparator_service_excelreportservicetest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "excelreportservicetest.java"
     },
     {
@@ -9082,7 +9161,7 @@
       "_origin": "ast",
       "id": "com_fasterxml_jackson_core_jsonparser",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "com.fasterxml.jackson.core.jsonparser"
     },
     {
@@ -9093,7 +9172,7 @@
       "_origin": "ast",
       "id": "com_fasterxml_jackson_databind_annotation_jsondeserialize",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "com.fasterxml.jackson.databind.annotation.jsondeserialize"
     },
     {
@@ -9104,7 +9183,7 @@
       "_origin": "ast",
       "id": "com_fasterxml_jackson_databind_deserializationcontext",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "com.fasterxml.jackson.databind.deserializationcontext"
     },
     {
@@ -9115,7 +9194,7 @@
       "_origin": "ast",
       "id": "com_fasterxml_jackson_databind_jsondeserializer",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "com.fasterxml.jackson.databind.jsondeserializer"
     },
     {
@@ -9126,19 +9205,19 @@
       "_origin": "ast",
       "id": "com_fasterxml_jackson_databind_objectmapper",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "com.fasterxml.jackson.databind.objectmapper"
     },
     {
-      "label": "org.junit.jupiter.api.Nested",
+      "label": "jakarta.persistence.PrePersist",
       "file_type": "code",
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "id": "org_junit_jupiter_api_nested",
+      "id": "jakarta_persistence_prepersist",
       "community": 40,
-      "community_name": "ComparisonRepository",
-      "norm_label": "org.junit.jupiter.api.nested"
+      "community_name": "ComparisonStatus",
+      "norm_label": "jakarta.persistence.prepersist"
     },
     {
       "label": "org.springframework.beans.factory.annotation.Autowired",
@@ -9148,19 +9227,8 @@
       "_origin": "ast",
       "id": "org_springframework_beans_factory_annotation_autowired",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "org.springframework.beans.factory.annotation.autowired"
-    },
-    {
-      "label": "org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "org_springframework_boot_test_autoconfigure_orm_jpa_datajpatest",
-      "community": 40,
-      "community_name": "ComparisonRepository",
-      "norm_label": "org.springframework.boot.test.autoconfigure.orm.jpa.datajpatest"
     },
     {
       "label": "org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc",
@@ -9170,7 +9238,7 @@
       "_origin": "ast",
       "id": "org_springframework_boot_test_autoconfigure_web_servlet_autoconfiguremockmvc",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "org.springframework.boot.test.autoconfigure.web.servlet.autoconfiguremockmvc"
     },
     {
@@ -9181,7 +9249,7 @@
       "_origin": "ast",
       "id": "org_springframework_boot_test_context_springboottest",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "org.springframework.boot.test.context.springboottest"
     },
     {
@@ -9192,7 +9260,7 @@
       "_origin": "ast",
       "id": "org_springframework_boot_test_context_testconfiguration",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "org.springframework.boot.test.context.testconfiguration"
     },
     {
@@ -9203,7 +9271,7 @@
       "_origin": "ast",
       "id": "org_springframework_context_annotation_bean",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "org.springframework.context.annotation.bean"
     },
     {
@@ -9214,7 +9282,7 @@
       "_origin": "ast",
       "id": "org_springframework_context_annotation_import",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "org.springframework.context.annotation.import"
     },
     {
@@ -9225,30 +9293,8 @@
       "_origin": "ast",
       "id": "org_springframework_context_annotation_primary",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "org.springframework.context.annotation.primary"
-    },
-    {
-      "label": "org.springframework.data.jpa.repository.JpaRepository",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "org_springframework_data_jpa_repository_jparepository",
-      "community": 40,
-      "community_name": "ComparisonRepository",
-      "norm_label": "org.springframework.data.jpa.repository.jparepository"
-    },
-    {
-      "label": "org.springframework.stereotype.Repository",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "org_springframework_stereotype_repository",
-      "community": 40,
-      "community_name": "ComparisonRepository",
-      "norm_label": "org.springframework.stereotype.repository"
     },
     {
       "label": "org.springframework.test.context.TestPropertySource",
@@ -9258,7 +9304,7 @@
       "_origin": "ast",
       "id": "org_springframework_test_context_testpropertysource",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "org.springframework.test.context.testpropertysource"
     },
     {
@@ -9269,8 +9315,19 @@
       "_origin": "ast",
       "id": "org_springframework_test_web_servlet_mockmvc",
       "community": 40,
-      "community_name": "ComparisonRepository",
+      "community_name": "ComparisonStatus",
       "norm_label": "org.springframework.test.web.servlet.mockmvc"
+    },
+    {
+      "label": "org.springframework.web.server.ResponseStatusException",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "org_springframework_web_server_responsestatusexception",
+      "community": 40,
+      "community_name": "ComparisonStatus",
+      "norm_label": "org.springframework.web.server.responsestatusexception"
     },
     {
       "label": "tsconfig.json",
@@ -9537,39 +9594,6 @@
       "norm_label": "@angular/compiler"
     },
     {
-      "label": "ComparisonEngineTest.java",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/service/ComparisonEngineTest.java",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_service_comparisonenginetest",
-      "community": 46,
-      "community_name": "org.junit.jupiter.api.BeforeEach",
-      "norm_label": "comparisonenginetest.java"
-    },
-    {
-      "label": "ProgressServiceTest.java",
-      "file_type": "code",
-      "source_file": "backend/src/test/java/com/comparator/service/ProgressServiceTest.java",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "backend_src_test_java_com_comparator_service_progressservicetest",
-      "community": 46,
-      "community_name": "org.junit.jupiter.api.BeforeEach",
-      "norm_label": "progressservicetest.java"
-    },
-    {
-      "label": "org.junit.jupiter.api.BeforeEach",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "org_junit_jupiter_api_beforeeach",
-      "community": 46,
-      "community_name": "org.junit.jupiter.api.BeforeEach",
-      "norm_label": "org.junit.jupiter.api.beforeeach"
-    },
-    {
       "label": "tsconfig.spec.json",
       "file_type": "code",
       "source_file": "frontend/tsconfig.spec.json",
@@ -9713,6 +9737,28 @@
       "norm_label": "datasetcolumns"
     },
     {
+      "label": "MismatchDetail",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_comparisonservice_java_mismatchdetail",
+      "community": 5,
+      "community_name": "ComparisonRecord",
+      "norm_label": "mismatchdetail"
+    },
+    {
+      "label": "MissingDetail",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "backend_src_main_java_com_comparator_service_comparisonservice_java_missingdetail",
+      "community": 5,
+      "community_name": "ComparisonRecord",
+      "norm_label": "missingdetail"
+    },
+    {
       "label": "jakarta.persistence.Entity",
       "file_type": "code",
       "source_file": "",
@@ -9724,17 +9770,6 @@
       "norm_label": "jakarta.persistence.entity"
     },
     {
-      "label": "jakarta.persistence.PrePersist",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "jakarta_persistence_prepersist",
-      "community": 5,
-      "community_name": "ComparisonRecord",
-      "norm_label": "jakarta.persistence.prepersist"
-    },
-    {
       "label": "jakarta.persistence.Table",
       "file_type": "code",
       "source_file": "",
@@ -9744,17 +9779,6 @@
       "community": 5,
       "community_name": "ComparisonRecord",
       "norm_label": "jakarta.persistence.table"
-    },
-    {
-      "label": "org.springframework.scheduling.annotation.Scheduled",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "org_springframework_scheduling_annotation_scheduled",
-      "community": 5,
-      "community_name": "ComparisonRecord",
-      "norm_label": "org.springframework.scheduling.annotation.scheduled"
     },
     {
       "label": "org.springframework.web.bind.annotation.PostMapping",
@@ -12633,6 +12657,54 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/test/java/com/comparator/service/ComparisonEngineTest.java",
+      "source_location": "L355",
+      "weight": 1.0,
+      "context": "attribute",
+      "_origin": "ast",
+      "source": "backend_src_test_java_com_comparator_service_comparisonenginetest_comparisonenginetest_shouldcomparekeyswithmixedtypesasstrings",
+      "target": "org_junit_jupiter_api_displayname",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/test/java/com/comparator/service/ComparisonEngineTest.java",
+      "source_location": "L355",
+      "weight": 1.0,
+      "context": "attribute",
+      "_origin": "ast",
+      "source": "backend_src_test_java_com_comparator_service_comparisonenginetest_comparisonenginetest_shouldcomparekeyswithmixedtypesasstrings",
+      "target": "org_junit_jupiter_api_test",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/test/java/com/comparator/service/ComparisonEngineTest.java",
+      "source_location": "L324",
+      "weight": 1.0,
+      "context": "attribute",
+      "_origin": "ast",
+      "source": "backend_src_test_java_com_comparator_service_comparisonenginetest_comparisonenginetest_shouldcomparemixeddataasstringswhennotolerancespecified",
+      "target": "org_junit_jupiter_api_displayname",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/test/java/com/comparator/service/ComparisonEngineTest.java",
+      "source_location": "L324",
+      "weight": 1.0,
+      "context": "attribute",
+      "_origin": "ast",
+      "source": "backend_src_test_java_com_comparator_service_comparisonenginetest_comparisonenginetest_shouldcomparemixeddataasstringswhennotolerancespecified",
+      "target": "org_junit_jupiter_api_test",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/test/java/com/comparator/service/ComparisonEngineTest.java",
       "source_location": "L30",
       "weight": 1.0,
       "context": "attribute",
@@ -14494,7 +14566,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/main/java/com/comparator/service/ComparisonEngine.java",
-      "source_location": "L291",
+      "source_location": "L287",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_src_main_java_com_comparator_service_comparisonengine_comparisonengine_buildkeyjoincondition",
@@ -14530,7 +14602,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/main/java/com/comparator/service/ComparisonEngine.java",
-      "source_location": "L202",
+      "source_location": "L198",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_src_main_java_com_comparator_service_comparisonengine_comparisonengine_compare",
@@ -14542,7 +14614,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/main/java/com/comparator/service/ComparisonEngine.java",
-      "source_location": "L265",
+      "source_location": "L261",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_src_main_java_com_comparator_service_comparisonengine_comparisonengine_compare",
@@ -25089,7 +25161,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/main/java/com/comparator/service/ComparisonEngine.java",
-      "source_location": "L304",
+      "source_location": "L296",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast",
@@ -30112,11 +30184,22 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/main/java/com/comparator/service/ComparisonEngine.java",
-      "source_location": "L288",
+      "source_location": "L284",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_src_main_java_com_comparator_service_comparisonengine_comparisonengine",
       "target": "backend_src_main_java_com_comparator_service_comparisonengine_comparisonengine_buildkeyjoincondition",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/comparator/service/ComparisonEngine.java",
+      "source_location": "L296",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_src_main_java_com_comparator_service_comparisonengine_comparisonengine",
+      "target": "backend_src_main_java_com_comparator_service_comparisonengine_comparisonengine_getcount",
       "confidence_score": 1.0
     },
     {
@@ -30134,18 +30217,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/main/java/com/comparator/service/ComparisonEngine.java",
-      "source_location": "L304",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "backend_src_main_java_com_comparator_service_comparisonengine_comparisonengine",
-      "target": "backend_src_main_java_com_comparator_service_comparisonengine_comparisonengine_getcount",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/comparator/service/ComparisonEngine.java",
-      "source_location": "L313",
+      "source_location": "L305",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_src_main_java_com_comparator_service_comparisonengine_comparisonengine",
@@ -30156,7 +30228,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/main/java/com/comparator/service/ComparisonEngine.java",
-      "source_location": "L317",
+      "source_location": "L309",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_src_main_java_com_comparator_service_comparisonengine_comparisonengine",
@@ -30167,7 +30239,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/main/java/com/comparator/service/ComparisonEngine.java",
-      "source_location": "L321",
+      "source_location": "L313",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_src_main_java_com_comparator_service_comparisonengine_comparisonengine",
@@ -31734,6 +31806,28 @@
       "_origin": "ast",
       "source": "backend_src_test_java_com_comparator_service_comparisonenginetest_comparisonenginetest",
       "target": "backend_src_test_java_com_comparator_service_comparisonenginetest_comparisonenginetest_shoulddetectfullmatcheswhenidentical",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/test/java/com/comparator/service/ComparisonEngineTest.java",
+      "source_location": "L324",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_src_test_java_com_comparator_service_comparisonenginetest_comparisonenginetest",
+      "target": "backend_src_test_java_com_comparator_service_comparisonenginetest_comparisonenginetest_shouldcomparemixeddataasstringswhennotolerancespecified",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/test/java/com/comparator/service/ComparisonEngineTest.java",
+      "source_location": "L355",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_src_test_java_com_comparator_service_comparisonenginetest_comparisonenginetest",
+      "target": "backend_src_test_java_com_comparator_service_comparisonenginetest_comparisonenginetest_shouldcomparekeyswithmixedtypesasstrings",
       "confidence_score": 1.0
     },
     {
@@ -35730,6 +35824,54 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/src/test/java/com/comparator/service/ComparisonEngineTest.java",
+      "source_location": "L368",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_src_test_java_com_comparator_service_comparisonenginetest_comparisonenginetest_shouldcomparekeyswithmixedtypesasstrings",
+      "target": "backend_src_main_java_com_comparator_service_duckdbservice_duckdbservice_csvtoparquet"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/src/test/java/com/comparator/service/ComparisonEngineTest.java",
+      "source_location": "L371",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_src_test_java_com_comparator_service_comparisonenginetest_comparisonenginetest_shouldcomparekeyswithmixedtypesasstrings",
+      "target": "backend_src_main_java_com_comparator_service_comparisonengine_comparisonengine_compare"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/src/test/java/com/comparator/service/ComparisonEngineTest.java",
+      "source_location": "L340",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_src_test_java_com_comparator_service_comparisonenginetest_comparisonenginetest_shouldcomparemixeddataasstringswhennotolerancespecified",
+      "target": "backend_src_main_java_com_comparator_service_duckdbservice_duckdbservice_csvtoparquet"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/src/test/java/com/comparator/service/ComparisonEngineTest.java",
+      "source_location": "L343",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_src_test_java_com_comparator_service_comparisonenginetest_comparisonenginetest_shouldcomparemixeddataasstringswhennotolerancespecified",
+      "target": "backend_src_main_java_com_comparator_service_comparisonengine_comparisonengine_compare"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/src/test/java/com/comparator/service/ComparisonEngineTest.java",
       "source_location": "L40",
       "weight": 1.0,
       "_origin": "ast",
@@ -37658,5 +37800,5 @@
       "label": "Fullstack Data Comparator Architecture"
     }
   ],
-  "built_at_commit": "058a9fa6dc17b3e2fa2f8dd7e1e8186ebcc02533"
+  "built_at_commit": "882e76dd603a33af3422246061629ebecceaa940"
 }

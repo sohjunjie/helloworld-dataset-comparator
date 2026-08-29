@@ -320,4 +320,60 @@ class ComparisonEngineTest {
         assertThat(result.ds1NotMatching()).isEqualTo(3);
         assertThat(result.ds2NotMatching()).isEqualTo(3);
     }
+
+    @Test
+    @DisplayName("Should compare mixed data as strings when no tolerance is specified")
+    void shouldCompareMixedDataAsStringsWhenNoToleranceSpecified() throws Exception {
+        Path ds1Csv = tempDir.resolve("ds1.csv");
+        Path ds2Csv = tempDir.resolve("ds2.csv");
+        // DS1 has id=1 (100), id=2 (0100), id=3 (abc)
+        // DS2 has id=1 (100), id=2 (100), id=3 (123)
+        // Without tolerance:
+        // id=1: "100" == "100" -> match
+        // id=2: "0100" != "100" -> mismatch (not implicitly type-cast to 100 == 100)
+        // id=3: "abc" != "123" -> mismatch (no DuckDB conversion error)
+        Files.writeString(ds1Csv, "id,val\n1,100\n2,0100\n3,abc\n");
+        Files.writeString(ds2Csv, "id,val\n1,100\n2,100\n3,123\n");
+
+        Path ds1Parquet = tempDir.resolve("ds1.parquet");
+        Path ds2Parquet = tempDir.resolve("ds2.parquet");
+        duckDbService.csvToParquet(ds1Csv, ds1Parquet, ',');
+        duckDbService.csvToParquet(ds2Csv, ds2Parquet, ',');
+
+        ComparisonResult result = comparisonEngine.compare(
+                ds1Parquet, ds2Parquet, tempDir, List.of("id"), List.of(), true
+        );
+
+        assertThat(result.ds1RecordCount()).isEqualTo(3);
+        assertThat(result.ds2RecordCount()).isEqualTo(3);
+        assertThat(result.ds1FullyMatching()).isEqualTo(1);
+        assertThat(result.ds2FullyMatching()).isEqualTo(1);
+        assertThat(result.ds1NotMatching()).isEqualTo(2);
+        assertThat(result.ds2NotMatching()).isEqualTo(2);
+    }
+
+    @Test
+    @DisplayName("Should compare keys with mixed types as strings without conversion errors")
+    void shouldCompareKeysWithMixedTypesAsStrings() throws Exception {
+        Path ds1Csv = tempDir.resolve("ds1.csv");
+        Path ds2Csv = tempDir.resolve("ds2.csv");
+        // DS1 keys: "1", "02", "ABC"
+        // DS2 keys: "1", "2", "abc"
+        // Case-sensitive: "1" matches "1", "02" != "2", "ABC" != "abc"
+        Files.writeString(ds1Csv, "id,val\n1,v1\n02,v2\nABC,v3\n");
+        Files.writeString(ds2Csv, "id,val\n1,v1\n2,v2\nabc,v3\n");
+
+        Path ds1Parquet = tempDir.resolve("ds1.parquet");
+        Path ds2Parquet = tempDir.resolve("ds2.parquet");
+        duckDbService.csvToParquet(ds1Csv, ds1Parquet, ',');
+        duckDbService.csvToParquet(ds2Csv, ds2Parquet, ',');
+
+        ComparisonResult result = comparisonEngine.compare(
+                ds1Parquet, ds2Parquet, tempDir, List.of("id"), List.of(), true
+        );
+
+        assertThat(result.ds1FullyMatching()).isEqualTo(1);
+        assertThat(result.ds1MissingInDs2()).isEqualTo(2);
+        assertThat(result.ds2MissingInDs1()).isEqualTo(2);
+    }
 }
