@@ -324,6 +324,37 @@ describe('CompareComponent', () => {
     expect(component.currentStep()).toBe(1);
   });
 
+  it('should handle comparison failure from execute call or SSE update', () => {
+    component.currentStep.set(2);
+    component.comparisonId.set('comp-12345');
+    component.availableColumns.set(['id']);
+    component.selectedKeyColumns.set(['id']);
+    comparisonServiceMock.execute.mockReturnValue(throwError(() => ({ error: { message: 'DuckDB out of memory' } })));
+    fixture.detectChanges();
+
+    component.startComparison();
+    fixture.detectChanges();
+
+    expect(component.isComparing()).toBe(false);
+    expect(component.errorMessage()).toContain('DuckDB out of memory');
+  });
+
+  it('should handle FAILED stage from SSE stream and display error', () => {
+    component.currentStep.set(2);
+    component.comparisonId.set('comp-12345');
+    component.availableColumns.set(['id']);
+    component.selectedKeyColumns.set(['id']);
+    comparisonServiceMock.execute.mockReturnValue(of({ id: 'comp-12345', status: 'COMPARING' }));
+    progressServiceMock.subscribe.mockReturnValue(of({ stage: 'FAILED', percent: 100, message: 'Column mismatch failure' }));
+    fixture.detectChanges();
+
+    component.startComparison();
+    fixture.detectChanges();
+
+    expect(component.isComparing()).toBe(false);
+    expect(component.errorMessage()).toContain('Column mismatch failure');
+  });
+
   it('should reset form on Start Over', () => {
     component.currentStep.set(2);
     component.comparisonId.set('comp-12345');

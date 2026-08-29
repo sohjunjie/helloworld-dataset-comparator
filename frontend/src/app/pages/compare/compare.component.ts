@@ -1,7 +1,8 @@
-import { Component, ViewChild, inject, signal } from '@angular/core';
+import { Component, OnDestroy, ViewChild, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -36,7 +37,7 @@ import { ToleranceConfig, UploadDatasetOptions } from '../../models/comparison.m
   templateUrl: './compare.component.html',
   styleUrl: './compare.component.scss'
 })
-export class CompareComponent {
+export class CompareComponent implements OnDestroy {
   private readonly comparisonService = inject(ComparisonService);
   private readonly progressService = inject(ProgressService);
   private readonly router = inject(Router);
@@ -66,6 +67,10 @@ export class CompareComponent {
   progressPercent = signal<number>(0);
 
   errorMessage = signal<string | null>(null);
+
+  private progressSub?: Subscription;
+  private executeSub?: Subscription;
+  private pollIntervalTimer?: ReturnType<typeof setInterval>;
 
   onDs1FileChanged(file: File | null): void {
     this.ds1File.set(file);
@@ -144,10 +149,11 @@ export class CompareComponent {
     return hasKeys && tolerancesValid;
   }
 
-
   startComparison(): void {
     const id = this.comparisonId();
     if (!id || !this.canCompare()) return;
+
+    this.clearSubscriptionsAndTimers();
 
     this.isComparing.set(true);
     this.errorMessage.set(null);
@@ -158,19 +164,53 @@ export class CompareComponent {
     const navigateOnce = () => {
       if (!hasNavigated) {
         hasNavigated = true;
+        this.clearSubscriptionsAndTimers();
         this.isComparing.set(false);
         this.router.navigate(['/results', id]);
       }
     };
 
+    // Fallback polling interval to ensure progress never hangs if SSE is dropped or finished prior to subscription
+    this.pollIntervalTimer = setInterval(() => {
+      if (!this.isComparing() || hasNavigated) {
+        this.clearSubscriptionsAndTimers();
+        return;
+      }
+      this.comparisonService.getComparison(id).subscribe({
+        next: (summary) => {
+          if (summary.status === 'COMPLETED') {
+            this.progressPercent.set(100);
+            this.progressStage.set('Completed');
+            navigateOnce();
+          } else if (summary.status === 'FAILED') {
+            this.clearSubscriptionsAndTimers();
+            this.isComparing.set(false);
+            this.errorMessage.set(summary.errorMessage || 'Comparison failed');
+          } else if (summary.status === 'COMPARING') {
+            if (this.progressPercent() < 50) {
+              this.progressPercent.set(50);
+              this.progressStage.set('Comparing dataset records...');
+            }
+          }
+        },
+        error: () => {
+          // ignore transient poll error
+        }
+      });
+    }, 1000);
+
     // Subscribe to SSE progress
-    this.progressService.subscribe(id).subscribe({
+    this.progressSub = this.progressService.subscribe(id).subscribe({
       next: (update) => {
         this.progressStage.set(update.stage + (update.message ? `: ${update.message}` : ''));
         this.progressPercent.set(update.percent || 50);
 
         if (update.stage === 'COMPLETED') {
           navigateOnce();
+        } else if (update.stage === 'FAILED') {
+          this.clearSubscriptionsAndTimers();
+          this.isComparing.set(false);
+          this.errorMessage.set(update.message || 'Comparison execution failed.');
         }
       },
       error: (err) => {
@@ -179,7 +219,7 @@ export class CompareComponent {
     });
 
     // Fire execute POST
-    this.comparisonService
+    this.executeSub = this.comparisonService
       .execute(id, {
         keyColumns: this.selectedKeyColumns(),
         tolerances: this.tolerances(),
@@ -189,9 +229,14 @@ export class CompareComponent {
         next: (summary) => {
           if (summary.status === 'COMPLETED') {
             navigateOnce();
+          } else if (summary.status === 'FAILED') {
+            this.clearSubscriptionsAndTimers();
+            this.isComparing.set(false);
+            this.errorMessage.set(summary.errorMessage || 'Comparison execution failed.');
           }
         },
         error: (err) => {
+          this.clearSubscriptionsAndTimers();
           this.isComparing.set(false);
           this.errorMessage.set(
             err?.error?.message || err?.message || 'Comparison execution failed. Please check your inputs.'
@@ -201,6 +246,7 @@ export class CompareComponent {
   }
 
   resetForm(): void {
+    this.clearSubscriptionsAndTimers();
     this.currentStep.set(1);
     this.comparisonId.set(null);
     this.availableColumns.set([]);
@@ -209,6 +255,25 @@ export class CompareComponent {
     this.isUploading.set(false);
     this.isComparing.set(false);
     this.errorMessage.set(null);
+  }
+
+  private clearSubscriptionsAndTimers(): void {
+    if (this.pollIntervalTimer) {
+      clearInterval(this.pollIntervalTimer);
+      this.pollIntervalTimer = undefined;
+    }
+    if (this.progressSub) {
+      this.progressSub.unsubscribe();
+      this.progressSub = undefined;
+    }
+    if (this.executeSub) {
+      this.executeSub.unsubscribe();
+      this.executeSub = undefined;
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.clearSubscriptionsAndTimers();
   }
 }
 

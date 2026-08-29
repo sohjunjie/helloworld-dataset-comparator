@@ -23,6 +23,7 @@ public class ProgressService {
 
     private final AppProperties appProperties;
     private final Map<String, List<SseEmitter>> emitters = new ConcurrentHashMap<>();
+    private final Map<String, ProgressUpdate> latestUpdates = new ConcurrentHashMap<>();
 
     public ProgressService(AppProperties appProperties) {
         this.appProperties = appProperties;
@@ -50,6 +51,15 @@ public class ProgressService {
             removeEmitter(comparisonId, emitter);
         });
 
+        ProgressUpdate last = latestUpdates.get(comparisonId);
+        if (last != null) {
+            boolean isTerminal = "COMPLETED".equalsIgnoreCase(last.stage()) || "FAILED".equalsIgnoreCase(last.stage());
+            emitToEmitter(emitter, last);
+            if (isTerminal) {
+                removeEmitter(comparisonId, emitter);
+            }
+        }
+
         return emitter;
     }
 
@@ -65,6 +75,8 @@ public class ProgressService {
         if (comparisonId == null || update == null) {
             return;
         }
+
+        latestUpdates.put(comparisonId, update);
 
         List<SseEmitter> list = emitters.get(comparisonId);
         if (list == null || list.isEmpty()) {
@@ -93,6 +105,10 @@ public class ProgressService {
         for (SseEmitter dead : deadEmitters) {
             removeEmitter(comparisonId, dead);
         }
+    }
+
+    public ProgressUpdate getLatestUpdate(String comparisonId) {
+        return comparisonId != null ? latestUpdates.get(comparisonId) : null;
     }
 
     public void emitToEmitter(SseEmitter emitter, ProgressUpdate update) {

@@ -9,6 +9,7 @@ import com.comparator.model.dto.DatasetColumns;
 import com.comparator.model.dto.MismatchDetail;
 import com.comparator.model.dto.MissingDetail;
 import com.comparator.model.dto.PagedResult;
+import com.comparator.model.dto.ProgressUpdate;
 import com.comparator.model.dto.UploadConfigRequest;
 import com.comparator.model.dto.UploadResponse;
 import com.comparator.model.entity.ComparisonRecord;
@@ -201,10 +202,15 @@ public class ComparisonController {
 
     @GetMapping(value = {"/{id}/events", "/{id}/progress"}, produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter subscribeProgress(@PathVariable String id) {
-        if (!comparisonRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Comparison not found with id: " + id);
+        ComparisonRecord record = comparisonRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Comparison not found with id: " + id));
+        SseEmitter emitter = progressService.subscribe(id);
+        if (record.getStatus() == ComparisonStatus.COMPLETED) {
+            progressService.emitToEmitter(emitter, new ProgressUpdate("COMPLETED", 100, null));
+        } else if (record.getStatus() == ComparisonStatus.FAILED) {
+            progressService.emitToEmitter(emitter, new ProgressUpdate("FAILED", 100, record.getErrorMessage()));
         }
-        return progressService.subscribe(id);
+        return emitter;
     }
 
     @PostMapping("/{id}/execute")

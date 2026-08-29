@@ -117,4 +117,30 @@ class ProgressServiceTest {
         SseEmitter emitter = new SseEmitter(10000L);
         progressService.emitToEmitter(emitter, new ProgressUpdate("COMPLETED", 100, null));
     }
+
+    @Test
+    @DisplayName("Should replay latest progress state when a client subscribes after events were already emitted")
+    void testReplayLatestProgressOnLateSubscribe() {
+        String comparisonId = "late-sub-comp";
+        progressService.emit(comparisonId, "COMPARING", 50);
+
+        assertThat(progressService.getLatestUpdate(comparisonId)).isNotNull();
+        assertThat(progressService.getLatestUpdate(comparisonId).stage()).isEqualTo("COMPARING");
+        assertThat(progressService.getLatestUpdate(comparisonId).percent()).isEqualTo(50);
+
+        SseEmitter emitter = progressService.subscribe(comparisonId);
+        assertThat(emitter).isNotNull();
+        assertThat(progressService.getEmitterCount(comparisonId)).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("Should immediately complete emitter when subscribing to an already completed comparison")
+    void testSubscribeToAlreadyCompletedComparison() {
+        String comparisonId = "already-done-comp";
+        progressService.emit(comparisonId, "COMPLETED", 100);
+
+        SseEmitter emitter = progressService.subscribe(comparisonId);
+        assertThat(emitter).isNotNull();
+        assertThat(progressService.getEmitterCount(comparisonId)).isEqualTo(0);
+    }
 }
