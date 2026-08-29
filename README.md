@@ -4,6 +4,10 @@ An utility web application for quick data reconciliation between 2 datasets.
 
 ## 🚀 App Demo
 
+Sample workflow for comparing 2 datasets
+
+![Dataset Comparator Demo](DEMO.gif)
+
 
 ---
 
