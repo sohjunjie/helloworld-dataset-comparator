@@ -106,7 +106,7 @@ public class DuckDbService {
         String delimEscaped = formatDelimiter(delimiter);
 
         String sql = String.format(
-                "COPY (SELECT * FROM read_csv('%s', delim='%s', header=true, auto_detect=true)) TO '%s' (FORMAT PARQUET)",
+                "COPY (SELECT * FROM read_csv('%s', delim='%s', header=true, quote='\"', escape='\"', auto_detect=true)) TO '%s' (FORMAT PARQUET)",
                 normalizedCsvPath,
                 delimEscaped,
                 normalizedParquetPath

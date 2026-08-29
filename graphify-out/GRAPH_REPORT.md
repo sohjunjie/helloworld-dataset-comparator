@@ -1,29 +1,29 @@
 # Graph Report - helloworld-dataset-comparator  (2026-08-29)
 
 ## Corpus Check
-- 102 files · ~37,879 words
+- 102 files · ~38,155 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 872 nodes · 2350 edges · 46 communities (26 shown, 20 thin omitted)
-- Extraction: 86% EXTRACTED · 14% INFERRED · 0% AMBIGUOUS · INFERRED: 330 edges (avg confidence: 0.8)
+- 877 nodes · 2376 edges · 47 communities (29 shown, 18 thin omitted)
+- Extraction: 86% EXTRACTED · 14% INFERRED · 0% AMBIGUOUS · INFERRED: 338 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `882e76dd`
+- Built from commit: `b61463af`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - dependencies
 - data-comparator-frontend
-- org.junit.jupiter.api.DisplayName
+- FileDropzoneComponent
 - devDependencies
 - Dataset Comparison Workflow
 - ComparisonRecord
 - app.config.ts
-- comparison.model.ts
-- compare.component.ts
+- ComparisonService
+- ColumnSelectorComponent
 - @angular/platform-browser
 - DataComparatorApplication
 - com.comparator:data-comparator-backend
@@ -33,8 +33,8 @@
 - .compare
 - ToleranceConfigComponent
 - rxjs
-- AppProperties
-- DelimiterDetectorTest
+- UploadConfigRequest
+- SqlEditorComponent
 - rules/graphify.md
 - workflows/graphify.md
 - ExcelReportService
@@ -44,22 +44,23 @@
 - ComparisonController.java
 - DetailTableComponent
 - @codemirror/lang-sql
-- DuckDbService
+- AppProperties
 - FileParserService
 - @codemirror/state
 - CompareComponent
 - @codemirror/view
-- ProgressServiceTest
+- ProgressService
 - ResultsComponent
-- results.component.ts
-- @angular/common
+- compare.component.ts
+- dataset-input.component.ts
 - tslib
-- ComparisonStatus
+- @angular/router
+- org.junit.jupiter.api.DisplayName
 - compilerOptions
 - SummaryCardsComponent
 - @angular/compiler
 - tsconfig.spec.json
-- SummaryChartComponent
+- comparison.model.ts
 - HistoryComponent
 
 ## God Nodes (most connected - your core abstractions)
@@ -83,8 +84,8 @@
   frontend/README.md → USER_REQUIREMENT.txt
 - `ComparisonController` --references--> `AppProperties`  [EXTRACTED]
   backend/src/main/java/com/comparator/controller/ComparisonController.java → backend/src/main/java/com/comparator/config/AppProperties.java
-- `ComparisonService` --references--> `AppProperties`  [EXTRACTED]
-  backend/src/main/java/com/comparator/service/ComparisonService.java → backend/src/main/java/com/comparator/config/AppProperties.java
+- `ExcelReportService` --references--> `AppProperties`  [EXTRACTED]
+  backend/src/main/java/com/comparator/service/ExcelReportService.java → backend/src/main/java/com/comparator/config/AppProperties.java
 
 ## Import Cycles
 - None detected.
@@ -92,19 +93,19 @@
 ## Hyperedges (group relationships)
 - **Fullstack Data Comparator Architecture** — user_requirement_data_comparator, backend_src_main_resources_application_config, frontend_readme_datacomparatorfrontend [INFERRED]
 
-## Communities (46 total, 20 thin omitted)
+## Communities (47 total, 18 thin omitted)
 
 ### Community 0 - "dependencies"
 Cohesion: 0.12
-Nodes (17): @angular/cdk, @angular/core, @angular/forms, @angular/material, @angular/router, @fontsource/roboto, dependencies, @angular/cdk (+9 more)
+Nodes (17): @angular/cdk, @angular/common, @angular/core, @angular/forms, @angular/material, @fontsource/roboto, dependencies, @angular/cdk (+9 more)
 
 ### Community 1 - "data-comparator-frontend"
 Cohesion: 0.05
 Nodes (43): build, serve, test, builder, configurations, defaultConfiguration, options, cli (+35 more)
 
-### Community 2 - "org.junit.jupiter.api.DisplayName"
-Cohesion: 0.12
-Nodes (6): ComparisonExecuteIntegrationTest, ComparisonProgressIntegrationTest, ComparisonResultsIntegrationTest, ComparisonUploadControllerTest, org.junit.jupiter.api.DisplayName, org.junit.jupiter.api.Test
+### Community 2 - "FileDropzoneComponent"
+Cohesion: 0.18
+Nodes (3): FileDropzoneComponent, Component, ViewChild
 
 ### Community 3 - "devDependencies"
 Cohesion: 0.13
@@ -116,79 +117,87 @@ Nodes (11): App Storage and Comparison Properties, Backend Application Configura
 
 ### Community 5 - "ComparisonRecord"
 Cohesion: 0.07
-Nodes (11): DatasetColumns, ComparisonRecord, MismatchDetail, MissingDetail, ComparisonServiceTest, ExcelReportServiceTest, jakarta.persistence.Entity, jakarta.persistence.Table (+3 more)
+Nodes (9): ComparisonRecord, ComparisonRepositoryTest, ComparisonServiceTest, ExcelReportServiceTest, jakarta.persistence.Entity, jakarta.persistence.PrePersist, jakarta.persistence.Table, org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest (+1 more)
 
 ### Community 6 - "app.config.ts"
 Cohesion: 0.26
 Nodes (6): App, appConfig, routes, Component, extractErrorMessage(), httpErrorInterceptor()
 
-### Community 7 - "comparison.model.ts"
-Cohesion: 0.19
-Nodes (10): ComparisonRequest, ComparisonStatus, ComparisonSummary, DatasetColumns, PagedResult, UploadConfigRequest, UploadDatasetOptions, UploadResponse (+2 more)
+### Community 7 - "ComparisonService"
+Cohesion: 0.18
+Nodes (7): ComparisonRequest, DatasetColumns, PagedResult, UploadDatasetOptions, UploadResponse, ComparisonService, Injectable
 
-### Community 8 - "compare.component.ts"
-Cohesion: 0.14
-Nodes (6): ToleranceConfig, ColumnSelectorComponent, Component, ToleranceItem, InstantErrorStateMatcher, Injectable
+### Community 8 - "ColumnSelectorComponent"
+Cohesion: 0.16
+Nodes (4): ColumnSelectorComponent, Component, InstantErrorStateMatcher, Injectable
 
 ### Community 10 - "DataComparatorApplication"
 Cohesion: 0.53
 Nodes (4): DataComparatorApplication, org.springframework.boot.autoconfigure.SpringBootApplication, org.springframework.boot.context.properties.ConfigurationPropertiesScan, org.springframework.scheduling.annotation.EnableScheduling
 
 ### Community 12 - "DatasetInputComponent"
-Cohesion: 0.06
-Nodes (12): DatabaseConnectionConfig, DataSourceType, DatasetInputComponent, DelimiterOption, Component, ViewChild, FileDropzoneComponent, Component (+4 more)
+Cohesion: 0.16
+Nodes (4): DataSourceType, DatasetInputComponent, Component, ViewChild
 
 ### Community 13 - "WebConfig.java"
 Cohesion: 0.43
 Nodes (5): Override, WebConfig, org.springframework.context.annotation.Configuration, org.springframework.web.servlet.config.annotation.CorsRegistry, org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 ### Community 15 - ".compare"
-Cohesion: 0.12
-Nodes (3): ComparisonResult, ComparisonEngineTest, DuckDbServiceTest
+Cohesion: 0.11
+Nodes (4): MismatchDetail, MissingDetail, ComparisonEngineTest, DuckDbServiceTest
 
-### Community 18 - "AppProperties"
-Cohesion: 0.10
-Nodes (23): AppProperties, CleanupProperties, ComparisonProperties, StorageProperties, UploadProperties, ComparisonRepository, CleanupService, ComparisonRepositoryTest (+15 more)
+### Community 16 - "ToleranceConfigComponent"
+Cohesion: 0.21
+Nodes (4): ToleranceConfig, ToleranceConfigComponent, ToleranceItem, Component
+
+### Community 18 - "UploadConfigRequest"
+Cohesion: 0.08
+Nodes (11): MismatchDetail, MissingDetail, UploadConfigRequest, ComparisonSqlUploadControllerTest, TestJdbcConfig, com.fasterxml.jackson.annotation.JsonInclude, com.fasterxml.jackson.annotation.JsonProperty, org.springframework.boot.test.context.TestConfiguration (+3 more)
+
+### Community 19 - "SqlEditorComponent"
+Cohesion: 0.20
+Nodes (3): SqlEditorComponent, Component, ViewChild
 
 ### Community 22 - "ExcelReportService"
-Cohesion: 0.14
-Nodes (12): ExcelReportService, MismatchDirection, DS1_TO_DS2, DS2_TO_DS1, PagedSheetWriter, ReportStyles, org.apache.poi.ss.usermodel.Cell, org.apache.poi.ss.usermodel.CellStyle (+4 more)
+Cohesion: 0.15
+Nodes (10): ExcelReportService, MismatchDirection, DS1_TO_DS2, DS2_TO_DS1, PagedSheetWriter, ReportStyles, org.apache.poi.ss.usermodel.Sheet, org.apache.poi.xssf.streaming.SXSSFSheet (+2 more)
 
 ### Community 23 - "package.json"
 Cohesion: 0.18
 Nodes (10): name, packageManager, private, scripts, build, ng, start, test (+2 more)
 
 ### Community 26 - "ComparisonController.java"
-Cohesion: 0.08
-Nodes (21): ComparisonController, GlobalExceptionHandler, HealthController, HealthResponse, ComparisonSummary, DatasetColumns, MismatchDetail, MissingDetail (+13 more)
+Cohesion: 0.10
+Nodes (21): ComparisonController, DatasetColumns, GlobalExceptionHandler, HealthController, HealthResponse, ComparisonSummary, DatasetColumns, PagedResult (+13 more)
 
 ### Community 27 - "DetailTableComponent"
-Cohesion: 0.16
+Cohesion: 0.17
 Nodes (5): MismatchDetail, MissingDetail, DetailTableComponent, ResultTableType, Component
 
-### Community 29 - "DuckDbService"
-Cohesion: 0.05
-Nodes (27): DatabaseConnectionConfig, UploadConfigRequest, ComparisonEngine, ComparisonService, DuckDbService, Override, ParquetRowWriter, JdbcConnectionProvider (+19 more)
+### Community 29 - "AppProperties"
+Cohesion: 0.06
+Nodes (35): AppProperties, CleanupProperties, ComparisonProperties, StorageProperties, UploadProperties, ComparisonResult, DatabaseConnectionConfig, ComparisonRepository (+27 more)
 
 ### Community 30 - "FileParserService"
-Cohesion: 0.14
-Nodes (4): DelimiterDetector, FileParserService, FileParserServiceTest, ExcelTestUtils
+Cohesion: 0.09
+Nodes (8): DelimiterDetector, Override, ParquetRowWriter, FileParserService, PostgresJdbcConnectionProvider, FileParserServiceTest, ExcelTestUtils, org.springframework.stereotype.Component
 
 ### Community 32 - "CompareComponent"
-Cohesion: 0.16
+Cohesion: 0.18
 Nodes (4): CompareComponent, logOrHandleError(), Component, ViewChild
 
-### Community 34 - "ProgressServiceTest"
-Cohesion: 0.18
-Nodes (3): ProgressUpdate, SseEmitter, ProgressServiceTest
+### Community 34 - "ProgressService"
+Cohesion: 0.13
+Nodes (6): ProgressUpdate, SseEmitter, ProgressService, ProgressServiceTest, org.springframework.web.servlet.mvc.method.annotation.SseEmitter, ProgressUpdate
 
-### Community 36 - "results.component.ts"
+### Community 36 - "compare.component.ts"
 Cohesion: 0.47
 Nodes (3): ProgressUpdate, ProgressService, Injectable
 
-### Community 40 - "ComparisonStatus"
-Cohesion: 0.08
-Nodes (41): ComparisonExecuteRequest, Deserializer, Override, ComparisonRequest, ToleranceConfig, UploadResponse, ComparisonStatus, COMPARING (+33 more)
+### Community 40 - "org.junit.jupiter.api.DisplayName"
+Cohesion: 0.05
+Nodes (49): ComparisonExecuteRequest, Deserializer, Override, ComparisonRequest, ToleranceConfig, UploadResponse, ComparisonStatus, COMPARING (+41 more)
 
 ### Community 41 - "compilerOptions"
 Cohesion: 0.11
@@ -198,19 +207,23 @@ Nodes (18): angularCompilerOptions, enableI18nLegacyMessageIdFormat, strictInjec
 Cohesion: 0.22
 Nodes (8): compilerOptions, types, extends, include, src/**/*.d.ts, src/**/*.spec.ts, ./tsconfig.json, vitest/globals
 
+### Community 49 - "comparison.model.ts"
+Cohesion: 0.24
+Nodes (5): ComparisonStatus, ComparisonSummary, UploadConfigRequest, SummaryChartComponent, Component
+
 ## Knowledge Gaps
 - **103 isolated node(s):** `com.comparator:data-comparator-backend`, `PENDING`, `UPLOADING`, `UPLOADED`, `CONVERTING` (+98 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **20 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **18 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `ComparisonRecord` connect `ComparisonRecord` to `ComparisonStatus`, `ComparisonController.java`, `AppProperties`, `ExcelReportService`?**
+- **Why does `ComparisonRecord` connect `ComparisonRecord` to `org.junit.jupiter.api.DisplayName`, `.compare`, `ExcelReportService`, `ComparisonController.java`, `AppProperties`?**
   _High betweenness centrality (0.047) - this node is a cross-community bridge._
-- **Why does `DuckDbService` connect `DuckDbService` to `ComparisonRecord`, `.compare`, `AppProperties`, `ExcelReportService`, `ComparisonController.java`, `FileParserService`?**
+- **Why does `DuckDbService` connect `AppProperties` to `ComparisonRecord`, `.compare`, `ExcelReportService`, `ComparisonController.java`, `FileParserService`?**
   _High betweenness centrality (0.025) - this node is a cross-community bridge._
-- **Why does `AppProperties` connect `AppProperties` to `org.junit.jupiter.api.DisplayName`, `ProgressServiceTest`, `ComparisonRecord`, `ComparisonStatus`, `ExcelReportService`, `ComparisonController.java`, `DuckDbService`?**
+- **Why does `AppProperties` connect `AppProperties` to `ProgressService`, `ComparisonRecord`, `org.junit.jupiter.api.DisplayName`, `UploadConfigRequest`, `ExcelReportService`, `ComparisonController.java`?**
   _High betweenness centrality (0.025) - this node is a cross-community bridge._
 - **What connects `com.comparator:data-comparator-backend`, `PENDING`, `UPLOADING` to the rest of the system?**
   _103 weakly-connected nodes found - possible documentation gaps or missing edges._
@@ -218,5 +231,5 @@ _Questions this graph is uniquely positioned to answer:_
   _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
 - **Should `data-comparator-frontend` be split into smaller, more focused modules?**
   _Cohesion score 0.04756871035940803 - nodes in this community are weakly interconnected._
-- **Should `org.junit.jupiter.api.DisplayName` be split into smaller, more focused modules?**
-  _Cohesion score 0.12091038406827881 - nodes in this community are weakly interconnected._
+- **Should `devDependencies` be split into smaller, more focused modules?**
+  _Cohesion score 0.13333333333333333 - nodes in this community are weakly interconnected._

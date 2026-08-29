@@ -87,14 +87,14 @@ public class DelimiterDetector {
         int candidatesWithBestCount = 0;
 
         for (char candidate : CANDIDATES) {
-            int firstCount = countOccurrences(sampleLines.get(0), candidate);
+            int firstCount = countUnquotedOccurrences(sampleLines.get(0), candidate);
             if (firstCount <= 0) {
                 continue;
             }
 
             boolean consistent = true;
             for (int i = 1; i < sampleLines.size(); i++) {
-                if (countOccurrences(sampleLines.get(i), candidate) != firstCount) {
+                if (countUnquotedOccurrences(sampleLines.get(i), candidate) != firstCount) {
                     consistent = false;
                     break;
                 }
@@ -119,10 +119,18 @@ public class DelimiterDetector {
         return bestCount > 0 ? bestCandidate : DEFAULT_DELIMITER;
     }
 
-    private int countOccurrences(String line, char target) {
+    private int countUnquotedOccurrences(String line, char target) {
         int count = 0;
+        boolean inQuotes = false;
         for (int i = 0; i < line.length(); i++) {
-            if (line.charAt(i) == target) {
+            char c = line.charAt(i);
+            if (c == '"') {
+                if (inQuotes && i + 1 < line.length() && line.charAt(i + 1) == '"') {
+                    i++; // Skip escaped double quote ("")
+                } else {
+                    inQuotes = !inQuotes;
+                }
+            } else if (c == target && !inQuotes) {
                 count++;
             }
         }

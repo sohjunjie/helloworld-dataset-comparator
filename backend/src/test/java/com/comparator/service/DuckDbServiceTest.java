@@ -94,11 +94,36 @@ class DuckDbServiceTest {
         Files.writeString(customFile, content);
 
         Path parquetFile = tempDir.resolve("output_custom.parquet");
-
         duckDbService.csvToParquet(customFile, parquetFile, '~');
 
         assertThat(Files.exists(parquetFile)).isTrue();
         List<String> headers = duckDbService.getColumnHeaders(parquetFile);
         assertThat(headers).containsExactly("code", "name", "status");
+    }
+
+    @Test
+    @DisplayName("Should convert CSV with quoted comma values like '1,1' without splitting columns")
+    void shouldPreserveQuotedCommasInCsvToParquet() throws IOException {
+        Path csvFile = tempDir.resolve("quoted_commas.csv");
+        String content = """
+                id,code,status
+                1,"1,1",Active
+                2,"2,2",Pending
+                """;
+        Files.writeString(csvFile, content);
+
+        Path parquetFile = tempDir.resolve("output_quoted.parquet");
+        duckDbService.csvToParquet(csvFile, parquetFile, ',');
+
+        assertThat(Files.exists(parquetFile)).isTrue();
+        List<String> headers = duckDbService.getColumnHeaders(parquetFile);
+        assertThat(headers).containsExactly("id", "code", "status");
+
+        List<java.util.Map<String, Object>> rows = duckDbService.queryParquet(parquetFile, 0, 10);
+        assertThat(rows).hasSize(2);
+        assertThat(rows.get(0).get("code").toString()).isEqualTo("1,1");
+        assertThat(rows.get(0).get("status").toString()).isEqualTo("Active");
+        assertThat(rows.get(1).get("code").toString()).isEqualTo("2,2");
+        assertThat(rows.get(1).get("status").toString()).isEqualTo("Pending");
     }
 }

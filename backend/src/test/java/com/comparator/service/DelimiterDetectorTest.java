@@ -148,6 +148,43 @@ class DelimiterDetectorTest {
                 .hasMessageContaining("Invalid delimiter");
     }
 
+    @Test
+    @DisplayName("Should detect comma delimiter when fields contain quoted commas like '1,1'")
+    void shouldDetectCommaDelimiterWithQuotedCommas() {
+        String csv = """
+                id,name,value,status
+                1,"Item 1","1,1",Active
+                2,"Item 2","2,5",Pending
+                3,"Item 3","10,0",Completed
+                """;
+        char delimiter = delimiterDetector.detect(toStream(csv));
+        assertThat(delimiter).isEqualTo(',');
+    }
+
+    @Test
+    @DisplayName("Should detect pipe delimiter when fields contain quoted pipes or commas")
+    void shouldDetectPipeDelimiterWithQuotedPipes() {
+        String psv = """
+                id|description|amount
+                1|"Widget | Type A, Deluxe"|100
+                2|"Gadget | Type B, Standard"|200
+                """;
+        char delimiter = delimiterDetector.detect(toStream(psv));
+        assertThat(delimiter).isEqualTo('|');
+    }
+
+    @Test
+    @DisplayName("Should handle escaped double quotes inside quoted fields")
+    void shouldHandleEscapedQuotesInQuotedFields() {
+        String csv = """
+                id,comment,status
+                1,"He said, ""Hello, world!"" and left",OK
+                2,"She said, ""Yes, please!"" and smiled",OK
+                """;
+        char delimiter = delimiterDetector.detect(toStream(csv));
+        assertThat(delimiter).isEqualTo(',');
+    }
+
     private ByteArrayInputStream toStream(String content) {
         return new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8));
     }

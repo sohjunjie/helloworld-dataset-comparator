@@ -184,4 +184,27 @@ class FileParserServiceTest {
         assertThat(Files.exists(targetParquet)).isTrue();
         assertThat(headers).containsExactly("colA", "colB", "colC");
     }
+
+    @Test
+    @DisplayName("Should parse CSV with quoted commas like '1,1' under auto-detection and preserve columns")
+    void shouldParseCsvWithQuotedCommasAndAutoDetection() throws Exception {
+        String csvContent = """
+                id,code,amount,status
+                1,"1,1",100.5,Active
+                2,"2,2",200.0,Pending
+                """;
+        MockMultipartFile file = new MockMultipartFile("ds2File", "dataset2.csv", "text/csv", csvContent.getBytes(StandardCharsets.UTF_8));
+        Path targetParquet = tempDir.resolve("quoted-csv-test").resolve("ds2.parquet");
+
+        List<String> headers = fileParserService.parseFileToParquet(file, targetParquet, "auto");
+
+        assertThat(Files.exists(targetParquet)).isTrue();
+        assertThat(headers).containsExactly("id", "code", "amount", "status");
+
+        List<java.util.Map<String, Object>> rows = duckDbService.queryParquet(targetParquet, 0, 10);
+        assertThat(rows).hasSize(2);
+        assertThat(rows.get(0).get("code").toString()).isEqualTo("1,1");
+        assertThat(rows.get(0).get("amount").toString()).isEqualTo("100.5");
+        assertThat(rows.get(1).get("code").toString()).isEqualTo("2,2");
+    }
 }
