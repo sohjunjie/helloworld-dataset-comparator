@@ -1,3 +1,4 @@
+import '../../../test-setup';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ResultsComponent } from './results.component';
 import { ComparisonService } from '../../services/comparison.service';

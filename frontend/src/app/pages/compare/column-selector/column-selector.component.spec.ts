@@ -1,3 +1,4 @@
+import '../../../../test-setup';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ColumnSelectorComponent } from './column-selector.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';

@@ -1,3 +1,4 @@
+import '../../../../test-setup';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SummaryCardsComponent } from './summary-cards.component';
 import { ComparisonSummary } from '../../../models/comparison.model';

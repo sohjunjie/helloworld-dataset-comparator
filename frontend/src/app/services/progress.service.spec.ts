@@ -1,3 +1,4 @@
+import '../../test-setup';
 import { TestBed } from '@angular/core/testing';
 import { ProgressService } from './progress.service';
 import { ProgressUpdate } from '../models/comparison.model';

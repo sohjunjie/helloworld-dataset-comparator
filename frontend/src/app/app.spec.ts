@@ -1,3 +1,4 @@
+import '../test-setup';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { App } from './app';
@@ -18,6 +19,7 @@ describe('App', () => {
 
   it('should render title in toolbar', async () => {
     const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.app-title')?.textContent).toContain('Data Comparator');
@@ -25,6 +27,7 @@ describe('App', () => {
 
   it('should render toolbar navigation links for History and New Comparison', async () => {
     const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     const links = compiled.querySelectorAll('mat-toolbar a[mat-button]');
