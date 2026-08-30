@@ -128,4 +128,80 @@ class FileParsingStrategyTest {
         assertThat(headers).containsExactly("id", "val");
         assertThat(Files.exists(targetParquet)).isTrue();
     }
+
+    @Test
+    @DisplayName("ExcelFileParsingStrategy strips BOM from headers and cell values in XLSX")
+    void excelStrategyStripsBomFromXlsx() throws Exception {
+        byte[] xlsxBytes = ExcelTestUtils.createTestXlsx(
+                List.of("\uFEFFid", "\uFEFFname", "amount"),
+                List.of(
+                        List.of("\uFEFF1", "\uFEFFAlice", "100"),
+                        List.of("2", "Bob", "\uFEFF200")
+                )
+        );
+        Path xlsxFile = tempDir.resolve("bom_test.xlsx");
+        Files.write(xlsxFile, xlsxBytes);
+
+        Path targetParquet = tempDir.resolve("bom_excel_output.parquet");
+        List<String> headers = excelStrategy.parse(xlsxFile, targetParquet, "auto", "bom_test.xlsx");
+
+        assertThat(headers).containsExactly("id", "name", "amount");
+        assertThat(Files.exists(targetParquet)).isTrue();
+
+        List<Map<String, Object>> rows = duckDbService.queryParquet(targetParquet, 0, 10);
+        assertThat(rows).hasSize(2);
+        assertThat(rows.get(0).get("id")).isEqualTo("1");
+        assertThat(rows.get(0).get("name")).isEqualTo("Alice");
+        assertThat(rows.get(0).get("amount")).isEqualTo("100");
+        assertThat(rows.get(1).get("id")).isEqualTo("2");
+        assertThat(rows.get(1).get("name")).isEqualTo("Bob");
+        assertThat(rows.get(1).get("amount")).isEqualTo("200");
+    }
+
+    @Test
+    @DisplayName("ExcelFileParsingStrategy strips BOM from headers and cell values in XLS")
+    void excelStrategyStripsBomFromXls() throws Exception {
+        byte[] xlsBytes = ExcelTestUtils.createTestXls(
+                List.of("\uFEFFid", "\uFEFFdescription"),
+                List.of(
+                        List.of("\uFEFF10", "\uFEFFTest item"),
+                        List.of("20", "Second item")
+                )
+        );
+        Path xlsFile = tempDir.resolve("bom_test.xls");
+        Files.write(xlsFile, xlsBytes);
+
+        Path targetParquet = tempDir.resolve("bom_xls_output.parquet");
+        List<String> headers = excelStrategy.parse(xlsFile, targetParquet, "auto", "bom_test.xls");
+
+        assertThat(headers).containsExactly("id", "description");
+        assertThat(Files.exists(targetParquet)).isTrue();
+
+        List<Map<String, Object>> rows = duckDbService.queryParquet(targetParquet, 0, 10);
+        assertThat(rows).hasSize(2);
+        assertThat(rows.get(0).get("id")).isEqualTo("10");
+        assertThat(rows.get(0).get("description")).isEqualTo("Test item");
+        assertThat(rows.get(1).get("id")).isEqualTo("20");
+        assertThat(rows.get(1).get("description")).isEqualTo("Second item");
+    }
+
+    @Test
+    @DisplayName("CsvFileParsingStrategy strips BOM from headers and row cells")
+    void csvStrategyStripsBom() throws IOException {
+        String csvContent = "\uFEFFid,\uFEFFname,score\n\uFEFF101,\uFEFFCharlie,95\n";
+        Path csvFile = tempDir.resolve("bom_test.csv");
+        Files.writeString(csvFile, csvContent, StandardCharsets.UTF_8);
+
+        Path targetParquet = tempDir.resolve("bom_csv_output.parquet");
+        List<String> headers = csvStrategy.parse(csvFile, targetParquet, "auto", "bom_test.csv");
+
+        assertThat(headers).containsExactly("id", "name", "score");
+        assertThat(Files.exists(targetParquet)).isTrue();
+
+        List<Map<String, Object>> rows = duckDbService.queryParquet(targetParquet, 0, 10);
+        assertThat(rows).hasSize(1);
+        assertThat(rows.get(0).get("id")).isEqualTo("101");
+        assertThat(rows.get(0).get("name")).isEqualTo("Charlie");
+        assertThat(rows.get(0).get("score")).isEqualTo("95");
+    }
 }

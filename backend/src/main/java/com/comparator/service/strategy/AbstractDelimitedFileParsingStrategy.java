@@ -68,7 +68,7 @@ public abstract class AbstractDelimitedFileParsingStrategy implements FileParsin
                     List<String> row = new ArrayList<>(headers.size());
                     for (int i = 0; i < headers.size(); i++) {
                         String val = (i < record.size()) ? record.get(i) : null;
-                        row.add(val);
+                        row.add(HeaderSanitizer.stripBom(val));
                     }
                     writer.writeRow(row);
                 }

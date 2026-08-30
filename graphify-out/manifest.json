@@ -1,37 +1,37 @@
 {
   "backend/pom.xml": {
     "mtime": 1788010001.345224,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6293147,
     "ast_hash": "a8863efe9ef793729d57d973c5b8e968",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/DataComparatorApplication.java": {
     "mtime": 1787929927.5547426,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6293147,
     "ast_hash": "580572612d8fd44461c59faa2c398131",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/controller/HealthController.java": {
     "mtime": 1787859168.8683398,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6293147,
     "ast_hash": "abe56a35f518d88507c8ade97d60c16f",
     "semantic_hash": "abe56a35f518d88507c8ade97d60c16f"
   },
   "backend/src/test/java/com/comparator/DataComparatorApplicationTests.java": {
     "mtime": 1787858767.2969694,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "86d03f26f97a618821a34fcb52998895",
     "semantic_hash": "86d03f26f97a618821a34fcb52998895"
   },
   "frontend/angular.json": {
     "mtime": 1788009374.708284,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "b038f1abd863f6dc9e522344b337d232",
     "semantic_hash": ""
   },
   "frontend/package.json": {
     "mtime": 1788009374.708284,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "a8a23263c9e555ee97d13178bc2f0af1",
     "semantic_hash": ""
   },
@@ -43,31 +43,31 @@
   },
   "frontend/src/app/app.config.ts": {
     "mtime": 1788009374.708284,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "5dbbd977128c838d16467a780c592b48",
     "semantic_hash": ""
   },
   "frontend/src/app/app.routes.ts": {
     "mtime": 1787929439.1387086,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "db1d7fdfc283114ba14a79bd8de85e58",
     "semantic_hash": ""
   },
   "frontend/src/app/app.spec.ts": {
     "mtime": 1787998928.0467653,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "1446d492da0f919f878838fae31214c1",
     "semantic_hash": ""
   },
   "frontend/src/app/app.ts": {
     "mtime": 1788009374.708284,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "f8104176a197753bdfb4558eb5e822a3",
     "semantic_hash": ""
   },
   "frontend/src/main.ts": {
     "mtime": 1787858816.2141047,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "1289536d6d8f94242a4ffc598d094633",
     "semantic_hash": "1289536d6d8f94242a4ffc598d094633"
   },
@@ -79,680 +79,686 @@
   },
   "frontend/tsconfig.json": {
     "mtime": 1787998928.0648675,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "c90b14aed75114b6a7d3371f441bf294",
     "semantic_hash": ""
   },
   "frontend/tsconfig.spec.json": {
     "mtime": 1788009374.708284,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "15499981a1a81a2ddfde92936003642d",
     "semantic_hash": ""
   },
   "USER_REQUIREMENT.txt": {
     "mtime": 1787937172.855569,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "01f3bee0e18cb46d6bde240cce2702df",
     "semantic_hash": "01f3bee0e18cb46d6bde240cce2702df"
   },
   "backend/src/main/resources/application.yml": {
     "mtime": 1787859369.2269537,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "a020c85fc5475742a0df27fff10d68e3",
     "semantic_hash": "a020c85fc5475742a0df27fff10d68e3"
   },
   "frontend/README.md": {
     "mtime": 1787998928.0364394,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "4d50ba8f913a208b379748a70b0b71c5",
     "semantic_hash": "4d50ba8f913a208b379748a70b0b71c5"
   },
   "frontend/src/app/app.html": {
     "mtime": 1787858919.057671,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "e18c64c9b59b637b0c27612f404c4b28",
     "semantic_hash": "e18c64c9b59b637b0c27612f404c4b28"
   },
   "frontend/src/index.html": {
     "mtime": 1787944366.6658142,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "c21b2ca0ad05488f09f41e1958122394",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/config/AppProperties.java": {
     "mtime": 1787859920.835474,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6293147,
     "ast_hash": "ac2aa03c09dd11b24abb7f7c5121a773",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/config/WebConfig.java": {
     "mtime": 1787859926.2178638,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6293147,
     "ast_hash": "f60a1ce9207c74097fab1ae935fd4301",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/controller/ComparisonController.java": {
     "mtime": 1788010510.9536293,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6293147,
     "ast_hash": "943b3004bcaded81fd29f7bcf6a3cf76",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/dto/ColumnHeader.java": {
     "mtime": 1787859909.567523,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "bc0533efe8a0f9eb94898a29ec5be48c",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/dto/ComparisonRequest.java": {
     "mtime": 1787859916.1365905,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "fb393d00e0077cf437289a204b89ad04",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/dto/ComparisonSummary.java": {
     "mtime": 1787859918.8970585,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "1e3099b9db3be1306b5b1e67cb81bcd1",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/dto/DatabaseConnectionConfig.java": {
     "mtime": 1787859908.0486135,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "7639c44fd9f5563972f540235db617e6",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/dto/MismatchDetail.java": {
     "mtime": 1787926877.4894936,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "bfaa4245fac4f2f51a16d911da7236b3",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/dto/MissingDetail.java": {
     "mtime": 1787926883.1791978,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "a23681b882ed5fdf149c4c795d4c26f3",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/dto/PagedResult.java": {
     "mtime": 1787926870.6795595,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "c1f8e918244e1993ef79ad599537d7ba",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/dto/ToleranceConfig.java": {
     "mtime": 1787863749.580938,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "37c00883adbc23bc9e8945bde3e9fd9f",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/entity/ComparisonRecord.java": {
     "mtime": 1787859904.3756137,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "6d69c08671287909d4c4d9d473a59609",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/enums/ComparisonStatus.java": {
     "mtime": 1787860206.0626884,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "b3cce20cd9302d35cae4f56afab5f95d",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/enums/DataSourceType.java": {
     "mtime": 1787859900.45266,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "1c1f507bb54b207135efcbc67d113f99",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/repository/ComparisonRepository.java": {
     "mtime": 1787859924.3905241,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "9893bda67c100d4dc649ceedb893f190",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/config/AppPropertiesTest.java": {
     "mtime": 1787859936.8579571,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "27d9ba7fa3aea78056077e23caa24288",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/controller/ComparisonControllerTest.java": {
     "mtime": 1787859932.2158175,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "7444a938cd005e3ca59ca3a9df6bbf8b",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/repository/ComparisonRepositoryTest.java": {
     "mtime": 1787859934.7221613,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "e6123d80836a38d6c3d8e139ad518697",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/dto/DatasetColumns.java": {
     "mtime": 1787860212.7795522,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "43199ee7c504839a985406a9f52afcf4",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/dto/UploadConfigRequest.java": {
     "mtime": 1788004009.3813653,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "751f31fba382925e5b433922c2873d60",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/dto/UploadResponse.java": {
     "mtime": 1787860215.1086426,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "2195e17882f96435c420fdccedfc21b3",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/service/DelimiterDetector.java": {
     "mtime": 1788002075.8731132,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "1ab6e2743412f53e96128a7718c5e657",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/service/DuckDbService.java": {
     "mtime": 1788010001.345224,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "1c3f29dd4f7a13df14faece0f5f96eea",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/service/FileParserService.java": {
     "mtime": 1788010001.345224,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "1a5a4cd4e105883cdc2ed6e70ed40922",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/controller/ComparisonUploadControllerTest.java": {
     "mtime": 1787861182.5810893,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "1d40a460f3fd0b69c2b4326c65375520",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/service/DelimiterDetectorTest.java": {
     "mtime": 1788002075.8768342,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "8cdc684b45d876a91230dbdded71d09d",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/service/DuckDbServiceTest.java": {
     "mtime": 1788010001.365331,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "9f40773b2fa5ae63a94de7b01af245df",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/service/FileParserServiceTest.java": {
     "mtime": 1788010001.365331,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "6a8a1dcb132ba188469e0aee18eb0409",
     "semantic_hash": ""
   },
   "backend/src/test/resources/application.yml": {
     "mtime": 1787860352.986724,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "136c6dd336528d1eb13df7696ae78bdf",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/util/ExcelTestUtils.java": {
     "mtime": 1787861176.8526134,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "9ac4a1c30f1c177fb370c3649fc4973c",
     "semantic_hash": ""
   },
   "frontend/src/app/models/comparison.model.ts": {
     "mtime": 1787928943.6771083,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "01bdc893978095c3a2a6d05da7b1907e",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/compare/column-selector/column-selector.component.spec.ts": {
     "mtime": 1787998928.050558,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "12a715ddd62b269c63d0c98c96f1a702",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/compare/column-selector/column-selector.component.ts": {
     "mtime": 1788011842.0535471,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "f2f7c6cc6877d139a5389b3cb440ff1b",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/compare/compare.component.spec.ts": {
     "mtime": 1788010497.698928,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "e0fdc478efb2a9d4d0ca83104943d8f4",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/compare/compare.component.ts": {
     "mtime": 1788010485.2768097,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "b4a632de252c0bd3462866204f66cf41",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/compare/dataset-input/dataset-input.component.spec.ts": {
     "mtime": 1787998928.0531185,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "3d6f69e3098e81e2c88b96115efc84ab",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/compare/dataset-input/dataset-input.component.ts": {
     "mtime": 1788011856.0600224,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "38a7e519d06ce458773619ed4fc2db0f",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/compare/file-dropzone/file-dropzone.component.spec.ts": {
     "mtime": 1787998928.0536256,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "9634f72df9df9c9ed1446f92dac2be9d",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/compare/file-dropzone/file-dropzone.component.ts": {
     "mtime": 1788011865.943453,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "f7b0939309cfcfbd03a158e18090e413",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/compare/tolerance-config/tolerance-config.component.spec.ts": {
     "mtime": 1787998928.0569649,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "aa731a4ac71c0f5a426e7cfdb2ea5d14",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/compare/tolerance-config/tolerance-config.component.ts": {
     "mtime": 1788011884.2450254,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "eb23748f2ab3c14f0d57b570eb51ad6d",
     "semantic_hash": ""
   },
   "frontend/src/app/services/comparison.service.spec.ts": {
     "mtime": 1787998928.0648675,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "d4e06e25d6ddf9d297de5414497537d9",
     "semantic_hash": ""
   },
   "frontend/src/app/services/comparison.service.ts": {
     "mtime": 1787929162.0456636,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "d9e90b70d99d1998109b8b67501d28ea",
     "semantic_hash": ""
   },
   "frontend/src/app/services/progress.service.spec.ts": {
     "mtime": 1787998928.0648675,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "97745c628f578c9791a9157074e92959",
     "semantic_hash": ""
   },
   "frontend/src/app/services/progress.service.ts": {
     "mtime": 1787861487.8782814,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "ae1e6ce2d732ea50c103bedb84edb7eb",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/service/JdbcConnectionProvider.java": {
     "mtime": 1787862800.9318776,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "cbe263991352aca5df92d3b548d3b098",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/service/PostgresJdbcConnectionProvider.java": {
     "mtime": 1787862803.2257864,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "2b36fe2b5d0b6eaa18b7479e2cb3258c",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/service/SqlDataSourceService.java": {
     "mtime": 1787862819.1352446,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "b1534a2e60893f94dc19610da57894d6",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/controller/ComparisonSqlUploadControllerTest.java": {
     "mtime": 1787862880.0959606,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "a359f30329dd2ea6dd7e744d09c29cb9",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/service/SqlDataSourceServiceTest.java": {
     "mtime": 1787862873.8213775,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "8258972d54ef95539ad201c1ee591d7b",
     "semantic_hash": ""
   },
   ".agents/rules/graphify.md": {
     "mtime": 1787862410.164793,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "a0e4d192b9e2e17256124dbfc8e24e6a",
     "semantic_hash": ""
   },
   ".agents/workflows/graphify.md": {
     "mtime": 1787862410.164793,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "a831cf3669f1e6ab85d8a80ebe655f99",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/compare/sql-editor/sql-editor.component.spec.ts": {
     "mtime": 1787998928.056035,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "383c4846cee8ac270bc060c23f815418",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/compare/sql-editor/sql-editor.component.ts": {
     "mtime": 1788011876.1319315,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "a40245f7e333c33e6225ed3eefb04235",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/dto/ComparisonExecuteRequest.java": {
     "mtime": 1788004009.3802674,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "2687d8c5045d14aa6b297214f5c2a90c",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/dto/ComparisonResult.java": {
     "mtime": 1787863393.9514413,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "eb26948a151f9fb0625269472a091cd2",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/service/ComparisonEngine.java": {
     "mtime": 1788010001.345224,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "73e86a3a801530aeae70f6c66a64e9ee",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/service/ComparisonService.java": {
     "mtime": 1788004009.3829653,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "0dd9135d7e1c8d7ade45116b1b4520f5",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/controller/ComparisonExecuteIntegrationTest.java": {
     "mtime": 1787863809.215586,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "b96e3c5ba4bd71d9c28711e9be321927",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/service/ComparisonEngineTest.java": {
     "mtime": 1788010001.3609009,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "98cef186b447508139e6c868acdc6acb",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/service/ComparisonServiceTest.java": {
     "mtime": 1787929984.4963863,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "e00743b2131dcc0e3dcdb17992a7a7f4",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/model/dto/ProgressUpdate.java": {
     "mtime": 1787864229.1392658,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "f7a7c36a5d700203a8ac63f95f6a4301",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/service/ProgressService.java": {
     "mtime": 1788010563.1052237,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "6c8725ce95a950fe8b923dca8630c72c",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/controller/ComparisonProgressIntegrationTest.java": {
     "mtime": 1787864604.0146775,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "acba20ef0a8c70ed99a09e7eb7e93ee7",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/service/ProgressServiceTest.java": {
     "mtime": 1788010491.8341544,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "4e8051b4207895b37347d7525cc2beeb",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/controller/ComparisonResultsIntegrationTest.java": {
     "mtime": 1787926967.4867735,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "98f696d1437f15beb30077a151ff9ade",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/service/ExcelReportService.java": {
     "mtime": 1787928137.2966866,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "94e8e597e344cce6270139d52c551af8",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/controller/ComparisonReportIntegrationTest.java": {
     "mtime": 1787927866.7187238,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "f7e4f59be7ea4cac69e1103e09236e62",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/service/ExcelReportServiceTest.java": {
     "mtime": 1788010001.365331,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "d963bf44d1afb18f479fbca0b497e7fa",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/results/results.component.spec.ts": {
     "mtime": 1787998928.060974,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "eeb8d686d4842bdedeb89c0e8ba519d8",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/results/results.component.ts": {
     "mtime": 1787930676.7767437,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "963b4be0a66259f599987bf03e7b468d",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/results/summary-cards/summary-cards.component.spec.ts": {
     "mtime": 1787998928.060974,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "dbb1472f3bf8aff6ec07511233599d90",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/results/summary-cards/summary-cards.component.ts": {
     "mtime": 1787928337.4360318,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "def8cc1870a4f41d7f54e761ecacc00f",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/results/summary-chart/summary-chart.component.spec.ts": {
     "mtime": 1787998928.064016,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "12166a3addc1c191140d85d9ffcdda66",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/results/summary-chart/summary-chart.component.ts": {
     "mtime": 1787928680.7209833,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "40f950d4f83a7e24788b576f49a6b7c9",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/results/results.component.html": {
     "mtime": 1787928908.6340473,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "4f2b705f8a951894d0ebd8f2e701080c",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/results/summary-cards/summary-cards.component.html": {
     "mtime": 1787928342.9453356,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "cf0277bae40bbceb6d0828c5c9e97b72",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/results/summary-chart/summary-chart.component.html": {
     "mtime": 1787928375.215218,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "68720a3da50958fda17c5a6b95eecf02",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/results/detail-table/detail-table.component.spec.ts": {
     "mtime": 1788012980.5085697,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "95e328f82895bc731b5553b8ebd36b4b",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/results/detail-table/detail-table.component.ts": {
     "mtime": 1788012958.1312518,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "0591a3294704c837821914560b5bc7fc",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/results/detail-table/detail-table.component.html": {
     "mtime": 1788012965.802777,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "e30e6a66cedf71faa1df689f7cbb03db",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/history/history.component.spec.ts": {
     "mtime": 1787998928.0569649,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "2498ea6e753e2edc4970ea2dbff16192",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/history/history.component.ts": {
     "mtime": 1787929534.2034311,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "30f5de9b172301f2fa04f94db809590a",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/history/history.component.html": {
     "mtime": 1787929427.9253306,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "168c4468778405cd8e7f5c9b568b29c9",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/controller/GlobalExceptionHandler.java": {
     "mtime": 1787930068.9794633,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6293147,
     "ast_hash": "6b8ea145784ad5afc9d8519430419ba9",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/service/CleanupService.java": {
     "mtime": 1787930261.87966,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "ea1a4dad9823415ca003ce88fa694bb3",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/controller/SpringMultipartLimitIntegrationTest.java": {
     "mtime": 1787929968.106632,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "3cf33ee5529251043a133ff6d214b85b",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/service/CleanupIntegrationTest.java": {
     "mtime": 1787930268.4648843,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "761f8558a48712de4e7e4a622ada8443",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/service/CleanupServiceTest.java": {
     "mtime": 1787929917.1277328,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "44efb688b6c0de686f41cd94a4d2895b",
     "semantic_hash": ""
   },
   "frontend/src/app/interceptors/http-error.interceptor.spec.ts": {
     "mtime": 1787998928.0496154,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "63f5cfe2bf7f1866eb21435cc825d2d2",
     "semantic_hash": ""
   },
   "frontend/src/app/interceptors/http-error.interceptor.ts": {
     "mtime": 1787930519.1220362,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "f65cfcac0d4c4c7c37ca262ad704bdde",
     "semantic_hash": ""
   },
   "frontend/src/app/utils/instant-error-state-matcher.ts": {
     "mtime": 1787930740.6180613,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "8e6d83d211b5b0915afd171e221e8dfa",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/compare/compare.component.html": {
     "mtime": 1787944658.594091,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "3f8cf7e7f38d7a39e6bf2be88b423998",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/service/strategy/AbstractDelimitedFileParsingStrategy.java": {
-    "mtime": 1788010001.3550563,
-    "seen": 1788013071.501395,
-    "ast_hash": "da0fbbf2dea09a8104ae42ddca7a8d01",
+    "mtime": 1788112996.0962992,
+    "seen": 1788113068.6298637,
+    "ast_hash": "44d5ba484338a36bcb1e0bd5f3479d26",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/service/strategy/CsvFileParsingStrategy.java": {
     "mtime": 1788010001.3550563,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "49b8d671627e0d0920f22ee6c2e72089",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/service/strategy/ExcelFileParsingStrategy.java": {
-    "mtime": 1788010001.3550563,
-    "seen": 1788013071.501395,
-    "ast_hash": "1d182f07ea729252508a47ee59a33d60",
+    "mtime": 1788112992.6101432,
+    "seen": 1788113068.6298637,
+    "ast_hash": "0445f4745adaee45ad79240637b07827",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/service/strategy/FileParsingStrategy.java": {
     "mtime": 1788010001.3550563,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "3a58dc0883debd24260ca6fbb8e6b937",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/service/strategy/HeaderSanitizer.java": {
-    "mtime": 1788010001.3609009,
-    "seen": 1788013071.501395,
-    "ast_hash": "470bf5c87bd8d1add2d50673fe983acf",
+    "mtime": 1788112981.358377,
+    "seen": 1788113068.6298637,
+    "ast_hash": "b3edbaf2fd23b7af68dbde83c4750a97",
     "semantic_hash": ""
   },
   "backend/src/main/java/com/comparator/service/strategy/TxtFileParsingStrategy.java": {
     "mtime": 1788010001.3609009,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "9ae0a0104ee78de393c5ba2412ed8977",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/service/strategy/FileParsingStrategyTest.java": {
-    "mtime": 1788010001.365331,
-    "seen": 1788013071.501395,
-    "ast_hash": "41f956b3d777cd14a698a04cb4e3d8c2",
+    "mtime": 1788113005.3187897,
+    "seen": 1788113068.6298637,
+    "ast_hash": "8751042f781d7f029271b18288595a87",
     "semantic_hash": ""
   },
   "backend/src/test/java/com/comparator/service/strategy/HeaderSanitizerTest.java": {
-    "mtime": 1788010001.365331,
-    "seen": 1788013071.501395,
-    "ast_hash": "dc16527d28d766e06762430615957a42",
+    "mtime": 1788113000.308356,
+    "seen": 1788113068.6298637,
+    "ast_hash": "00683d661f74b73a8f025a51a7198194",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/compare/column-selector/column-selector.component.html": {
     "mtime": 1788011835.697613,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "7bce2eea678eab71b01879eb60e9a736",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/compare/dataset-input/dataset-input.component.html": {
     "mtime": 1788011847.007938,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "10fdfd888f97d3ac52b5ca4bb67fd92c",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/compare/file-dropzone/file-dropzone.component.html": {
     "mtime": 1788011858.6297438,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "d8a53043e4ec4e56d617e251de3db5bc",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/compare/sql-editor/sql-editor.component.html": {
     "mtime": 1788011870.792089,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "ba0408a7e6fdbdde5cca97af8e4f56d4",
     "semantic_hash": ""
   },
   "frontend/src/app/pages/compare/tolerance-config/tolerance-config.component.html": {
     "mtime": 1788011878.645026,
-    "seen": 1788013071.501395,
+    "seen": 1788113068.6298637,
     "ast_hash": "5041af4284c6b0fb972b1f6efb1fbb8f",
+    "semantic_hash": ""
+  },
+  "DEMO.gif": {
+    "mtime": 1788016104.0670457,
+    "seen": 1788113068.6298637,
+    "ast_hash": "cd7fd08ec0f7e137e0b711b79734fecf",
     "semantic_hash": ""
   }
 }

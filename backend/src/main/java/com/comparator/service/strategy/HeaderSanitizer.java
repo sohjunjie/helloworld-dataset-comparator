@@ -11,7 +11,23 @@ public final class HeaderSanitizer {
     }
 
     /**
-     * Sanitizes raw header names: trims whitespace, fills empty header names with column_<index>,
+     * Removes leading Byte Order Mark (BOM) characters from a string if present.
+     *
+     * @param value the raw string
+     * @return string stripped of leading BOM characters, or null if input is null
+     */
+    public static String stripBom(String value) {
+        if (value == null) {
+            return null;
+        }
+        while (!value.isEmpty() && (value.charAt(0) == '\uFEFF' || value.charAt(0) == '\uFFFE')) {
+            value = value.substring(1);
+        }
+        return value;
+    }
+
+    /**
+     * Sanitizes raw header names: strips BOM, trims whitespace, fills empty header names with column_<index>,
      * and disambiguates duplicate header names by appending _<count>.
      *
      * @param rawHeaders the list of raw header strings
@@ -23,7 +39,8 @@ public final class HeaderSanitizer {
         }
         int lastNonEmpty = -1;
         for (int i = 0; i < rawHeaders.size(); i++) {
-            String val = rawHeaders.get(i);
+            String raw = rawHeaders.get(i);
+            String val = stripBom(raw);
             if (val != null && !val.trim().isEmpty()) {
                 lastNonEmpty = i;
             }
@@ -36,7 +53,8 @@ public final class HeaderSanitizer {
         Map<String, Integer> seenCounts = new HashMap<>();
 
         for (int i = 0; i <= lastNonEmpty; i++) {
-            String val = (i < rawHeaders.size() && rawHeaders.get(i) != null) ? rawHeaders.get(i).trim() : "";
+            String raw = (i < rawHeaders.size()) ? rawHeaders.get(i) : null;
+            String val = raw != null ? stripBom(raw).trim() : "";
             if (val.isEmpty()) {
                 val = "column_" + (i + 1);
             }

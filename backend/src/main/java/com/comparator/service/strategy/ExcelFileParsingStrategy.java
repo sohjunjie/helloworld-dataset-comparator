@@ -121,7 +121,8 @@ public class ExcelFileParsingStrategy implements FileParsingStrategy {
                         while (currentRowValues.size() <= colIdx) {
                             currentRowValues.add("");
                         }
-                        currentRowValues.set(colIdx, formattedValue != null ? formattedValue : "");
+                        String cleaned = formattedValue != null ? HeaderSanitizer.stripBom(formattedValue) : "";
+                        currentRowValues.set(colIdx, cleaned != null ? cleaned : "");
                     }
 
                     @Override
@@ -172,7 +173,9 @@ public class ExcelFileParsingStrategy implements FileParsingStrategy {
                         if (cell == null) {
                             rowValues.add("");
                         } else {
-                            rowValues.add(dataFormatter.formatCellValue(cell));
+                            String formatted = dataFormatter.formatCellValue(cell);
+                            String cleaned = formatted != null ? HeaderSanitizer.stripBom(formatted) : "";
+                            rowValues.add(cleaned != null ? cleaned : "");
                         }
                     }
 

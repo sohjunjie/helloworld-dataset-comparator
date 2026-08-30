@@ -39,5 +39,26 @@ class HeaderSanitizerTest {
         assertThat(HeaderSanitizer.sanitize(null)).isEmpty();
         assertThat(HeaderSanitizer.sanitize(List.of())).isEmpty();
         assertThat(HeaderSanitizer.sanitize(List.of("", "  ", "   "))).isEmpty();
+        assertThat(HeaderSanitizer.sanitize(List.of("\uFEFF", "\uFEFF  ", "\uFFFE"))).isEmpty();
+    }
+
+    @Test
+    @DisplayName("Should strip BOM characters from individual strings")
+    void shouldStripBomFromString() {
+        assertThat(HeaderSanitizer.stripBom(null)).isNull();
+        assertThat(HeaderSanitizer.stripBom("")).isEmpty();
+        assertThat(HeaderSanitizer.stripBom("normal_string")).isEqualTo("normal_string");
+        assertThat(HeaderSanitizer.stripBom("\uFEFFleading_bom")).isEqualTo("leading_bom");
+        assertThat(HeaderSanitizer.stripBom("\uFFFEleading_bom_swapped")).isEqualTo("leading_bom_swapped");
+        assertThat(HeaderSanitizer.stripBom("\uFEFF\uFEFFmultiple_bom")).isEqualTo("multiple_bom");
+        assertThat(HeaderSanitizer.stripBom("\uFEFF")).isEmpty();
+    }
+
+    @Test
+    @DisplayName("Should sanitize headers containing leading BOM")
+    void shouldSanitizeHeadersWithBom() {
+        List<String> raw = List.of("\uFEFFid", "\uFEFFname", "age");
+        List<String> sanitized = HeaderSanitizer.sanitize(raw);
+        assertThat(sanitized).containsExactly("id", "name", "age");
     }
 }
